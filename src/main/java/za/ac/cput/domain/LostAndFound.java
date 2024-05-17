@@ -194,5 +194,10 @@ public class LostAndFound
             this.reporterContactNumber = lostAndFound.reporterContactNumber;
             return this;
         }
+
+        public LostAndFound build ()
+        {
+            return new LostAndFound(this);
+        }
     }
 }
