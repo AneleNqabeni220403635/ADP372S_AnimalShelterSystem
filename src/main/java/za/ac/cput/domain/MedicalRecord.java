@@ -9,7 +9,7 @@ import java.util.Objects;
 @Entity
 public class MedicalRecord {
     @Id
-    private Long animalCode;
+    private Long animal;
 private LocalDate VaccinationDate;
 private String medication;
     private String behaviour;
@@ -19,15 +19,15 @@ protected MedicalRecord(){
 
 }
 private MedicalRecord(Builder builder){
-    this.animalCode = builder.animalCode;
+    this.animal = builder.animal;
     this.VaccinationDate = builder.VaccinationDate;
     this.medication = builder.medication;
     this.behaviour = builder.behaviour;
     this.nextCheckup = builder.nextCheckup;
 }
 
-    public Long getAnimalCode() {
-        return animalCode;
+    public Long getAnimal() {
+        return animal;
     }
 
     public LocalDate getVaccinationDate() {
@@ -50,18 +50,18 @@ private MedicalRecord(Builder builder){
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof MedicalRecord that)) return false;
-        return Objects.equals(getAnimalCode(), that.getAnimalCode()) && Objects.equals(getVaccinationDate(), that.getVaccinationDate()) && Objects.equals(getMedication(), that.getMedication()) && Objects.equals(getBehaviour(), that.getBehaviour()) && Objects.equals(getNextCheckup(), that.getNextCheckup());
+        return Objects.equals(getAnimal(), that.getAnimal()) && Objects.equals(getVaccinationDate(), that.getVaccinationDate()) && Objects.equals(getMedication(), that.getMedication()) && Objects.equals(getBehaviour(), that.getBehaviour()) && Objects.equals(getNextCheckup(), that.getNextCheckup());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAnimalCode(), getVaccinationDate(), getMedication(), getBehaviour(), getNextCheckup());
+        return Objects.hash(getAnimal(), getVaccinationDate(), getMedication(), getBehaviour(), getNextCheckup());
     }
 
     @Override
     public String toString() {
         return "MedicalRecord{" +
-                "animalCode=" + animalCode +
+                "animal=" + animal +
                 ", VaccinationDate=" + VaccinationDate +
                 ", medication='" + medication + '\'' +
                 ", behaviour='" + behaviour + '\'' +
@@ -69,14 +69,14 @@ private MedicalRecord(Builder builder){
                 '}';
     }
     public static class Builder{
-        private Long animalCode;
+        private Long animal;
         private LocalDate VaccinationDate;
         private String medication;
         private String behaviour;
         private LocalDate nextCheckup;
 
-        public Builder setAnimalCode(Long animalCode) {
-            this.animalCode = animalCode;
+        public Builder setAnimal(Long animal) {
+            this.animal = animal;
             return this;
         }
 
@@ -100,12 +100,15 @@ private MedicalRecord(Builder builder){
             return this;
         }
         public Builder copy(MedicalRecord m){
-            this.animalCode = m.animalCode;
+            this.animal = m.animal;
              this.VaccinationDate = m.VaccinationDate;
              this.medication = m.medication;
               this.behaviour = m.behaviour;
              this.nextCheckup = m.nextCheckup;
              return this;
+        }
+        public MedicalRecord build() {
+            return new MedicalRecord(this);
         }
     }
 }

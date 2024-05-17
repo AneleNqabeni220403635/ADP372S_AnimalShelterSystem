@@ -15,7 +15,7 @@ public class  Animal {
     private int age;
     private String type;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "animalCode")
+    @JoinColumn(name = "animal")
     protected MedicalRecord medicalRecord;
 
     protected Animal() {
