@@ -1,6 +1,7 @@
 package za.ac.cput.factory;
 
 import za.ac.cput.domain.LostAndFound;
+import za.ac.cput.util.Helper;
 
 import java.time.LocalDateTime;
 
@@ -14,13 +15,14 @@ public class LostAndFoundFactory {
                                                   String reporterContactName,
                                                   String reporterContactNumber)
     {
-        if (Helper.isNullofZero(id) ||
+        if (Helper.isNullorZero(id) ||
                 Helper.isNullorEmpty(species) ||
                 Helper.isNullorEmpty(breed) ||
                 Helper.isNullorEmpty(description)||
                 Helper.isNullorEmpty(status) ||
                 Helper.isNullorEmpty(reporterContactName) ||
-                Helper.isNullorEmpty(reporterContactNumber))
+                Helper.isNullorEmpty(reporterContactNumber) ||
+                reportedDate == null)
         {
             return null;
         }
