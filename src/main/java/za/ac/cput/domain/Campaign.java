@@ -17,7 +17,7 @@ public class Campaign {
 
     protected Campaign() {
     }
-    private Campaign(CampaignBuilder campaignBuilder){
+    public Campaign(CampaignBuilder campaignBuilder){
         this.campaignId = campaignBuilder.campaignId;
         this.name = campaignBuilder.name;
         this.startDate = campaignBuilder.startDate;

@@ -15,7 +15,7 @@ public class Donation {
     private float amount;
     private LocalDate date;
     @ManyToOne(cascade = CascadeType.ALL)
-     Campaign campaign;
+    private Campaign campaign;
 
     protected Donation() {
     }
