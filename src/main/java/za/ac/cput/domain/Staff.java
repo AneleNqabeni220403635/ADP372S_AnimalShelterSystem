@@ -9,7 +9,6 @@ public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String responsibility;
     private Date trainingDate;
     private String performanceEvaluation;
