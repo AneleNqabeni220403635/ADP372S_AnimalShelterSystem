@@ -24,7 +24,7 @@ public class FosterCare {
         @OneToMany(cascade = CascadeType.ALL )
         protected List <FosterRecord> fosterRecords;
 
-        protected  FosterCare(){
+        protected FosterCare(){
 
         }
         private FosterCare(Builder builder){
@@ -176,4 +176,4 @@ public class FosterCare {
         }
     }
 
-}
+
