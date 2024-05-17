@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Animal {
+public class  Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long animalCode;
