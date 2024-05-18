@@ -1,30 +1,26 @@
 package za.ac.cput.domain;
 
 import jakarta.persistence.*;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class AnimalsAvailable {
+public class AnimalsAvailable extends Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long animalCode;
     private String species;
     private String breed;
     private String gender;
     private Double weight;
     private Boolean available;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private MedicalRecord medicalRecord;
 
     protected AnimalsAvailable() {
-
     }
 
     private AnimalsAvailable(Builder builder) {
-        this.id = builder.id;
+        this.animalCode = builder.animalCode;
         this.species = builder.species;
         this.breed = builder.breed;
         this.gender = builder.gender;
@@ -33,8 +29,8 @@ public class AnimalsAvailable {
         this.medicalRecord = builder.medicalRecord;
     }
 
-    public Long getId() {
-        return id;
+    public Long getAnimalCode() {
+        return animalCode;
     }
 
     public String getSpecies() {
@@ -65,18 +61,18 @@ public class AnimalsAvailable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof AnimalsAvailable animal)) return false;
-        return Double.compare(animal.getWeight(), getWeight()) == 0 && getAvailable().equals(animal.getAvailable()) && Objects.equals(getId(), animal.getId()) && Objects.equals(getSpecies(), animal.getSpecies()) && Objects.equals(getBreed(), animal.getBreed()) && Objects.equals(getGender(), animal.getGender()) && Objects.equals(getMedicalRecord(), animal.getMedicalRecord());
+        return Double.compare(animal.getWeight(), getWeight()) == 0 && getAvailable().equals(animal.getAvailable()) && Objects.equals(getAnimalCode(), animal.getAnimalCode()) && Objects.equals(getSpecies(), animal.getSpecies()) && Objects.equals(getBreed(), animal.getBreed()) && Objects.equals(getGender(), animal.getGender()) && Objects.equals(getMedicalRecord(), animal.getMedicalRecord());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getSpecies(), getBreed(), getGender(), getWeight(), getAvailable(), getMedicalRecord());
+        return Objects.hash(getAnimalCode(), getSpecies(), getBreed(), getGender(), getWeight(), getAvailable(), getMedicalRecord());
     }
 
     @Override
     public String toString() {
         return "AnimalsAvailable{" +
-                "id=" + id +
+                "animalCode=" + animalCode +
                 ", species='" + species + '\'' +
                 ", breed='" + breed + '\'' +
                 ", gender='" + gender + '\'' +
@@ -87,17 +83,16 @@ public class AnimalsAvailable {
     }
 
     public static class Builder {
+        private Long animalCode;
+        private String species;
+        private String breed;
+        private String gender;
+        private Double weight;
+        private Boolean available;
+        private MedicalRecord medicalRecord;
 
-        protected Long id;
-        protected String species;
-        protected String breed;
-        protected String gender;
-        protected Double weight;
-        protected Boolean available;
-        protected MedicalRecord medicalRecord;
-
-        public Builder setId(Long id) {
-            this.id = id;
+        public Builder setAnimalCode(Long animalCode) {
+            this.animalCode = animalCode;
             return this;
         }
 
@@ -131,14 +126,14 @@ public class AnimalsAvailable {
             return this;
         }
 
-        public Builder copy(AnimalsAvailable a) {
-            this.id = a.getId();
-            this.species = a.getSpecies();
-            this.breed = a.getBreed();
-            this.gender = a.getGender();
-            this.weight = a.getWeight();
-            this.available = a.getAvailable();
-            this.medicalRecord = a.getMedicalRecord();
+        public Builder copy(AnimalsAvailable animal) {
+            this.animalCode = animal.getAnimalCode();
+            this.species = animal.getSpecies();
+            this.breed = animal.getBreed();
+            this.gender = animal.getGender();
+            this.weight = animal.getWeight();
+            this.available = animal.getAvailable();
+            this.medicalRecord = animal.getMedicalRecord();
             return this;
         }
 

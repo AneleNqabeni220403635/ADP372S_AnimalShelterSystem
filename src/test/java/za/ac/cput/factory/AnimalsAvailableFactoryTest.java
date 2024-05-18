@@ -10,20 +10,20 @@ public class AnimalsAvailableFactoryTest {
     @Test
     public void testCreateAnimalsAvailable() {
 
-        Long id = 1L;
+        long animalCode = 12345;
         String species = "Dog";
         String breed = "Labrador Retriever";
         String gender = "Male";
         Double weight = 25.5;
         Boolean available = true;
-        MedicalRecord medicalRecord = new MedicalRecord(/* Provide necessary parameters for MedicalRecord */);
+        MedicalRecord medicalRecord = new MedicalRecord();
 
 
-        AnimalsAvailable animalsAvailable = AnimalsAvailableFactory.createAnimalsAvailable(id, species, breed, gender, weight, available, medicalRecord);
+        AnimalsAvailable animalsAvailable = AnimalsAvailableFactory.createAnimalsAvailable(animalCode, species, breed, gender, weight, available, medicalRecord);
 
 
         Assertions.assertNotNull(animalsAvailable);
-        Assertions.assertEquals(id, animalsAvailable.getId());
+        Assertions.assertEquals(animalCode, animalsAvailable.getAnimalCode());
         Assertions.assertEquals(species, animalsAvailable.getSpecies());
         Assertions.assertEquals(breed, animalsAvailable.getBreed());
         Assertions.assertEquals(gender, animalsAvailable.getGender());
