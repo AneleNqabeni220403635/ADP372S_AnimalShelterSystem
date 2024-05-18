@@ -16,7 +16,7 @@ public class IncidentReportFactory {
                                                                String reportedBy)
     {
         if (Helper.isNullorZero(id) ||
-                !Helper.IsValidAnimal(animal.getAnimalCode()) ||
+                !Helper.isValidAnimal(animal.getAnimalCode()) ||
                 Helper.isNullorEmpty(incidentType) ||
                 Helper.isNullorEmpty(description)||
                 Helper.isNullorEmpty(actionsTaken)||

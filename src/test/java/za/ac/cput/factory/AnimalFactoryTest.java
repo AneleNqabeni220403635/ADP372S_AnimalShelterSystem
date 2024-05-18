@@ -1,31 +1,25 @@
 package za.ac.cput.factory;
 
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.Animal;
-import za.ac.cput.domain.Staff;
-import za.ac.cput.domain.Volunteer;
+import za.ac.cput.domain.MedicalRecord;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 class AnimalFactoryTest {
-   /* @Test
+   @Test
     public void testCreateAnimal() {
-        List<Staff> staffEntries = new ArrayList<>();
+       long animalCode = 2;
+       String name = "Leo";
+       int age = 5;
+       String type = "Dog";
+       MedicalRecord medicalRecord = MedicalRecordFactory.buildDefaultMedicalRecord(animalCode);
 
-        Animal animal = AnimalFactory.createAnimal(
-               "12345",
-               "Leo",
-               "5",
-               "Dog"
+       Animal animal = AnimalFactory.buildAnimal(animalCode, name, age, type, medicalRecord);
+       assertNotNull(animal);
+       System.out.println(animal);
+       System.out.println("**Test Passed**");
+    }
 
-        );
-        assertNotNull(animal);
-    }*/
 }

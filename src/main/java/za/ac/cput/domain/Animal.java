@@ -1,16 +1,13 @@
 package za.ac.cput.domain;
 
 import jakarta.persistence.*;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
 public class  Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long animalCode;
+    private long animalCode;
     private String name;
     private int age;
     private String type;
