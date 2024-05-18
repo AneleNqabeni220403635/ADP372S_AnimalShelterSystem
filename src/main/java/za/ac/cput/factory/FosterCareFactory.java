@@ -12,7 +12,7 @@ public class FosterCareFactory {
             }
 
             return new FosterCare.Builder()
-                    .caregiverName(caregiverName)
+                    .setCaregiverName(caregiverName)
                     .setCaregiverContact(caregiverContact)
                     .setCaregiverAddress(caregiverAddress)
                     .setHomeType(homeType)

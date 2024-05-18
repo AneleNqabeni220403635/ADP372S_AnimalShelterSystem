@@ -112,7 +112,7 @@ public class FosterCare {
             private String notes;
             private List <FosterRecord> fosterRecords;
 
-            public Builder caregiverName(String caregiverName) {
+            public Builder setCaregiverName(String caregiverName) {
                 this.caregiverName = caregiverName;
                 return this;
             }
