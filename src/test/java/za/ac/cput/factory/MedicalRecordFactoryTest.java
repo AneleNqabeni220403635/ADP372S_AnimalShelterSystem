@@ -2,28 +2,28 @@ package za.ac.cput.factory;
 
 import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.MedicalRecord;
-
-import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class MedicalRecordFactoryTest {
-   /* private Long animal = 1L;
-    private LocalDate vaccinationDate = LocalDate.now();
-    private String medication = "Fluoxetine";
-    private String behaviour = "Aggressive";
-    private LocalDate nextCheckup = LocalDate.now().plusDays(30);
-
     @Test
-    void createMedicalRecord() {
+    void buildMedicalRecordWithAllDetails() {
+        long animal = 12345L;
+        LocalDate vaccinationDate = LocalDate.now().plusDays(1);
+        String medication = "Vaccine A";
+        String behaviour = "Aggressive";
+        LocalDate nextCheckup = LocalDate.now().plusMonths(6);
 
-        MedicalRecord medicalRecord = MedicalRecordFactory.createMedicalRecord(animal, vaccinationDate, medication, behaviour, nextCheckup);
-
-        assertNotNull(medicalRecord,"Roxy weighs 135.5LBS");
-        assertEquals(vaccinationDate, medicalRecord.getVaccinationDate(), "now");
-        assertEquals(medication, medicalRecord.getMedication(), "Fluoxetine");
-        assertEquals(behaviour, medicalRecord.getBehaviour(), "Aggressive");
-        assertEquals(nextCheckup, medicalRecord.getNextCheckup(), "30");
+        MedicalRecord medicalRecord = MedicalRecordFactory.buildMedicalRecord(animal, vaccinationDate, medication, behaviour, nextCheckup);
+        assertNotNull(medicalRecord);
+        assertEquals(animal, medicalRecord.getAnimal());
+        assertEquals(vaccinationDate, medicalRecord.getVaccinationDate());
+        assertEquals(medication, medicalRecord.getMedication());
+        assertEquals(behaviour, medicalRecord.getBehaviour());
+        assertEquals(nextCheckup, medicalRecord.getNextCheckup());
 
         System.out.println(medicalRecord);
-    }*/
+        System.out.println("**Test Passed**");
     }
+}
