@@ -174,5 +174,10 @@ public class IncidentReport
             this.reportedBy = incidentReport.reportedBy;
             return this;
         }
+
+        public IncidentReport build()
+        {
+            return new IncidentReport(this);
+        }
     }
 }
