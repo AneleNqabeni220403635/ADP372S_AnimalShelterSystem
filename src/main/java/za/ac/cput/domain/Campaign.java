@@ -2,28 +2,27 @@ package za.ac.cput.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-
-import java.time.LocalDate;
-import java.util.Arrays;
+import java.time.LocalDateTime;
 import java.util.Objects;
+
 @Entity
 public class Campaign {
     @Id
     private String campaignId;
     private String name;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private String objectives;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+    private String objective;
 
     protected Campaign() {
     }
-    public Campaign(CampaignBuilder campaignBuilder){
+
+    public Campaign(CampaignBuilder campaignBuilder) {
         this.campaignId = campaignBuilder.campaignId;
         this.name = campaignBuilder.name;
         this.startDate = campaignBuilder.startDate;
         this.endDate = campaignBuilder.endDate;
-        this.objectives = Arrays.toString(campaignBuilder.objectives);
-
+        this.objective = campaignBuilder.objective;
     }
 
     public String getCampaignId() {
@@ -34,28 +33,28 @@ public class Campaign {
         return name;
     }
 
-    public LocalDate getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public LocalDate getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public String[] getObjectives() {
-        return new String[]{objectives};
+    public String getObjective() {
+        return objective;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Campaign campaign)) return false;
-        return Objects.equals(getCampaignId(), campaign.getCampaignId()) && Objects.equals(getName(), campaign.getName()) && Objects.equals(getStartDate(), campaign.getStartDate()) && Objects.equals(getEndDate(), campaign.getEndDate()) && Objects.equals(getObjectives(), campaign.getObjectives());
+        return Objects.equals(getCampaignId(), campaign.getCampaignId()) && Objects.equals(getName(), campaign.getName()) && Objects.equals(getStartDate(), campaign.getStartDate()) && Objects.equals(getEndDate(), campaign.getEndDate()) && Objects.equals(getObjective(), campaign.getObjective());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCampaignId(), getName(), getStartDate(), getEndDate(), getObjectives());
+        return Objects.hash(getCampaignId(), getName(), getStartDate(), getEndDate(), getObjective());
     }
 
     @Override
@@ -63,18 +62,18 @@ public class Campaign {
         return "Campaign{" +
                 "campaignId='" + campaignId + '\'' +
                 ", name='" + name + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", objectives=" + Arrays.toString(new String[]{objectives}) +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", objective='" + objective + '\'' +
                 '}';
     }
 
-    public static class CampaignBuilder{
+    public static class CampaignBuilder {
         private String campaignId;
         private String name;
-        private LocalDate startDate;
-        private LocalDate endDate;
-        private String[] objectives;
+        private LocalDateTime startDate;
+        private LocalDateTime endDate;
+        private String objective;
 
         public CampaignBuilder() {
         }
@@ -89,22 +88,22 @@ public class Campaign {
             return this;
         }
 
-        public CampaignBuilder setStartDate(LocalDate startDate) {
+        public CampaignBuilder setStartDate(LocalDateTime startDate) {
             this.startDate = startDate;
             return this;
         }
 
-        public CampaignBuilder setEndDate(LocalDate endDate) {
+        public CampaignBuilder setEndDate(LocalDateTime endDate) {
             this.endDate = endDate;
             return this;
         }
 
-        public CampaignBuilder setObjectives(String[] objectives) {
-            this.objectives = objectives;
+        public CampaignBuilder setObjective(String objective) {
+            this.objective = objective;
             return this;
         }
 
-        public Campaign build(){
+        public Campaign build() {
             return new Campaign(this);
         }
     }

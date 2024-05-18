@@ -4,29 +4,28 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import org.hibernate.annotations.ManyToAny;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
+
 @Entity
 public class Donation {
     @Id
     private String donationId;
     private float amount;
-    private LocalDate date;
+    private LocalDateTime date;
     @ManyToOne(cascade = CascadeType.ALL)
     private Campaign campaign;
 
     protected Donation() {
     }
 
-    public Donation(DonationBuilder donationBuilder){
+    public Donation(DonationBuilder donationBuilder) {
         this.donationId = donationBuilder.donationId;
         this.amount = donationBuilder.amount;
-        this.date = donationBuilder.date;
+        this.date = LocalDateTime.now(); // Use the current date and time
         this.campaign = donationBuilder.campaign;
     }
-
 
     public String getDonationId() {
         return donationId;
@@ -36,7 +35,7 @@ public class Donation {
         return amount;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
@@ -65,16 +64,17 @@ public class Donation {
                 ", campaign=" + campaign +
                 '}';
     }
-    public static class DonationBuilder{
+
+    public static class DonationBuilder {
         private String donationId;
         private float amount;
-        private LocalDate date;
+        private LocalDateTime date;
         private Campaign campaign;
 
         public DonationBuilder() {
         }
 
-        public DonationBuilder copy(Donation donation){
+        public DonationBuilder copy(Donation donation) {
             this.donationId = donation.donationId;
             this.amount = donation.amount;
             this.date = donation.date;
@@ -92,16 +92,17 @@ public class Donation {
             return this;
         }
 
-        public DonationBuilder setDate(LocalDate date) {
-            this.date = date;
-            return this;
-        }
-
         public DonationBuilder setCampaign(Campaign campaign) {
             this.campaign = campaign;
             return this;
         }
-        public Donation build(){
+
+        public DonationBuilder setDate(LocalDateTime date) {
+            this.date = date;
+            return this;
+        }
+
+        public Donation build() {
             return new Donation(this);
         }
     }

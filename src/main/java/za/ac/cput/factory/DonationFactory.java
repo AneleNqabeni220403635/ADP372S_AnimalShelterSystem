@@ -5,26 +5,12 @@ import za.ac.cput.domain.Donation;
 import za.ac.cput.util.Helper;
 
 import java.time.LocalDate;
-import java.util.Arrays;
+import java.time.LocalDateTime;
 
 public class DonationFactory {
-    public static Donation buildDonation(String donationId, float amount, LocalDate date, String campaignId, String campaignName,
-                                         LocalDate campaignStartDate, LocalDate campaignEndDate, String[] objectives) {
-        if (Helper.isNullorEmpty(donationId) || amount <= 0 || Helper.IsValidLocalDate(date) ||
-                Helper.isNullorEmpty(campaignId) || Helper.isNullorEmpty(campaignName) ||
-                Helper.IsValidLocalDate(campaignStartDate) || Helper.IsValidLocalDate(campaignEndDate) ||
-                Helper.isNullorEmpty(Arrays.toString(objectives))) {
-            return null;
-        }
-
-        Campaign campaign = new Campaign.CampaignBuilder()
-                .setCampaignId(campaignId)
-                .setName(campaignName)
-                .setStartDate(campaignStartDate)
-                .setEndDate(campaignEndDate)
-                .setObjectives(objectives)
-                .build();
-
+    public static Donation buildDonation(String donationId, float amount, LocalDateTime date, String campaignId, String name,
+                                         LocalDateTime startDate, LocalDateTime endDate, String objective) {
+        Campaign campaign = CampaignFactory.buildCampaign(campaignId, name, startDate, endDate, objective);
         return new Donation.DonationBuilder()
                 .setDonationId(donationId)
                 .setAmount(amount)
