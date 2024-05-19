@@ -6,7 +6,6 @@ import za.ac.cput.repository.LostAndFoundRepository;
 import za.ac.cput.domain.LostAndFound;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Service

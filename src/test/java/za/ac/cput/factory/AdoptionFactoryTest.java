@@ -16,7 +16,7 @@ public class AdoptionFactoryTest {
         String applicantName = "Kitty Kat";
         LocalDate applicationDate = LocalDate.now();
         String status = "Pending";
-        Animal animal = new Animal();
+        Animal animal = new Animal(/* Provide necessary parameters or Animal */);
 
 
         Adoption adoption = AdoptionFactory.createAdoption(adoptionId, applicantName, applicationDate, status, animal);
