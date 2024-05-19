@@ -15,7 +15,7 @@ public class  Animal {
     @JoinColumn(name = "animal")
     protected MedicalRecord medicalRecord;
 
-    protected Animal() {
+    public Animal() {
 
     }
 

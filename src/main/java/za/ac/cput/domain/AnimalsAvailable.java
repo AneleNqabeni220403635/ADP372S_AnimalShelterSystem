@@ -2,7 +2,7 @@ package za.ac.cput.domain;
 
 import java.util.Objects;
 
-public class AnimalsAvailable {
+public class AnimalsAvailable extends Animal {
     private Long animalCode;
     private String species;
     private String breed;
@@ -70,7 +70,7 @@ public class AnimalsAvailable {
     @Override
     public String toString() {
         return "AnimalsAvailable{" +
-                "id=" + animalCode +
+                "animalCode=" + animalCode +
                 ", species='" + species + '\'' +
                 ", breed='" + breed + '\'' +
                 ", gender='" + gender + '\'' +
