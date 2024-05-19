@@ -8,5 +8,4 @@ public interface IService <T, ID> {
     T update(T t);
     Set<T> findAll();
     boolean delete(ID id);
-
 }

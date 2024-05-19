@@ -62,7 +62,7 @@ public class LostAndFound
         return reporterContactNumber;
     }
 
-    protected LostAndFound()
+    public LostAndFound()
     {
     }
 
