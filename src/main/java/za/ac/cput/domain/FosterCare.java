@@ -12,26 +12,27 @@ import java.util.Objects;
 public class FosterCare {
 
         @Id
-        private String caregoverName;
-        private String caregiverContact;
-        private String  caregiverAddress;
-        private String hometype;
+        private String caregiverName;
+        private int caregiverContact;
+        private String caregiverAddress;
+        private String homeType;
         private String capacity;
         private String experienceLevel;
         private String currentStatus;
         private String notes;
 
         @OneToMany(cascade = CascadeType.ALL )
-        protected List <FosterRecord> fosterRecords;
+        private List<FosterRecord> fosterRecords;
+
 
         protected FosterCare(){
 
         }
         private FosterCare(Builder builder){
-            this.caregoverName = builder.caregoverName;
+            this.caregiverName = builder.caregiverName;
             this.caregiverContact = builder.caregiverContact;
             this.caregiverAddress = builder.caregiverAddress;
-            this.hometype = builder.hometype;
+            this.homeType = builder.homeType;
             this.capacity = builder.capacity;
             this.experienceLevel = builder.experienceLevel;
             this.currentStatus = builder.currentStatus;
@@ -39,11 +40,9 @@ public class FosterCare {
             this.fosterRecords = builder.fosterRecords;
         }
 
-        public String getCaregoverName() {
-            return caregoverName;
-        }
+        public String getCaregiverName() { return caregiverName; }
 
-        public String getCaregiverContact() {
+        public int getCaregiverContact() {
             return caregiverContact;
         }
 
@@ -51,8 +50,8 @@ public class FosterCare {
             return caregiverAddress;
         }
 
-        public String getHometype() {
-            return hometype;
+        public String getHomeType() {
+            return homeType;
         }
 
         public String getCapacity() {
@@ -80,21 +79,21 @@ public class FosterCare {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             FosterCare that = (FosterCare) o;
-            return Objects.equals(caregoverName, that.caregoverName) && Objects.equals(caregiverContact, that.caregiverContact) && Objects.equals(caregiverAddress, that.caregiverAddress) && Objects.equals(hometype, that.hometype) && Objects.equals(capacity, that.capacity) && Objects.equals(experienceLevel, that.experienceLevel) && Objects.equals(currentStatus, that.currentStatus) && Objects.equals(notes, that.notes) && Objects.equals(fosterRecords, that.fosterRecords);
+            return Objects.equals(caregiverName, that.caregiverName) && Objects.equals(caregiverContact, that.caregiverContact) && Objects.equals(caregiverAddress, that.caregiverAddress) && Objects.equals(homeType, that.homeType) && Objects.equals(capacity, that.capacity) && Objects.equals(experienceLevel, that.experienceLevel) && Objects.equals(currentStatus, that.currentStatus) && Objects.equals(notes, that.notes) && Objects.equals(fosterRecords, that.fosterRecords);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(caregoverName, caregiverContact, caregiverAddress, hometype, capacity, experienceLevel, currentStatus, notes, fosterRecords);
+            return Objects.hash(caregiverName, caregiverContact, caregiverAddress, homeType, capacity, experienceLevel, currentStatus, notes, fosterRecords);
         }
 
         @Override
         public String toString() {
             return "FosterCare{" +
-                    "caregoverName='" + caregoverName + '\'' +
+                    "caregiverName='" + caregiverName + '\'' +
                     ", caregiverContact='" + caregiverContact + '\'' +
                     ", caregiverAddress='" + caregiverAddress + '\'' +
-                    ", hometype='" + hometype + '\'' +
+                    ", homeType'" + homeType + '\'' +
                     ", capacity='" + capacity + '\'' +
                     ", experienceLevel='" + experienceLevel + '\'' +
                     ", currentStatus='" + currentStatus + '\'' +
@@ -103,18 +102,18 @@ public class FosterCare {
                     '}';
         }
         public static class Builder{
-            private String caregoverName;
-            private String caregiverContact;
+            private String caregiverName;
+            private int caregiverContact;
             private String  caregiverAddress;
-            private String hometype;
+            private String homeType;
             private String capacity;
             private String experienceLevel;
             private String currentStatus;
             private String notes;
             private List <FosterRecord> fosterRecords;
 
-            public Builder setCaregoverName(String caregoverName) {
-                this.caregoverName = caregoverName;
+            public Builder setCaregiverName(String caregiverName) {
+                this.caregiverName = caregiverName;
                 return this;
             }
 
@@ -123,8 +122,8 @@ public class FosterCare {
                 return this;
             }
 
-            public Builder setHometype(String hometype) {
-                this.hometype = hometype;
+            public Builder setHomeType(String homeType) {
+                this.homeType = homeType;
                 return this;
             }
 
@@ -133,7 +132,7 @@ public class FosterCare {
                 return this;
             }
 
-            public Builder setCaregiverContact(String caregiverContact) {
+            public Builder setCaregiverContact(int caregiverContact) {
                 this.caregiverContact = caregiverContact;
                 return this;
             }
@@ -159,10 +158,10 @@ public class FosterCare {
 
             }
             public Builder copy(FosterCare f){
-                this.caregoverName = f.caregoverName;
+                this.caregiverName = f.caregiverName;
                 this.caregiverContact = f.caregiverContact;
                 this.caregiverAddress = f.caregiverAddress;
-                this.hometype = f.hometype;
+                this.homeType = f.homeType;
                 this.capacity = f.capacity;
                 this.experienceLevel = f.experienceLevel;
                 this.currentStatus = f.currentStatus;
@@ -173,6 +172,7 @@ public class FosterCare {
             public FosterCare Build(){
                 return new FosterCare(this);
             }
+
         }
     }
 
