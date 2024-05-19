@@ -11,7 +11,7 @@ import java.util.Objects;
         private String animalId;
         private String animalName;
         private String breed;
-        private String age;
+        private int age;
         private String gender;
         private String healthStatus;
         private String behaviorNotes;
@@ -46,7 +46,7 @@ import java.util.Objects;
             return breed;
         }
 
-        public String getAge() {
+        public int getAge() {
             return age;
         }
 
@@ -108,7 +108,7 @@ import java.util.Objects;
             private String animalId;
             private String animalName;
             private String breed;
-            private String age;
+            private int age;
             private String gender;
             private String healthStatus;
             private String behaviorNotes;
@@ -131,7 +131,7 @@ import java.util.Objects;
                 return this;
             }
 
-            public Builder setAge(String age) {
+            public Builder setAge(int age) {
                 this.age = age;
                 return this;
             }
