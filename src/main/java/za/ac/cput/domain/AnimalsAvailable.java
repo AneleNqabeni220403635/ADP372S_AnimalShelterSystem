@@ -1,30 +1,18 @@
 package za.ac.cput.domain;
 
-import jakarta.persistence.*;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-@Entity
 public class AnimalsAvailable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long animalCode;
     private String species;
     private String breed;
     private String gender;
-    private Double weight;
-    private Boolean available;
-    @ManyToOne(cascade = CascadeType.ALL)
+    private double weight;
+    private boolean available;
     private MedicalRecord medicalRecord;
 
-    protected AnimalsAvailable() {
-
-    }
-
     private AnimalsAvailable(Builder builder) {
-        this.id = builder.id;
+        this.animalCode = builder.animalCode;
         this.species = builder.species;
         this.breed = builder.breed;
         this.gender = builder.gender;
@@ -33,8 +21,8 @@ public class AnimalsAvailable {
         this.medicalRecord = builder.medicalRecord;
     }
 
-    public Long getId() {
-        return id;
+    public Long getAnimalCode() {
+        return animalCode;
     }
 
     public String getSpecies() {
@@ -44,16 +32,15 @@ public class AnimalsAvailable {
     public String getBreed() {
         return breed;
     }
-
     public String getGender() {
         return gender;
     }
 
-    public Double getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public Boolean getAvailable() {
+    public boolean getAvailable() {
         return available;
     }
 
@@ -64,19 +51,26 @@ public class AnimalsAvailable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof AnimalsAvailable animal)) return false;
-        return Double.compare(animal.getWeight(), getWeight()) == 0 && getAvailable().equals(animal.getAvailable()) && Objects.equals(getId(), animal.getId()) && Objects.equals(getSpecies(), animal.getSpecies()) && Objects.equals(getBreed(), animal.getBreed()) && Objects.equals(getGender(), animal.getGender()) && Objects.equals(getMedicalRecord(), animal.getMedicalRecord());
+        if (o == null || getClass() != o.getClass()) return false;
+        AnimalsAvailable that = (AnimalsAvailable) o;
+        return Double.compare(that.weight, weight) == 0 &&
+                available == that.available &&
+                Objects.equals(animalCode, that.animalCode) &&
+                Objects.equals(species, that.species) &&
+                Objects.equals(breed, that.breed) &&
+                Objects.equals(gender, that.gender) &&
+                Objects.equals(medicalRecord, that.medicalRecord);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getSpecies(), getBreed(), getGender(), getWeight(), getAvailable(), getMedicalRecord());
+        return Objects.hash( animalCode, species, breed, gender, weight, available, medicalRecord);
     }
 
     @Override
     public String toString() {
         return "AnimalsAvailable{" +
-                "id=" + id +
+                "id=" + animalCode +
                 ", species='" + species + '\'' +
                 ", breed='" + breed + '\'' +
                 ", gender='" + gender + '\'' +
@@ -87,14 +81,14 @@ public class AnimalsAvailable {
     }
 
     public static class Builder {
-
-        protected Long id;
-        protected String species;
-        protected String breed;
-        protected String gender;
-        protected Double weight;
-        protected Boolean available;
-        protected MedicalRecord medicalRecord;
+        public Long animalCode;
+        private Long id;
+        private String species;
+        private String breed;
+        private String gender;
+        private double weight;
+        private boolean available;
+        private MedicalRecord medicalRecord;
 
         public Builder setId(Long id) {
             this.id = id;
@@ -116,12 +110,12 @@ public class AnimalsAvailable {
             return this;
         }
 
-        public Builder setWeight(Double weight) {
+        public Builder setWeight(double weight) {
             this.weight = weight;
             return this;
         }
 
-        public Builder setAvailable(Boolean available) {
+        public Builder setAvailable(boolean available) {
             this.available = available;
             return this;
         }
@@ -131,14 +125,14 @@ public class AnimalsAvailable {
             return this;
         }
 
-        public Builder copy(AnimalsAvailable a) {
-            this.id = a.getId();
-            this.species = a.getSpecies();
-            this.breed = a.getBreed();
-            this.gender = a.getGender();
-            this.weight = a.getWeight();
-            this.available = a.getAvailable();
-            this.medicalRecord = a.getMedicalRecord();
+        public Builder copy(AnimalsAvailable animalsAvailable) {
+            this.id = animalsAvailable.animalCode;
+            this.species = animalsAvailable.species;
+            this.breed = animalsAvailable.breed;
+            this.gender = animalsAvailable.gender;
+            this.weight = animalsAvailable.weight;
+            this.available = animalsAvailable.available;
+            this.medicalRecord = animalsAvailable.medicalRecord;
             return this;
         }
 
