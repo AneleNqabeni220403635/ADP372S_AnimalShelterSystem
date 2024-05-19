@@ -1,11 +1,11 @@
 package za.ac.cput.service;
 
-import java.util.List;
+import java.util.Set;
 
-public interface IService <T, ID>{
-    T create(T t);
-    T read(ID id);
-    T update (T t);
-    List<T> findAll();
-    boolean delete (ID id);
+public interface IService <T, ID> {
+    T create (T t);
+    T read (ID id);
+    T update(T t);
+    Set<T> findAll();
+    boolean delete(ID id);
 }

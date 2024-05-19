@@ -15,7 +15,7 @@ public class  Animal {
     @JoinColumn(name = "animal")
     protected MedicalRecord medicalRecord;
 
-    protected Animal() {
+    public Animal() {
 
     }
 
@@ -77,7 +77,9 @@ public class  Animal {
         protected int age;
         protected String type;
         protected MedicalRecord medicalRecord;
+public Builder(){
 
+}
         public Builder setAnimalCode(Long animalCode) {
             this.animalCode = animalCode;
             return this;

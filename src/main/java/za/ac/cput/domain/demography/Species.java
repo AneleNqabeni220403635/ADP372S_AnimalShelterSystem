@@ -6,11 +6,13 @@ public class Species {
     private Species(){
     }
 
-    public String getBreedId() {
+    public String getSpeciesId() {
+
         return speciesId;
     }
 
     public String getName() {
+
         return name;
     }
 
