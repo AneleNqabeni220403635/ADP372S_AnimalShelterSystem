@@ -10,10 +10,16 @@ import java.util.List;
 @Service
 public class LostAndFoundService implements ILostAndFoundService
 {
-    @Autowired
+    //@Autowired
     private LostAndFoundRepository repository;
     private static ILostAndFoundService service = null;
     private LostAndFoundService() {
+    }
+
+    @Autowired
+    LostAndFoundService(LostAndFoundRepository repository)
+    {
+        this.repository = repository;
     }
 
     public static ILostAndFoundService getService()
