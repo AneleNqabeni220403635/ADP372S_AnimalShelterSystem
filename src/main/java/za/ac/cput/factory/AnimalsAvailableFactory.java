@@ -13,7 +13,7 @@ public class AnimalsAvailableFactory {
         }
 
 
-        Long newAnimalId = Helper.generateAnimalId();
+        Long newAnimalId = Helper.generateAnimalCode();
 
 
         return new AnimalsAvailable.Builder()
