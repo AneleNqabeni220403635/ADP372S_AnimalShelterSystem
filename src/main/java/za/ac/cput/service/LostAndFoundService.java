@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 import za.ac.cput.repository.LostAndFoundRepository;
 import za.ac.cput.domain.LostAndFound;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class LostAndFoundService implements ILostAndFoundService
@@ -54,9 +56,9 @@ public class LostAndFoundService implements ILostAndFoundService
     }
 
     @Override
-    public List<LostAndFound> findAll()
+    public Set<LostAndFound> findAll()
     {
-        return repository.findAll();
+        return new HashSet<>(repository.findAll());
     }
 
     @Override
