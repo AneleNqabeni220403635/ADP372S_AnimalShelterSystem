@@ -6,15 +6,18 @@ import za.ac.cput.util.Helper;
 
 public class AnimalsAvailableFactory {
 
-    public static AnimalsAvailable createAnimalsAvailable(Long animalCode, String species, String breed, String gender,
-                                                          Double weight, Boolean available, MedicalRecord medicalRecord) {
-        if (Helper.isNullorZero(animalCode) || Helper.isNullorEmpty(species) || Helper.isNullorEmpty(breed) ||
-                Helper.isNullorEmpty(gender) || weight == null || available == null || medicalRecord == null) {
+    public static AnimalsAvailable createAnimalAvailable(String species, String breed, String gender, double weight, boolean available, MedicalRecord medicalRecord) {
+
+        if (Helper.isNullorEmpty(species) || Helper.isNullorEmpty(breed) || Helper.isNullorEmpty(gender) || Helper.isLessThanOrEqualToZero((int) weight)) {
             return null;
         }
 
+
+        Long newAnimalId = Helper.generateAnimalId();
+
+
         return new AnimalsAvailable.Builder()
-                .setAnimalCode(animalCode)
+                .setId(newAnimalId)
                 .setSpecies(species)
                 .setBreed(breed)
                 .setGender(gender)

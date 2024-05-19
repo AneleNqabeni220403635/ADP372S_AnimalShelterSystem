@@ -1,23 +1,15 @@
 package za.ac.cput.domain;
 
-import jakarta.persistence.*;
 import java.util.Objects;
 
-@Entity
-public class AnimalsAvailable extends Animal {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class AnimalsAvailable {
     private Long animalCode;
     private String species;
     private String breed;
     private String gender;
-    private Double weight;
-    private Boolean available;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private double weight;
+    private boolean available;
     private MedicalRecord medicalRecord;
-
-    protected AnimalsAvailable() {
-    }
 
     private AnimalsAvailable(Builder builder) {
         this.animalCode = builder.animalCode;
@@ -40,16 +32,15 @@ public class AnimalsAvailable extends Animal {
     public String getBreed() {
         return breed;
     }
-
     public String getGender() {
         return gender;
     }
 
-    public Double getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public Boolean getAvailable() {
+    public boolean getAvailable() {
         return available;
     }
 
@@ -60,19 +51,26 @@ public class AnimalsAvailable extends Animal {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof AnimalsAvailable animal)) return false;
-        return Double.compare(animal.getWeight(), getWeight()) == 0 && getAvailable().equals(animal.getAvailable()) && Objects.equals(getAnimalCode(), animal.getAnimalCode()) && Objects.equals(getSpecies(), animal.getSpecies()) && Objects.equals(getBreed(), animal.getBreed()) && Objects.equals(getGender(), animal.getGender()) && Objects.equals(getMedicalRecord(), animal.getMedicalRecord());
+        if (o == null || getClass() != o.getClass()) return false;
+        AnimalsAvailable that = (AnimalsAvailable) o;
+        return Double.compare(that.weight, weight) == 0 &&
+                available == that.available &&
+                Objects.equals(animalCode, that.animalCode) &&
+                Objects.equals(species, that.species) &&
+                Objects.equals(breed, that.breed) &&
+                Objects.equals(gender, that.gender) &&
+                Objects.equals(medicalRecord, that.medicalRecord);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAnimalCode(), getSpecies(), getBreed(), getGender(), getWeight(), getAvailable(), getMedicalRecord());
+        return Objects.hash( animalCode, species, breed, gender, weight, available, medicalRecord);
     }
 
     @Override
     public String toString() {
         return "AnimalsAvailable{" +
-                "animalCode=" + animalCode +
+                "id=" + animalCode +
                 ", species='" + species + '\'' +
                 ", breed='" + breed + '\'' +
                 ", gender='" + gender + '\'' +
@@ -83,16 +81,17 @@ public class AnimalsAvailable extends Animal {
     }
 
     public static class Builder {
-        private Long animalCode;
+        public Long animalCode;
+        private Long id;
         private String species;
         private String breed;
         private String gender;
-        private Double weight;
-        private Boolean available;
+        private double weight;
+        private boolean available;
         private MedicalRecord medicalRecord;
 
-        public Builder setAnimalCode(Long animalCode) {
-            this.animalCode = animalCode;
+        public Builder setId(Long id) {
+            this.id = id;
             return this;
         }
 
@@ -111,12 +110,12 @@ public class AnimalsAvailable extends Animal {
             return this;
         }
 
-        public Builder setWeight(Double weight) {
+        public Builder setWeight(double weight) {
             this.weight = weight;
             return this;
         }
 
-        public Builder setAvailable(Boolean available) {
+        public Builder setAvailable(boolean available) {
             this.available = available;
             return this;
         }
@@ -126,14 +125,14 @@ public class AnimalsAvailable extends Animal {
             return this;
         }
 
-        public Builder copy(AnimalsAvailable animal) {
-            this.animalCode = animal.getAnimalCode();
-            this.species = animal.getSpecies();
-            this.breed = animal.getBreed();
-            this.gender = animal.getGender();
-            this.weight = animal.getWeight();
-            this.available = animal.getAvailable();
-            this.medicalRecord = animal.getMedicalRecord();
+        public Builder copy(AnimalsAvailable animalsAvailable) {
+            this.id = animalsAvailable.animalCode;
+            this.species = animalsAvailable.species;
+            this.breed = animalsAvailable.breed;
+            this.gender = animalsAvailable.gender;
+            this.weight = animalsAvailable.weight;
+            this.available = animalsAvailable.available;
+            this.medicalRecord = animalsAvailable.medicalRecord;
             return this;
         }
 
