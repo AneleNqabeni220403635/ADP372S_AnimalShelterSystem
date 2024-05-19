@@ -25,7 +25,6 @@ class LostAndFoundServiceTest {
 
     @Autowired
     private LostAndFoundRepository repository;
-    private Long createdId = 0L;
 
     @BeforeEach
     void setUp() {
@@ -48,7 +47,6 @@ class LostAndFoundServiceTest {
 
         LostAndFound created = service.create(lostAndFound);
         assertNotNull(created.getId());
-        createdId = created.getId();
         assertEquals("Cat", created.getSpecies());
     }
 
@@ -65,6 +63,8 @@ class LostAndFoundServiceTest {
                 .setReporterContactName("Jack Sparrow")
                 .setReporterContactNumber("0721234567")
                 .build();
+
+        service.create(lostAndFound);
 
         LostAndFound found = service.read(lostAndFound.getId());
         assertNotNull(found);
