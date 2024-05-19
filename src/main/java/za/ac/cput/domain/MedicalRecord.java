@@ -75,6 +75,9 @@ private MedicalRecord(Builder builder){
         private String behaviour;
         private LocalDate nextCheckup;
 
+        public Builder(){
+
+        }
         public Builder setAnimal(Long animal) {
             this.animal = animal;
             return this;
