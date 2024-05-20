@@ -2,7 +2,7 @@ package za.ac.cput.domain;
 
 import java.util.Objects;
 
-public class AnimalsAvailable extends Animal {
+public class AnimalsAvailable extends Adoption {
     private Long animalCode;
     private String species;
     private String breed;

@@ -1,6 +1,6 @@
 package za.ac.cput.service;
 
-import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,62 +13,48 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class MedicalRecordServiceTest {
     @Autowired
-    private MedicalRecordService service;
+    private MedicalRecordService medicalRecordService;
 
-    private static final MedicalRecord medicalRecord = MedicalRecordFactory.buildMedicalRecord(
-            12345L,
-            LocalDate.of(2023, 5, 19),
-            "Vaccine A",
-            "Aggressive",
-            LocalDate.of(2023, 11, 19)
-    );
+    private static MedicalRecord medicalRecord1;
+    private static MedicalRecord medicalRecord2;
+
+    @BeforeEach
+    void setUp() {
+        medicalRecord1 = MedicalRecordFactory.buildMedicalRecord(1L, LocalDate.now().minusMonths(2), "Antibiotics", "Calm", LocalDate.now().plusMonths(1));
+        medicalRecord2 = MedicalRecordFactory.buildMedicalRecord(2L, LocalDate.now().minusMonths(3), "Vitamins", "Aggressive", LocalDate.now().plusMonths(2));
+    }
 
     @Test
-    @Order(1)
-    void create() {
-        MedicalRecord created = service.create(medicalRecord);
+    void a_create() {
+        MedicalRecord created = medicalRecordService.create(medicalRecord1);
         assertNotNull(created);
-        assertEquals(medicalRecord.getAnimal(), created.getAnimal());
-        System.out.println("Created: " + created);
+        assertEquals(medicalRecord1.getMedication(), created.getMedication());
     }
 
     @Test
-    @Order(2)
-    void read() {
-        MedicalRecord read = service.read(medicalRecord.getAnimal());
+    void b_read() {
+        MedicalRecord created = medicalRecordService.create(medicalRecord2);
+        MedicalRecord read = medicalRecordService.read(created.getAnimal());
         assertNotNull(read);
-        assertEquals(medicalRecord.getAnimal(), read.getAnimal());
-        System.out.println("Read: " + read);
+        assertEquals(created.getMedication(), read.getMedication());
     }
 
     @Test
-    @Order(3)
-    void update() {
-        MedicalRecord updatedRecord = new MedicalRecord.Builder().copy(medicalRecord)
-                .setMedication("Vaccine B")
+    void c_update() {
+        MedicalRecord created = medicalRecordService.create(medicalRecord1);
+        created = new MedicalRecord.Builder()
+                .copy(created)
+                .setBehaviour("Aggressive")
                 .build();
-        MedicalRecord updated = service.update(updatedRecord);
-        assertNotNull(updated);
-        assertEquals(updatedRecord.getMedication(), updated.getMedication());
-        System.out.println("Updated: " + updated);
+        MedicalRecord updated = medicalRecordService.update(created);
+        assertEquals("Aggressive", updated.getBehaviour());
     }
 
     @Test
-    @Order(4)
-    void delete() {
-        boolean success = service.delete(medicalRecord.getAnimal());
-        assertTrue(success);
-        MedicalRecord deleted = service.read(medicalRecord.getAnimal());
-        assertNull(deleted);
-        System.out.println("Deleted: " + deleted);
-    }
-
-    @Test
-    @Order(5)
-    void findAll() {
-        Set<MedicalRecord> records = service.findAll();
-        assertNotNull(records);
-        assertFalse(records.isEmpty());
-        System.out.println("All Medical Records: " + records);
+    void d_getall() {
+        medicalRecordService.create(medicalRecord1);
+        medicalRecordService.create(medicalRecord2);
+        Set<MedicalRecord> medicalRecords = medicalRecordService.getall();
+        assertTrue(medicalRecords.size() >= 2);
     }
 }

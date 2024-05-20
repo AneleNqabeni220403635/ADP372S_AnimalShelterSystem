@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-public class MedicalRecord {
+public class MedicalRecord extends Animal {
     @Id
     private Long animal;
 private LocalDate VaccinationDate;

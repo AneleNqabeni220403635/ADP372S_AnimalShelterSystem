@@ -6,4 +6,5 @@ import za.ac.cput.domain.Animal;
 
 @Repository
 public interface AnimalRepository extends JpaRepository<Animal, Long> {
+Animal findAnimalByName(String name);
 }
