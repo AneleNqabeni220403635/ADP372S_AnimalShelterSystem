@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class MedicalRecordService implements IMedicalRecordService {
-    private final MedicalRecordRepository repository;
+    private MedicalRecordRepository repository;
 
     @Autowired
     public MedicalRecordService(MedicalRecordRepository repository) {
