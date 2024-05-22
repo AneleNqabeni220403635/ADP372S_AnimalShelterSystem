@@ -9,6 +9,4 @@ import java.util.List;
 @Service
 public interface IDonationService extends IService<Donation, String>{
     List<Donation> getAll();
-
-    void deleteByCampaign(Campaign savedCampaign);
 }

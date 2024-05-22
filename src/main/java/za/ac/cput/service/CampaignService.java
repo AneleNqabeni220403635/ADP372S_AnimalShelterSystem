@@ -20,45 +20,24 @@ public class CampaignService implements ICampaignService {
         this.repo = repo;
     }
 
+
     @Override
     public Campaign create(Campaign campaign) {
         return repo.save(campaign);
     }
 
     @Override
-    public Campaign read(String campaignId) {
-        return repo.findById(campaignId).orElse(null);
+    public Campaign read(String s) {
+        return repo.findById(s).orElse(null);
     }
 
     @Override
-    public boolean delete(String campaignId) {
-        if (repo.existsById(campaignId)) {
-            repo.deleteById(campaignId);
-            return true;
-        }
-        return false;
+    public Campaign update(Campaign campaign) {
+        return repo.save(campaign);
     }
 
     @Override
     public List<Campaign> getAll() {
         return repo.findAll();
-    }
-
-    @Override
-    public Campaign update(Campaign campaign){
-        if (repo.existsById(campaign.getCampaignId())) {
-            return repo.save(campaign);
-        }
-        return null;
-    }
-
-    @Override
-    public Set<Campaign> findAll() {
-        return null;
-    }
-
-    @Override
-    public void deleteByDonation(Donation savedDonation) {
-        // Implement the deleteByDonation functionality
     }
 }
