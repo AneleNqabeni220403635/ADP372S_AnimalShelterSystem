@@ -12,7 +12,6 @@ public class AnimalsAvailableFactory {
             return null;
         }
 
-
         Long newAnimalId = Helper.generateAnimalCode();
 
 

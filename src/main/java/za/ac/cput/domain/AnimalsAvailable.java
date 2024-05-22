@@ -9,7 +9,9 @@ public class AnimalsAvailable extends Adoption {
     private String gender;
     private double weight;
     private boolean available;
+
     private MedicalRecord medicalRecord;
+
 
     private AnimalsAvailable(Builder builder) {
         this.animalCode = builder.animalCode;
@@ -47,6 +49,7 @@ public class AnimalsAvailable extends Adoption {
     public MedicalRecord getMedicalRecord() {
         return medicalRecord;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -90,6 +93,20 @@ public class AnimalsAvailable extends Adoption {
         private boolean available;
         private MedicalRecord medicalRecord;
 
+        public Builder() {
+        }
+
+        public Builder copy(AnimalsAvailable animalsAvailable) {
+            this.id = animalsAvailable.animalCode;
+            this.species = animalsAvailable.species;
+            this.breed = animalsAvailable.breed;
+            this.gender = animalsAvailable.gender;
+            this.weight = animalsAvailable.weight;
+            this.available = animalsAvailable.available;
+            this.medicalRecord = animalsAvailable.medicalRecord;
+            return this;
+        }
+
         public Builder setId(Long id) {
             this.id = id;
             return this;
@@ -125,16 +142,6 @@ public class AnimalsAvailable extends Adoption {
             return this;
         }
 
-        public Builder copy(AnimalsAvailable animalsAvailable) {
-            this.id = animalsAvailable.animalCode;
-            this.species = animalsAvailable.species;
-            this.breed = animalsAvailable.breed;
-            this.gender = animalsAvailable.gender;
-            this.weight = animalsAvailable.weight;
-            this.available = animalsAvailable.available;
-            this.medicalRecord = animalsAvailable.medicalRecord;
-            return this;
-        }
 
         public AnimalsAvailable build() {
             return new AnimalsAvailable(this);
