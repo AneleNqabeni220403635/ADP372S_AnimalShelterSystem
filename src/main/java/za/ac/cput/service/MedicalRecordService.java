@@ -35,7 +35,10 @@ public class MedicalRecordService implements IMedicalRecordService {
         return repository.save(medicalRecord);
     }
 
-
+    @Override
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
     @Override
     public Set<MedicalRecord> getall() {
 

@@ -31,6 +31,10 @@ public class AnimalService implements IAnimalService {
 
         return repository.save(animal);
     }
+    @Override
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
 
     @Override
     public Set<Animal> getall() {

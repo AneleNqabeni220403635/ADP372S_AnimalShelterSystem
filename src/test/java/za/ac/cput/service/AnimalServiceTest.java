@@ -10,7 +10,6 @@ import za.ac.cput.domain.Animal;
 import za.ac.cput.domain.MedicalRecord;
 import za.ac.cput.factory.AnimalFactory;
 import za.ac.cput.factory.MedicalRecordFactory;
-
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -23,6 +22,9 @@ class AnimalServiceTest {
 
     @Autowired
     private AnimalService animalService;
+
+    @Autowired
+    private MedicalRecordService medicalRecordService;
 
     private static Animal animal1;
     private static Animal animal2;
@@ -40,6 +42,7 @@ class AnimalServiceTest {
 
     @Test
     void a_create() {
+        medicalRecordService.create(medicalRecord1);
         Animal created = animalService.create(animal1);
         assertNotNull(created);
         assertEquals(animal1.getName(), created.getName());
@@ -47,6 +50,7 @@ class AnimalServiceTest {
 
     @Test
     void b_read() {
+        medicalRecordService.create(medicalRecord2);
         Animal created = animalService.create(animal2);
         Animal read = animalService.read(created.getAnimalCode());
         assertNotNull(read);
@@ -55,6 +59,7 @@ class AnimalServiceTest {
 
     @Test
     void c_update() {
+        medicalRecordService.create(medicalRecord1);
         Animal created = animalService.create(animal1);
         created = new Animal.Builder()
                 .copy(created)
@@ -63,9 +68,22 @@ class AnimalServiceTest {
         Animal updated = animalService.update(created);
         assertEquals(6, updated.getAge());
     }
+    @Test
+    void e_delete() {
+        medicalRecordService.create(medicalRecord1);
+        Animal created = animalService.create(animal1);
+        assertNotNull(created);
+        animalService.delete(created.getAnimalCode());
+        Animal deleted = animalService.read(created.getAnimalCode());
+        assertNull(deleted);
 
+        MedicalRecord deletedRecord = medicalRecordService.read(medicalRecord1.getAnimal());
+        assertNull(deletedRecord);
+    }
     @Test
     void d_getall() {
+        medicalRecordService.create(medicalRecord1);
+        medicalRecordService.create(medicalRecord2);
         animalService.create(animal1);
         animalService.create(animal2);
         Set<Animal> animals = animalService.getall();
