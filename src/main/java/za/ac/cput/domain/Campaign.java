@@ -1,8 +1,9 @@
 package za.ac.cput.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +14,10 @@ public class Campaign {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private String objective;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "campaignId")
+    private List<Donation> donations;
 
     protected Campaign() {
     }
@@ -76,6 +81,14 @@ public class Campaign {
         private String objective;
 
         public CampaignBuilder() {
+        }
+        public CampaignBuilder copy(Campaign campaign) {
+            this.campaignId = campaign.campaignId;
+            this.name = campaign.name;
+            this.startDate = campaign.startDate;
+            this.endDate = campaign.endDate;
+            this.objective = campaign.objective;
+            return this;
         }
 
         public CampaignBuilder setCampaignId(String campaignId) {

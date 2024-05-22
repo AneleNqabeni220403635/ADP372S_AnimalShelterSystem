@@ -50,14 +50,6 @@ class CampaignServiceTest {
         System.out.println(camp2);
     }
 
-//    @Test
-//    void b_save() {
-//        Campaign savedCampaign = campaignService.save(campaign1);
-//        assertNotNull(savedCampaign);
-//        assertNotNull(savedCampaign.getCampaignId());
-//        System.out.println(savedCampaign);
-//    }
-
     @Test
     void c_read() {
         Campaign savedCampaign = campaignService.create(campaign1);
@@ -76,21 +68,6 @@ class CampaignServiceTest {
         Campaign updated = campaignService.update(modifiedCampaign1);
         assertNotNull(updated);
         System.out.println(updated);
-    }
-
-    @Disabled
-    @Test
-    void e_delete() {
-        Campaign savedCampaign = campaignService.create(campaign1);
-        assertNotNull(savedCampaign);
-
-        donationService.deleteByCampaign(savedCampaign);
-
-        boolean isDeleted = campaignService.delete(savedCampaign.getCampaignId());
-        assertTrue(isDeleted);
-
-        Campaign deletedCampaign = campaignService.read(savedCampaign.getCampaignId());
-        assertNull(deletedCampaign);
     }
 
     @Test
