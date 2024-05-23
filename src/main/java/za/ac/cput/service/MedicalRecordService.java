@@ -12,7 +12,7 @@ public class MedicalRecordService implements IMedicalRecordService {
     private MedicalRecordRepository repository;
 
     @Autowired
-    public MedicalRecordService(MedicalRecordRepository repository) {
+    MedicalRecordService(MedicalRecordRepository repository) {
 
         this.repository = repository;
     }

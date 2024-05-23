@@ -5,8 +5,8 @@ import za.ac.cput.domain.Adoption;
 import za.ac.cput.domain.AnimalsAvailable;
 
 import java.util.Set;
-@Service
-public interface IAnimalsAvailableService extends IService<AnimalsAvailable, Long > {
+//@Service
+public interface IAnimalsAvailableService /*extends IService<AnimalsAvailable, Long >*/ {
 
-    Set<AnimalsAvailable> getAll();
+    //Set<AnimalsAvailable> getAll();
 }

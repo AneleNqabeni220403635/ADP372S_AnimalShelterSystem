@@ -10,9 +10,8 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class LostAndFoundService implements ILostAndFoundService
-{
-    //@Autowired
+public class LostAndFoundService implements ILostAndFoundService {
+    @Autowired
     private LostAndFoundRepository repository;
     private static ILostAndFoundService service = null;
     private LostAndFoundService() {

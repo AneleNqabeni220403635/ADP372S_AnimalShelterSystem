@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.MethodName.class)
 class CampaignServiceTest {
 
-    @Autowired
+   @Autowired
     private CampaignService campaignService;
 
     @Autowired

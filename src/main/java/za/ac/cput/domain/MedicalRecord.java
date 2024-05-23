@@ -6,24 +6,24 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-public class MedicalRecord extends Animal {
+public class MedicalRecord extends Animal{
     @Id
-    private Long animal;
-private LocalDate VaccinationDate;
-private String medication;
-    private String behaviour;
-    private LocalDate nextCheckup;
+    protected Long animal;
+protected LocalDate VaccinationDate;
+protected String medication;
+    protected String behaviour;
+    protected LocalDate nextCheckup;
 
 protected MedicalRecord(){
+}
 
-}
-private MedicalRecord(Builder builder){
-    this.animal = builder.animal;
-    this.VaccinationDate = builder.VaccinationDate;
-    this.medication = builder.medication;
-    this.behaviour = builder.behaviour;
-    this.nextCheckup = builder.nextCheckup;
-}
+    private MedicalRecord(Builder builder){
+        this.animal = builder.animal;
+        this.VaccinationDate = builder.VaccinationDate;
+        this.medication = builder.medication;
+        this.behaviour = builder.behaviour;
+        this.nextCheckup = builder.nextCheckup;
+    }
 
     public Long getAnimal() {
         return animal;
@@ -74,9 +74,6 @@ private MedicalRecord(Builder builder){
         private String behaviour;
         private LocalDate nextCheckup;
 
-        public Builder(){
-
-        }
         public Builder setAnimal(Long animal) {
             this.animal = animal;
             return this;
@@ -103,14 +100,15 @@ private MedicalRecord(Builder builder){
         }
         public Builder copy(MedicalRecord m){
             this.animal = m.animal;
-             this.VaccinationDate = m.VaccinationDate;
-             this.medication = m.medication;
-              this.behaviour = m.behaviour;
-             this.nextCheckup = m.nextCheckup;
-             return this;
+            this.VaccinationDate = m.VaccinationDate;
+            this.medication = m.medication;
+            this.behaviour = m.behaviour;
+            this.nextCheckup = m.nextCheckup;
+            return this;
         }
         public MedicalRecord build() {
             return new MedicalRecord(this);
         }
     }
+
 }
