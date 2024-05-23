@@ -16,11 +16,10 @@ public class AdoptionFactoryTest {
         String applicantName = "Kitty Kat";
         LocalDate applicationDate = LocalDate.now();
         String status = "Pending";
-        Animal animal = new Animal(/* Provide necessary parameters or Animal */);
 
+        Animal animal = AnimalFactory.buildAnimal("Leo", 5, "Lion", null);
 
         Adoption adoption = AdoptionFactory.createAdoption(adoptionId, applicantName, applicationDate, status, animal);
-
 
         Assertions.assertNotNull(adoption);
         Assertions.assertEquals(adoptionId, adoption.getAdoptionId());

@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.MethodName.class)
 class FosterCareServiceTest {
-    @Autowired
+   @Autowired
     private FosterCareService service;
 
     private static FosterCare fosterCare = new FosterCare.Builder()

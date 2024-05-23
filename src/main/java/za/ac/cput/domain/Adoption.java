@@ -77,6 +77,18 @@ public class Adoption {
         private String  status;
         private Animal animal;
 
+        public Builder() {
+        }
+
+        public Builder copy(Adoption a) {
+            this.adoptionId = a.getAdoptionId();
+            this.applicantName = a.getApplicantName();
+            this.applicationDate = a.getApplicationDate();
+            this.status = a.getStatus();
+            this.animal = a.getAnimal();
+            return this;
+        }
+
         public Builder setAdoptionId(Long adoptionId) {
             this.adoptionId = adoptionId;
             return this;
@@ -99,15 +111,6 @@ public class Adoption {
 
         public Builder setAnimal(Animal animal) {
             this.animal = animal;
-            return this;
-        }
-
-        public Builder copy(Adoption a) {
-            this.adoptionId = a.getAdoptionId();
-            this.applicantName = a.getApplicantName();
-            this.applicationDate = a.getApplicationDate();
-            this.status = a.getStatus();
-            this.animal = a.getAnimal();
             return this;
         }
 

@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class LostAndFoundServiceTest {
 
-    @Autowired
+   @Autowired
     private LostAndFoundService service;
 
     @Autowired

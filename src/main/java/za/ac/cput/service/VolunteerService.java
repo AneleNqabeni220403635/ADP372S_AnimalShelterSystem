@@ -4,17 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Volunteer;
 import za.ac.cput.repository.VolunteerRepository;
-
-import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
-public class VolunteerService implements IVolunteerService {
+public class VolunteerService implements IVolunteerService{
 
-    private final VolunteerRepository volunteerRepository;
+    private VolunteerRepository volunteerRepository;
 
-    @Autowired
+@Autowired
     public VolunteerService(VolunteerRepository volunteerRepository) {
         this.volunteerRepository = volunteerRepository;
     }
@@ -26,35 +24,21 @@ public class VolunteerService implements IVolunteerService {
 
     @Override
     public Volunteer read(Long id) {
-        Optional<Volunteer> volunteerOptional = volunteerRepository.findById(id);
-        return volunteerOptional.orElse(null);
+        return volunteerRepository.findById(id).orElse(null);
     }
 
     @Override
     public Volunteer update(Volunteer volunteer) {
-        if (volunteerRepository.existsById(volunteer.getId())) {
-            return volunteerRepository.save(volunteer);
-        }
-        return null;
+        return volunteerRepository.save(volunteer);
     }
 
     @Override
-    public Set<Volunteer> findAll() {
-        return new HashSet<>(volunteerRepository.findAll());
-    }
-
-    @Override
-    public boolean delete(Long id) {
-        if (volunteerRepository.existsById(id)) {
-            volunteerRepository.deleteById(id);
-            return true;
-        }
-        return false;
+    public void delete(Long id) {
+        volunteerRepository.deleteById(id);
     }
 
     @Override
     public Set<Volunteer> getall() {
-        return findAll();
+        return volunteerRepository.findAll().stream().collect(Collectors.toSet());
     }
 }
-

@@ -1,17 +1,21 @@
 package za.ac.cput.factory;
 
 import za.ac.cput.domain.Staff;
-import za.ac.cput.domain.Volunteer;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class StaffFactory {
-    public static Staff createStaff(String responsibility, Date trainingDate, String performanceEvaluation, Volunteer volunteer) {
+
+    public static Staff createStaff(long staffId, String name, String position, double salary, LocalDate hireDate,
+                                    String responsibility, String performanceEvaluation) {
         return new Staff.Builder()
+                .setStaffId(staffId)
+                .setName(name)
+                .setPosition(position)
+                .setSalary(salary)
+                .setHireDate(hireDate)
                 .setResponsibility(responsibility)
-                .setTrainingDate(trainingDate)
                 .setPerformanceEvaluation(performanceEvaluation)
-                .setVolunteer(volunteer)
                 .build();
     }
 }

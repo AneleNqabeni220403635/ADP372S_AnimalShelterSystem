@@ -7,15 +7,16 @@ import java.util.Objects;
 public class  Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long animalCode;
-    private String name;
-    private int age;
-    private String type;
+    protected long animalCode;
+    protected String name;
+    protected int age;
+    protected String type;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "animal")
-    protected MedicalRecord medicalRecord;
+   protected MedicalRecord medicalRecord;
 
-    public Animal() {
+    protected Animal() {
 
     }
 

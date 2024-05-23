@@ -1,9 +1,6 @@
 package za.ac.cput.domain;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -14,7 +11,8 @@ public class Donation {
     private String donationId;
     private float amount;
     private LocalDateTime date;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "campaign_id")
     private Campaign campaign;
 
     protected Donation() {
@@ -23,7 +21,7 @@ public class Donation {
     public Donation(DonationBuilder donationBuilder) {
         this.donationId = donationBuilder.donationId;
         this.amount = donationBuilder.amount;
-        this.date = LocalDateTime.now(); // Use the current date and time
+        this.date = LocalDateTime.now();
         this.campaign = donationBuilder.campaign;
     }
 

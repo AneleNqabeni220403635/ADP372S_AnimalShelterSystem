@@ -6,5 +6,5 @@ import za.ac.cput.domain.IncidentReport;
 
 @Repository
 public interface IncidentReportRepository extends JpaRepository<IncidentReport, Long>
-{
+ {
 }
