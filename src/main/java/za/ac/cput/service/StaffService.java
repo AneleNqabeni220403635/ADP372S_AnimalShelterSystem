@@ -4,15 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Staff;
 import za.ac.cput.repository.StaffRepository;
-
-import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class StaffService implements IStaffService {
 
-    private final StaffRepository staffRepository;
+    private StaffRepository staffRepository;
 
     @Autowired
     public StaffService(StaffRepository staffRepository) {
@@ -26,34 +24,21 @@ public class StaffService implements IStaffService {
 
     @Override
     public Staff read(Long id) {
-        Optional<Staff> staffOptional = staffRepository.findById(id);
-        return staffOptional.orElse(null);
+        return staffRepository.findById(id).orElse(null);
     }
 
     @Override
     public Staff update(Staff staff) {
-        if (staffRepository.existsById(staff.getId())) {
-            return staffRepository.save(staff);
-        }
-        return null;
+        return staffRepository.save(staff);
     }
 
     @Override
-    public Set<Staff> findAll() {
-        return new HashSet<>(staffRepository.findAll());
-    }
-
-    @Override
-    public boolean delete(Long id) {
-        if (staffRepository.existsById(id)) {
-            staffRepository.deleteById(id);
-            return true;
-        }
-        return false;
+    public void delete(Long id) {
+        staffRepository.deleteById(id);
     }
 
     @Override
     public Set<Staff> getall() {
-        return findAll();
+        return staffRepository.findAll().stream().collect(Collectors.toSet());
     }
 }
