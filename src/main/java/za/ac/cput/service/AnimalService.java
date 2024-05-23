@@ -31,7 +31,8 @@ public class AnimalService implements IAnimalService {
         medicalRecordRepository.save(animal.getMedicalRecord());
         return animalRepository.save(animal);
     }
-    @Override
+
+   @Override
     public void delete(Long id) {
         animalRepository.deleteById(id);
     }
