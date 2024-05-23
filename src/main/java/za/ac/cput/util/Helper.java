@@ -45,5 +45,4 @@ public class Helper {
     public static boolean IsValidLocalDate(LocalDate endDate) {
         return !IsValidLocalDate(endDate);
     }
-
 }
