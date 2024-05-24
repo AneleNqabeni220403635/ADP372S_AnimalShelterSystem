@@ -15,8 +15,7 @@ public class Campaign {
     private LocalDateTime endDate;
     private String objective;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "campaignId")
+    @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL)
     private List<Donation> donations;
 
     protected Campaign() {

@@ -19,9 +19,6 @@ class CampaignServiceTest {
    @Autowired
     private CampaignService campaignService;
 
-    @Autowired
-    private DonationService donationService;
-
     private Campaign campaign1;
     private Campaign campaign2;
     private Campaign campaign3;
@@ -63,11 +60,25 @@ class CampaignServiceTest {
 
     @Test
     void d_update() {
-        Campaign modifiedCampaign1 = new Campaign.CampaignBuilder().copy(campaign2).setName("dfreghfv")
+        Campaign modifiedCampaign1 = new Campaign.CampaignBuilder().copy(campaign2).setName("Tails of Hope")
                 .build();
         Campaign updated = campaignService.update(modifiedCampaign1);
         assertNotNull(updated);
         System.out.println(updated);
+    }
+    @Disabled
+    @Test
+    void e_delete() {
+        Campaign savedCampaign = campaignService.create(campaign1);
+        assertNotNull(savedCampaign);
+
+        campaignService.delete(savedCampaign.getCampaignId());
+
+        Campaign deletedCampaign = campaignService.read(savedCampaign.getCampaignId());
+        assertNull(deletedCampaign);
+
+        System.out.println("Deleted Campaign:");
+        System.out.println(savedCampaign);
     }
 
     @Test

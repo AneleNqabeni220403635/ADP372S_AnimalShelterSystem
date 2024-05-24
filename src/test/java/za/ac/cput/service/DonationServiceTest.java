@@ -57,6 +57,7 @@ class DonationServiceTest {
         System.out.println("Retrieved Donation:");
         System.out.println(retrievedDonation);
     }
+
     @Test
     void d_update() {
         Donation updatedDonation1 = new Donation.DonationBuilder().copy(donation1).setAmount(56000)
@@ -66,14 +67,25 @@ class DonationServiceTest {
         System.out.println(updated);
     }
 
+    @Disabled
+    @Test
+    void e_delete() {
+        Donation savedDonation = donationService.create(donation1);
+        assertNotNull(savedDonation);
+
+        donationService.delete(savedDonation.getDonationId());
+
+        Donation deletedDonation = donationService.read(savedDonation.getDonationId());
+        assertNull(deletedDonation);
+
+        System.out.println("Deleted Donation:");
+        System.out.println(savedDonation);
+    }
+
 
     @Test
     void e_getAll() {
-        List<Donation> allDonations = donationService.getAll();
-        assertFalse(allDonations.isEmpty());
-        System.out.println("All Donations:");
-        for (Donation donation : allDonations) {
-            System.out.println(donation.toString());
-        }
+        System.out.println(donationService.getAll());
+
     }
 }

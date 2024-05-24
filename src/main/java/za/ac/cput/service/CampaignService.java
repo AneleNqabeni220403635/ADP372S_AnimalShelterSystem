@@ -27,13 +27,18 @@ public class CampaignService implements ICampaignService {
     }
 
     @Override
-    public Campaign read(String s) {
-        return repo.findById(s).orElse(null);
+    public Campaign read(String campaignId) {
+        return repo.findById(campaignId).orElse(null);
     }
 
     @Override
     public Campaign update(Campaign campaign) {
         return repo.save(campaign);
+    }
+
+    @Override
+    public void delete(String campaignId) {
+       repo.deleteById(campaignId);
     }
 
     @Override
