@@ -89,9 +89,8 @@ class AnimalServiceTest {
     }
     @Test
     void d_getall() {
-
          System.out.println(animalService.getall());
-
+        System.out.println(medicalRecordService.getall());
     }
 
 
