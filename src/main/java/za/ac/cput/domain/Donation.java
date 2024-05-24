@@ -11,8 +11,8 @@ public class Donation {
     private String donationId;
     private float amount;
     private LocalDateTime date;
-    @ManyToOne
-    @JoinColumn(name = "campaign_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "campaign_id")
     private Campaign campaign;
 
     protected Donation() {

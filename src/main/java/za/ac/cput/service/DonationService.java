@@ -27,13 +27,19 @@ public class DonationService implements IDonationService {
     }
 
     @Override
-    public Donation read(String s) {
-        return repo.findById(s).orElse(null);
+    public Donation read(String donationId) {
+        return repo.findById(donationId).orElse(null);
     }
 
     @Override
     public Donation update(Donation donation) {
         return repo.save(donation);
+    }
+
+    @Override
+    public void delete(String donationId) {
+        repo.deleteById(donationId);
+
     }
 
     @Override
