@@ -35,7 +35,7 @@ public class StaffController {
     }
 
     @GetMapping("/getall")
-    public Set<Staff> getAll() {
+    public Set<Staff> getall() {
         return staffService.getall();
     }
 }
