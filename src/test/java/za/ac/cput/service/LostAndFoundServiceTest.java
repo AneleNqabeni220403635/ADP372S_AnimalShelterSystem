@@ -138,8 +138,7 @@ class LostAndFoundServiceTest {
                 .build();
 
         LostAndFound created = service.create(lostAndFound);
-        boolean deleted = service.delete(created.getId());
-        assertTrue(deleted);
+        service.delete(created.getId());
 
         LostAndFound read = service.read(created.getId());
         assertNull(read);

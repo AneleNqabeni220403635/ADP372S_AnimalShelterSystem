@@ -7,16 +7,14 @@ import za.ac.cput.util.Helper;
 import java.time.LocalDateTime;
 
 public class IncidentReportFactory {
-    public static IncidentReport createIncidentReport (Long id,
-                                                               Animal animal,
-                                                               String incidentType,
-                                                               LocalDateTime incidentDate,
-                                                               String description,
-                                                               String actionsTaken,
-                                                               String reportedBy)
+    public static IncidentReport createIncidentReport (Animal animal,
+                                                       String incidentType,
+                                                       LocalDateTime incidentDate,
+                                                       String description,
+                                                       String actionsTaken,
+                                                       String reportedBy)
     {
-        if (Helper.isNullorZero(id) ||
-                !Helper.isValidAnimal(animal.getAnimalCode()) ||
+        if (!Helper.isValidAnimal(animal.getAnimalCode()) ||
                 Helper.isNullorEmpty(incidentType) ||
                 Helper.isNullorEmpty(description)||
                 Helper.isNullorEmpty(actionsTaken)||
@@ -26,7 +24,6 @@ public class IncidentReportFactory {
         }
 
         return new IncidentReport.Builder()
-                .setId(id)
                 .setAnimal(animal)
                 .setIncidentType(incidentType)
                 .setIncidentDate(incidentDate)

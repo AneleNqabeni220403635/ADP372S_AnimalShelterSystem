@@ -6,5 +6,5 @@ import java.util.Set;
 
 public interface IIncidentReportService extends IService<IncidentReport, Long>
 {
-    Set<IncidentReport> findAll();
+    Set<IncidentReport> getAll();
 }

@@ -11,7 +11,7 @@ import java.util.Set;
 @Service
 public class IncidentReportService implements IIncidentReportService {
 
-    private IncidentReportRepository repository;
+    private final IncidentReportRepository repository;
 
     @Autowired
     public IncidentReportService(IncidentReportRepository repository)
@@ -37,7 +37,7 @@ public class IncidentReportService implements IIncidentReportService {
         return null;
     }
 
-    public Set<IncidentReport> findAll() {
+    public Set<IncidentReport> getAll() {
         return new HashSet<>(repository.findAll());
     }
 

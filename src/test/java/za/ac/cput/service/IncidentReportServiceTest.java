@@ -5,6 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Animal;
 import za.ac.cput.domain.IncidentReport;
+import za.ac.cput.domain.MedicalRecord;
+import za.ac.cput.factory.AnimalFactory;
+import za.ac.cput.factory.IncidentReportFactory;
+import za.ac.cput.factory.MedicalRecordFactory;
 import za.ac.cput.repository.AnimalRepository;
 import za.ac.cput.repository.IncidentReportRepository;
 
@@ -34,12 +38,8 @@ class IncidentReportServiceTest {
     {
         incidentReportRepository.deleteAll();
 
-        animal = new Animal.Builder()
-                .setAnimalCode(999999999999L)
-                .setName("Salem")
-                .setAge(2)
-                .setType("Cat")
-                .build();
+        MedicalRecord medicalRecord = MedicalRecordFactory.buildDefaultMedicalRecord(999999999999L);
+        animal = AnimalFactory.buildAnimal(999999999999L, "Salem", 2, "Cat", medicalRecord);
         animal = animalRepository.save(animal);
     }
 
@@ -54,14 +54,14 @@ class IncidentReportServiceTest {
     @Test
     void create()
     {
-        IncidentReport incidentReport = new IncidentReport.Builder()
-                .setAnimal(animal)
-                .setIncidentType("Attack")
-                .setDescription("Cat attacked a person")
-                .setIncidentDate(LocalDateTime.now())
-                .setActionsTaken("Medical attention provided")
-                .setReportedBy("Jack Sparrow")
-                .build();
+        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(
+                animal,
+                "Attack",
+                LocalDateTime.now(),
+                "Cat attacked a person",
+                "Medical attention provided",
+                "Jack Sparrow"
+        );
 
         IncidentReport created = service.create(incidentReport);
         assertNotNull(created.getId());
@@ -71,14 +71,14 @@ class IncidentReportServiceTest {
     @Test
     void read()
     {
-        IncidentReport incidentReport = new IncidentReport.Builder()
-                .setAnimal(animal)
-                .setIncidentType("Injury")
-                .setDescription("Cat injured by another animal")
-                .setIncidentDate(LocalDateTime.now())
-                .setActionsTaken("Veterinary care provided")
-                .setReportedBy("Jack Sparrow")
-                .build();
+        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(
+                animal,
+                "Injury",
+                LocalDateTime.now(),
+                "Cat injured by another animal",
+                "Veterinary care provided",
+                "Jack Sparrow"
+        );
 
         IncidentReport created = service.create(incidentReport);
         IncidentReport read = service.read(created.getId());
@@ -93,16 +93,17 @@ class IncidentReportServiceTest {
     @Test
     public void update()
     {
-        IncidentReport incidentReport = new IncidentReport.Builder()
-                .setAnimal(animal)
-                .setIncidentType("Stung by Bee")
-                .setDescription("Dog stung by bee")
-                .setIncidentDate(LocalDateTime.now())
-                .setActionsTaken("Medicine administered")
-                .setReportedBy("Jack Sparrow")
-                .build();
+        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(
+                animal,
+                "Stung by Bee",
+                LocalDateTime.now(),
+                "Dog stung by bee",
+                "Medicine administered",
+                "Jack Sparrow"
+        );
 
         IncidentReport created = service.create(incidentReport);
+
         created = new IncidentReport.Builder()
                 .copy(created)
                 .setDescription("Dog stung by multiple bees")
@@ -115,65 +116,60 @@ class IncidentReportServiceTest {
     @Test
     public void findAll()
     {
-
-        Animal animal1 = new Animal.Builder()
-                .setAnimalCode(999999999997L)
-                .setName("Shrek")
-                .setAge(12)
-                .setType("Ogre")
-                .build();
+        // Given
+        MedicalRecord medicalRecord1 = MedicalRecordFactory.buildDefaultMedicalRecord(999999999997L);
+        Animal animal1 = AnimalFactory.buildAnimal(999999999997L, "Shrek", 12, "Ogre", medicalRecord1);
         animalRepository.save(animal1);
 
-        IncidentReport incidentReport1 = new IncidentReport.Builder()
-                .setAnimal(animal1)
-                .setIncidentType("Attack")
-                .setDescription("Ogre attacked a person")
-                .setIncidentDate(LocalDateTime.now())
-                .setActionsTaken("Medical attention provided")
-                .setReportedBy("Jack Sparrow")
-                .build();
-
+        IncidentReport incidentReport1 = IncidentReportFactory.createIncidentReport(
+                animal1,
+                "Attack",
+                LocalDateTime.now(),
+                "Ogre attacked a person",
+                "Medical attention provided",
+                "Jack Sparrow"
+        );
         service.create(incidentReport1);
 
-        Animal animal2 = new Animal.Builder()
-                .setAnimalCode(999999999998L)
-                .setName("Puss in boots")
-                .setAge(2)
-                .setType("Cat")
-                .build();
+        MedicalRecord medicalRecord2 = MedicalRecordFactory.buildDefaultMedicalRecord(999999999997L);
+        Animal animal2 = AnimalFactory.buildAnimal(999999999998L, "Puss in boots", 2, "Cat", medicalRecord2);
         animalRepository.save(animal2);
 
-        IncidentReport incidentReport2 = new IncidentReport.Builder()
-                .setAnimal(animal2)
-                .setIncidentType("Injury")
-                .setDescription("Cat injured by another animal")
-                .setIncidentDate(LocalDateTime.now())
-                .setActionsTaken("Veterinary care provided")
-                .setReportedBy("Jack Sparrow")
-                .build();
+        IncidentReport incidentReport2 = IncidentReportFactory.createIncidentReport(
+                animal2,
+                "Injury",
+                LocalDateTime.now(),
+                "Cat injured by another animal",
+                "Veterinary care provided",
+                "Jack Sparrow"
+        );
 
+        // When
         service.create(incidentReport2);
 
-        Set<IncidentReport> incidentReports = new HashSet<>(service.findAll());
+        // Then
+        Set<IncidentReport> incidentReports = new HashSet<>(service.getAll());
         assertEquals(2, incidentReports.size());
     }
 
     @Test
     void delete()
     {
-        IncidentReport incidentReport = new IncidentReport.Builder()
-                .setAnimal(animal)
-                .setIncidentType("Stung by Bee")
-                .setDescription("Dog stung by bee")
-                .setIncidentDate(LocalDateTime.now())
-                .setActionsTaken("Antihistamines administered")
-                .setReportedBy("Alice")
-                .build();
-
+        // Given
+        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(
+                animal,
+                "Stung by Bee",
+                LocalDateTime.now(),
+                "Dog stung by bee",
+                "Medicine administered",
+                "Alice"
+        );
         IncidentReport created = service.create(incidentReport);
-        boolean deleted = service.delete(created.getId());
-        assertTrue(deleted);
 
+        // When
+        service.delete(created.getId());
+
+        // Then
         IncidentReport deletedReport = service.read(created.getId());
         assertNull(deletedReport);
     }

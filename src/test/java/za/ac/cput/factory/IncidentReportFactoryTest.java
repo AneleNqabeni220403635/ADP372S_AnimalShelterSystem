@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class IncidentReportFactoryTest
 {
-    private Long validId;
+    // private Long validId;
     private Animal validAnimal;
     private String validIncidentType;
     private LocalDateTime validIncidentDate;
@@ -22,7 +22,7 @@ public class IncidentReportFactoryTest
     @BeforeEach
     protected void setup()
     {
-        validId = 1L;
+        //validId = 1L;
         validAnimal = new Animal.Builder().setAnimalCode(10101L).build();
         validIncidentType = "Injury";
         validIncidentDate = LocalDateTime.now();
@@ -34,82 +34,82 @@ public class IncidentReportFactoryTest
     @Test
     protected void testCreateIncidentReportWithValidInput()
     {
-        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(validId, validAnimal, validIncidentType, validIncidentDate, validDescription, validActionsTaken, validReportedBy);
+        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(validAnimal, validIncidentType, validIncidentDate, validDescription, validActionsTaken, validReportedBy);
         assertNotNull(incidentReport);
-        assertEquals(validId, incidentReport.getId());
+       // assertEquals(validId, incidentReport.getId());
         assertEquals(validAnimal, incidentReport.getAnimal());
         assertEquals(validIncidentType, incidentReport.getIncidentType());
         assertEquals(validIncidentDate, incidentReport.getIncidentDate());
     }
 
-    @Test
+   /* @Test
     protected void testCreateIncidentReportWithNullId()
     {
         IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(null, validAnimal, validIncidentType, validIncidentDate, validDescription, validActionsTaken, validReportedBy);
         assertNull(incidentReport);
-    }
+    }*/
 
     @Test
     protected void testCreateIncidentReportWithInvalidAnimal()
     {
         Animal invalidAnimal = new Animal.Builder().setAnimalCode(0L).build();
-        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(validId, invalidAnimal, validIncidentType, validIncidentDate, validDescription, validActionsTaken, validReportedBy);
+        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(invalidAnimal, validIncidentType, validIncidentDate, validDescription, validActionsTaken, validReportedBy);
         assertNull(incidentReport);
     }
 
     @Test
     protected void testCreateIncidentReportWithNullIncidentType()
     {
-        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(validId, validAnimal, null, validIncidentDate, validDescription, validActionsTaken, validReportedBy);
+        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(validAnimal, null, validIncidentDate, validDescription, validActionsTaken, validReportedBy);
         assertNull(incidentReport);
     }
 
     @Test
     protected void testCreateIncidentReportWithEmptyIncidentType()
     {
-        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(validId, validAnimal, "", validIncidentDate, validDescription, validActionsTaken, validReportedBy);
+        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(validAnimal, "", validIncidentDate, validDescription, validActionsTaken, validReportedBy);
         assertNull(incidentReport);
     }
 
     @Test
     protected void testCreateIncidentReportWithNullDescription()
     {
-        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(validId, validAnimal, validIncidentType, validIncidentDate, null, validActionsTaken, validReportedBy);
+        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(validAnimal, validIncidentType, validIncidentDate, null, validActionsTaken, validReportedBy);
         assertNull(incidentReport);
     }
 
     @Test
     protected void testCreateIncidentReportWithEmptyDescription()
     {
-        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(validId, validAnimal, validIncidentType, validIncidentDate, "", validActionsTaken, validReportedBy);
+        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(validAnimal, validIncidentType, validIncidentDate, "", validActionsTaken, validReportedBy);
         assertNull(incidentReport);
     }
 
     @Test
     protected void testCreateIncidentReportWithNullActionsTaken()
     {
-        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(validId, validAnimal, validIncidentType, validIncidentDate, validDescription, null, validReportedBy);
+        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(validAnimal, validIncidentType, validIncidentDate, validDescription, null, validReportedBy);
         assertNull(incidentReport);
     }
 
     @Test
     protected void testCreateIncidentReportWithEmptyActionsTaken()
     {
-        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(validId, validAnimal, validIncidentType, validIncidentDate, validDescription, "", validReportedBy);
+        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(validAnimal, validIncidentType, validIncidentDate, validDescription, "", validReportedBy);
         assertNull(incidentReport);
     }
 
     @Test
     protected void testCreateIncidentReportWithNullReportedBy()
     {
-        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(validId, validAnimal, validIncidentType, validIncidentDate, validDescription, validActionsTaken, null);
+        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(validAnimal, validIncidentType, validIncidentDate, validDescription, validActionsTaken, null);
         assertNull(incidentReport);
     }
 
     @Test
     protected void testCreateIncidentReportWithEmptyReportedBy()
     {
-        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(validId, validAnimal, validIncidentType, validIncidentDate, validDescription, validActionsTaken, "");
+        IncidentReport incidentReport = IncidentReportFactory.createIncidentReport(validAnimal, validIncidentType, validIncidentDate, validDescription, validActionsTaken, "");
         assertNull(incidentReport);
     }
 }
