@@ -33,9 +33,10 @@ public class FosterCareService implements IFosterCareService{
     }
 
     @Override
-    public FosterCare delete(String id) {
-        return this.repository.findById(id).orElse(null);
+    public void delete(String id) {
+        repository.findById(id).orElse(null);
     }
+
     @Override
     public Set<FosterCare> getAll(){
         return new HashSet<>(repository.findAll());
