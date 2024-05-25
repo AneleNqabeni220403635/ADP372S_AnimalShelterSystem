@@ -42,5 +42,9 @@ public class AnimalController {
 
         return animalService.getall();
     }
+    @GetMapping("/{animalName}/{age}")
+    public Set<Animal> findByAllAnimalsByNameAndAge(@PathVariable String animalName,@PathVariable int age){
+        return animalService.findAllAnimalsByNameAndAge(animalName, age);
+    }
 
 }

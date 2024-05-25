@@ -7,6 +7,7 @@ import za.ac.cput.repository.FosterRecordRepository;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class FosterRecordService implements IFosterRecord{
@@ -34,18 +35,15 @@ public class FosterRecordService implements IFosterRecord{
         }
         return null;
     }
-
     @Override
-    public Set<FosterRecord> findAll() {
-        return new HashSet<>(repository.findAll());
+    public FosterRecord delete(String id) {
+        return repository.findById(id).orElse(null);
+
     }
 
     @Override
-    public boolean delete(String id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
-            return true;
-        }
-        return false;
+    public Set<FosterRecord> getAll() {
+        return repository.findAll().stream().collect(Collectors.toSet());
     }
+
 }

@@ -62,8 +62,8 @@ class FosterCareServiceTest {
     @Test
     @Order(4)
     void delete() {
-        boolean success = service.delete(fosterCare.getCaregiverName());
-        assertTrue(success);
+        FosterCare success = service.delete(fosterCare.getCaregiverName());
+        assertNotNull(success);
         FosterCare deleted = service.read(fosterCare.getCaregiverName());
         assertNull(deleted);
         System.out.println("Deleted: " + deleted);
@@ -71,8 +71,8 @@ class FosterCareServiceTest {
 
     @Test
     @Order(5)
-    void findAll() {
-        Set<FosterCare> fosterRecord = service.findAll();
+    void getAll(){
+        Set<FosterCare> fosterRecord = service.getAll();
         assertNull(fosterRecord);
         assertFalse(fosterRecord.isEmpty());
         System.out.println("All Records: " + fosterRecord);

@@ -17,6 +17,7 @@ public class AnimalService implements IAnimalService {
         this.animalRepository = animalRepository;
         this.medicalRecordRepository = medicalRecordRepository;
     }
+
     @Override
     public Animal create(Animal animal){
         medicalRecordRepository.save(animal.getMedicalRecord());
@@ -42,4 +43,8 @@ public class AnimalService implements IAnimalService {
         return animalRepository.findAll().stream().collect(Collectors.toSet());
     }
 
+    @Override
+    public Set<Animal> findAllAnimalsByNameAndAge(String name, int age) {
+        return animalRepository.findAllAnimalsByNameAndAge(name, age);
+    }
 }

@@ -17,6 +17,7 @@ import za.ac.cput.factory.AnimalFactory;
 import za.ac.cput.factory.MedicalRecordFactory;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -91,6 +92,16 @@ class AnimalControllerTest {
         ResponseEntity<Long> response = restTemplate.exchange(url, HttpMethod.GET, entity, Long.class);
         System.out.println("Show All Animals: ");
         System.out.println(response);
+        System.out.println(response.getBody());
+    }
+    @Test
+    void findAllAnimalsByNameAndAge() {
+        String url = BASE_URL + "/Lion/5";
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<String> entity = new HttpEntity<>(null, headers);
+        ResponseEntity<Set> response = restTemplate.exchange(url, HttpMethod.GET, entity, Set.class);
+        assertNotNull(response.getBody());
+        System.out.println("Animals found by name and age: ");
         System.out.println(response.getBody());
     }
 }
