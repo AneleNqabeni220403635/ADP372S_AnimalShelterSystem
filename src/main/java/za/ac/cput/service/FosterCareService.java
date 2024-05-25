@@ -29,27 +29,17 @@ public class FosterCareService implements IFosterCareService{
 
     @Override
     public FosterCare update(FosterCare fosterCare) {
-        if (repository.existsById(fosterCare.getCaregiverName())) {
-            return repository.save(fosterCare);
-        }
-        return null;
+        return repository.save(fosterCare);
     }
 
     @Override
-    public Set<FosterCare> findAll() {
+    public FosterCare delete(String id) {
+        return this.repository.findById(id).orElse(null);
+    }
+    @Override
+    public Set<FosterCare> getAll(){
         return new HashSet<>(repository.findAll());
     }
 
-    @Override
-    public boolean delete(String id) {
-        if (this.repository.existsById(id)) {
-            repository.deleteById(id);
-            return true;
-        }
-        return false;
-    }
-    public Set<FosterCare> getall(){
-        return new HashSet<>(repository.findAll());
-    }
 
 }
