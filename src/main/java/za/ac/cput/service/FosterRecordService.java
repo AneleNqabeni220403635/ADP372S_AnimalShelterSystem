@@ -5,12 +5,11 @@ import org.springframework.stereotype.Service;
 import za.ac.cput.domain.FosterRecord;
 import za.ac.cput.repository.FosterRecordRepository;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class FosterRecordService implements IFosterRecord{
+public class FosterRecordService implements IFosterRecordService {
     private FosterRecordRepository repository;
 
     @Autowired
@@ -36,8 +35,8 @@ public class FosterRecordService implements IFosterRecord{
         return null;
     }
     @Override
-    public FosterRecord delete(String id) {
-        return repository.findById(id).orElse(null);
+    public void delete(String id) {
+        repository.findById(id).orElse(null);
 
     }
 
