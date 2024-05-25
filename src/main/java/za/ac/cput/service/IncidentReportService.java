@@ -11,8 +11,13 @@ import java.util.Set;
 @Service
 public class IncidentReportService implements IIncidentReportService {
 
-    @Autowired
     private IncidentReportRepository repository;
+
+    @Autowired
+    public IncidentReportService(IncidentReportRepository repository)
+    {
+        this.repository = repository;
+    }
 
     @Override
     public IncidentReport create(IncidentReport incidentReport) {
@@ -32,17 +37,15 @@ public class IncidentReportService implements IIncidentReportService {
         return null;
     }
 
-    @Override
     public Set<IncidentReport> findAll() {
         return new HashSet<>(repository.findAll());
     }
 
     @Override
-    public boolean delete(Long id) {
-        if (repository.existsById(id)) {
+    public void delete(Long id) {
+        if (repository.existsById(id))
+        {
             repository.deleteById(id);
-            return true;
         }
-        return false;
     }
 }
