@@ -63,8 +63,8 @@ class FosterRecordServiceTest {
     @Test
     @Order(4)
     void delete() {
-        boolean success = service.delete(fosterRecord.getAnimalId());
-        assertTrue(success);
+        FosterRecord success = service.delete(fosterRecord.getAnimalId());
+        assertNotNull(success);
         FosterRecord deleted = service.read(fosterRecord.getAnimalId());
         assertNull(deleted);
         System.out.println("Deleted: " + deleted);
