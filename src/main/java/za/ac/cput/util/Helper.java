@@ -41,8 +41,4 @@ public class Helper {
     public static Long generateAnimalCode() {
         return counter.incrementAndGet();
     }
-
-    public static boolean IsValidLocalDate(LocalDate endDate) {
-        return !IsValidLocalDate(endDate);
-    }
 }

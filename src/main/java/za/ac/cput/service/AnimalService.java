@@ -4,47 +4,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Animal;
 import za.ac.cput.repository.AnimalRepository;
-import za.ac.cput.repository.MedicalRecordRepository;
+
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class AnimalService implements IAnimalService {
-    private AnimalRepository animalRepository;
-    private MedicalRecordRepository medicalRecordRepository;
+    private AnimalRepository repository;
+
     @Autowired
-    AnimalService(AnimalRepository animalRepository,MedicalRecordRepository medicalRecordRepository ) {
-        this.animalRepository = animalRepository;
-        this.medicalRecordRepository = medicalRecordRepository;
-    }
-
-    @Override
-    public Animal create(Animal animal){
-        medicalRecordRepository.save(animal.getMedicalRecord());
-        return animalRepository.save(animal);
+    AnimalService(AnimalRepository repository) {
+        this.repository = repository;
     }
     @Override
-    public Animal read(Long id){
-        return animalRepository.findById(id).orElse(null);
+    public Animal create(Animal animal) {
+        return repository.save(animal);
     }
-@Override
-    public Animal update(Animal animal){
-        medicalRecordRepository.save(animal.getMedicalRecord());
-        return animalRepository.save(animal);
+    @Override
+    public Animal read(Long id) {
+        return this.repository.findById(id).orElse(null);
     }
-
-   @Override
-    public void delete(Long id) {
-        animalRepository.deleteById(id);
+    @Override
+    public Animal update(Animal animal) {
+        return repository.save(animal);
     }
-
+    @Override
+    public void  delete(Long id) {
+        repository.deleteById(id);
+    }
     @Override
     public Set<Animal> getall() {
-        return animalRepository.findAll().stream().collect(Collectors.toSet());
+        return new HashSet<>(repository.findAll().stream().collect(Collectors.toSet()));
     }
 
-    @Override
-    public Set<Animal> findAllAnimalsByNameAndAge(String name, int age) {
-        return animalRepository.findAllAnimalsByNameAndAge(name, age);
-    }
 }

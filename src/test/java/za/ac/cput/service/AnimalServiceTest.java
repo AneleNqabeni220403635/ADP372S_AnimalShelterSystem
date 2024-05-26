@@ -1,97 +1,78 @@
 package za.ac.cput.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Animal;
-import za.ac.cput.domain.MedicalRecord;
-import za.ac.cput.factory.AnimalFactory;
-import za.ac.cput.factory.MedicalRecordFactory;
-import java.time.LocalDate;
+
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 @SpringBootTest
-@TestMethodOrder(MethodOrderer.MethodName.class)
-class AnimalServiceTest {
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class AnimalServiceTest {
 
     @Autowired
     private AnimalService animalService;
 
-    @Autowired
-    private MedicalRecordService medicalRecordService;
+    private static Animal snow = new Animal.Builder()
+            .setAnimalCode(10L)
+            .setName("snow")
+            .setAge(7)
+            .setType("Wolf")
+            .build();
 
-    private static Animal animal1;
-    private static Animal animal2;
-    private static MedicalRecord medicalRecord1;
-    private static MedicalRecord medicalRecord2;
+    @Test
+    @Order(1)
+    void testCreate() {
+        Animal createdAnimal = animalService.create(snow);
+        assertNotNull(createdAnimal);
 
-    @BeforeEach
-    void setUp() {
-        medicalRecord1 = MedicalRecordFactory.buildMedicalRecord(1L, LocalDate.now().minusMonths(2), "Antibiotics", "Calm", LocalDate.now().plusMonths(1));
-        medicalRecord2 = MedicalRecordFactory.buildMedicalRecord(2L, LocalDate.now().minusMonths(3), "Vitamins", "Aggressive", LocalDate.now().plusMonths(2));
-
-        animal1 = AnimalFactory.buildAnimal("Leo", 5, "Lion", medicalRecord1);
-        animal2 = AnimalFactory.buildAnimal("Roxy", 3, "Tiger", medicalRecord2);
-
-        medicalRecordService.create(medicalRecord1);
-        medicalRecordService.create(medicalRecord2);
+        assertEquals(snow.getAnimalCode(), createdAnimal.getAnimalCode());
+        System.out.println("Created: " + createdAnimal);
     }
 
     @Test
-    void a_create() {
-        if (medicalRecord1 == null) throw new AssertionError();
-        if (animal1 == null) throw new AssertionError();
-
-        medicalRecordService.create(medicalRecord1);
-        Animal created = animalService.create(animal1);
-        assertNotNull(created);
-        assertEquals(animal1.getName(), created.getName());
+    @Order(2)
+    void testRead() {
+        Animal readAnimal = animalService.read(snow.getAnimalCode());
+        assertNotNull(readAnimal);
+        assertEquals(snow.getAnimalCode(), readAnimal.getAnimalCode());
+        System.out.println("Read: " + readAnimal);
     }
 
     @Test
-    void b_read() {
-        medicalRecordService.create(medicalRecord2);
-        Animal created = animalService.create(animal2);
-
-        Animal read = animalService.read(created.getAnimalCode());
-        assertNotNull(read);
-        assertEquals(created.getName(), read.getName());
-    }
-
-    @Test
-    void c_update() {
-        medicalRecordService.create(medicalRecord1);
-        Animal created = animalService.create(animal1);
-        created = new Animal.Builder()
-                .copy(created)
-                .setAge(6)
+    @Order(3)
+    void testUpdate() {
+        Animal updatedAnimal = new Animal.Builder()
+                .copy(snow)
+                .setAge(9)
                 .build();
-        Animal updated = animalService.update(created);
-        assertEquals(6, updated.getAge());
+        Animal updated = animalService.update(updatedAnimal);
+        assertNotNull(updated);
+        assertEquals(9, updated.getAge());
+        System.out.println("Updated: " + updated);
     }
+
     @Test
-    void e_delete() {
-        medicalRecordService.create(medicalRecord1);
-        Animal created = animalService.create(animal1);
-        assertNotNull(created);
-        animalService.delete(created.getAnimalCode());
-        Animal deleted = animalService.read(created.getAnimalCode());
+    @Order(4)
+    void testDelete() {
+        animalService.delete(snow.getAnimalCode());
+        Animal deleted = animalService.read(snow.getAnimalCode());
         assertNull(deleted);
-
-        MedicalRecord deletedRecord = medicalRecordService.read(medicalRecord1.getAnimal());
-        assertNull(deletedRecord);
+        System.out.println("Deleted");
     }
+
     @Test
-    void d_getall() {
-         System.out.println(animalService.getall());
-        System.out.println(medicalRecordService.getall());
+    @Order(5)
+    void testGetAll() {
+        Set<Animal> animals = animalService.getall();
+        assertNotNull(animals);
+        assertFalse(animals.isEmpty());
+        System.out.println("All Animals: " + animals);
     }
-
-
 }
