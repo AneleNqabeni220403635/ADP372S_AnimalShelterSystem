@@ -18,16 +18,15 @@ class AnimalsAvailableServiceTest {
     @Autowired
     private AnimalsAvailableService animalsAvailableService;
 
-    private  MedicalRecord medicalRecord1;
-    private  MedicalRecord medicalRecord2;
+    private MedicalRecord medicalRecord1;
+    private MedicalRecord medicalRecord2;
     private AnimalsAvailable animalsAvailable1;
     private AnimalsAvailable animalsAvailable2;
 
     @BeforeEach
     void setUp() {
-        animalsAvailable1 = AnimalsAvailableFactory.createAnimalAvailable("Felis catus","British ShortHair","Male",4.34,true,medicalRecord1);
-        animalsAvailable2 = AnimalsAvailableFactory.createAnimalAvailable("","","Female",5.4,true,medicalRecord2);
-
+        animalsAvailable1 = AnimalsAvailableFactory.createAnimalAvailable("Felis catus", "British ShortHair", "Male", 4.34, true, medicalRecord1);
+        animalsAvailable2 = AnimalsAvailableFactory.createAnimalAvailable("", "", "Female", 5.4, true, medicalRecord2);
     }
 
     @Test
@@ -57,9 +56,18 @@ class AnimalsAvailableServiceTest {
     }
 
     @Test
+    void delete() {
+        AnimalsAvailable created = animalsAvailableService.create(animalsAvailable1);
+        animalsAvailableService.delete(created.getAnimalCode());
+        AnimalsAvailable deleted = animalsAvailableService.read(created.getAnimalCode());
+        assertNull(deleted);
+    }
+
+    @Test
     void getAll() {
         animalsAvailableService.create(animalsAvailable1);
         animalsAvailableService.create(animalsAvailable2);
         Set<AnimalsAvailable> animalsAvailable = animalsAvailableService.getAll();
+        assertTrue(animalsAvailable.size() >= 2);
     }
 }
