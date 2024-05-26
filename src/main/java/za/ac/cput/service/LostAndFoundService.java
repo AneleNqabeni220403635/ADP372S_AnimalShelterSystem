@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Service
 public class LostAndFoundService implements ILostAndFoundService {
-    @Autowired
+
     private LostAndFoundRepository repository;
     private static ILostAndFoundService service = null;
     private LostAndFoundService() {
@@ -53,20 +53,17 @@ public class LostAndFoundService implements ILostAndFoundService {
         return null;
     }
 
-    @Override
     public Set<LostAndFound> findAll()
     {
         return new HashSet<>(repository.findAll());
     }
 
     @Override
-    public boolean delete(Long id)
+    public void delete(Long id)
     {
         if (this.repository.existsById(id))
         {
             repository.deleteById(id);
-            return true;
         }
-        return false;
     }
 }
