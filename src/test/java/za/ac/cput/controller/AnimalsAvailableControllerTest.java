@@ -1,118 +1,77 @@
 package za.ac.cput.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import za.ac.cput.domain.AnimalsAvailable;
 import za.ac.cput.domain.MedicalRecord;
 import za.ac.cput.factory.AnimalsAvailableFactory;
+import za.ac.cput.service.AnimalsAvailableService;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@AutoConfigureMockMvc
 class AnimalsAvailableControllerTest {
 
     @Autowired
-    private MockMvc mockMvc;
+    private AnimalsAvailableController animalsAvailableController;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    private AnimalsAvailableService animalsAvailableService;
 
+    private MedicalRecord medicalRecord1;
+    private MedicalRecord medicalRecord2;
     private AnimalsAvailable animalsAvailable1;
     private AnimalsAvailable animalsAvailable2;
 
     @BeforeEach
     void setUp() {
-        MedicalRecord medicalRecord1 = new MedicalRecord();
-        MedicalRecord medicalRecord2 = new MedicalRecord();
-
         animalsAvailable1 = AnimalsAvailableFactory.createAnimalAvailable("Felis catus", "British ShortHair", "Male", 4.34, true, medicalRecord1);
         animalsAvailable2 = AnimalsAvailableFactory.createAnimalAvailable("", "", "Female", 5.4, true, medicalRecord2);
     }
 
     @Test
-    void create() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/animals")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(animalsAvailable1)))
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath(".animalCode").isNotEmpty())
-                .andDo(print());
+    void create() {
+        AnimalsAvailable created = animalsAvailableController.create(animalsAvailable1);
+        assertNotNull(created);
+        assertEquals(animalsAvailable1.getAnimalCode(), created.getAnimalCode());
     }
 
     @Test
-    void read() throws Exception {
-        AnimalsAvailable created = objectMapper.readValue(
-                mockMvc.perform(MockMvcRequestBuilders.post("/api/animals")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(animalsAvailable2)))
-                        .andReturn().getResponse().getContentAsString(), AnimalsAvailable.class);
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/animals/{animalCode}", created.getAnimalCode()))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.animalCode").value(created.getAnimalCode()))
-                .andDo(print());
+    void read() {
+        AnimalsAvailable created = animalsAvailableController.create(animalsAvailable2);
+        AnimalsAvailable read = animalsAvailableController.read(created.getAnimalCode());
+        assertNotNull(read);
+        assertEquals(created.getAnimalCode(), read.getAvailable());
     }
 
     @Test
-    void update() throws Exception {
-        AnimalsAvailable created = objectMapper.readValue(
-                mockMvc.perform(MockMvcRequestBuilders.post("/api/animals")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(animalsAvailable1)))
-                        .andReturn().getResponse().getContentAsString(), AnimalsAvailable.class);
-
-        created.setGender("Male");
-
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/animals/{animalCode}", created.getAnimalCode())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(created)))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath(".gender").value("Male"))
-                .andDo(print());
+    void update() {
+        AnimalsAvailable created = animalsAvailableController.create(animalsAvailable1);
+        created = new AnimalsAvailable.Builder()
+                .copy(created)
+                .setGender("Male")
+                .build();
+        AnimalsAvailable updated = animalsAvailableController.update(created);
+        assertEquals("Male", updated.getGender());
     }
 
     @Test
-    void delete() throws Exception {
-        AnimalsAvailable created = objectMapper.readValue(
-                mockMvc.perform(MockMvcRequestBuilders.post("/api/animals")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(animalsAvailable1)))
-                        .andReturn().getResponse().getContentAsString(), AnimalsAvailable.class);
-
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/animals/{animalCode}", created.getAnimalCode()))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(print());
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/animals/{animalCode}", created.getAnimalCode()))
-                .andExpect(MockMvcResultMatchers.status().isNotFound())
-                .andDo(print());
+    void delete() {
+        AnimalsAvailable created = animalsAvailableController.create(animalsAvailable1);
+        animalsAvailableController.delete(created.getAnimalCode());
+        AnimalsAvailable deleted = animalsAvailableService.read(created.getAnimalCode());
+        assertNull(deleted);
     }
 
     @Test
-    void getAll() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/animals")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(animalsAvailable1)))
-                .andExpect(MockMvcResultMatchers.status().isCreated());
-
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/animals")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(animalsAvailable2)))
-                .andExpect(MockMvcResultMatchers.status().isCreated());
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/animals"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("").isArray())
-                .andExpect(MockMvcResultMatchers.jsonPath("").isNotEmpty())
-                .andDo(print());
+    void getAll() {
+        animalsAvailableController.create(animalsAvailable1);
+        animalsAvailableController.create(animalsAvailable2);
+        Set<AnimalsAvailable> animalsAvailable = animalsAvailableController.getall();
+        assertTrue(animalsAvailable.size() >= 2);
     }
 }
