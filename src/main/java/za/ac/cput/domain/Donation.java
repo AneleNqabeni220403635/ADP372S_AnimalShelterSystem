@@ -12,7 +12,7 @@ public class Donation {
     private float amount;
     private LocalDateTime date;
     @ManyToOne(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "campaign_id")
+    @JoinColumn(name = "campaign_id")
     private Campaign campaign;
 
     protected Donation() {

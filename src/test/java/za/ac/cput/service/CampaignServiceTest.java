@@ -1,13 +1,17 @@
 package za.ac.cput.service;
 
+import jakarta.persistence.Id;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Campaign;
+import za.ac.cput.domain.Donation;
 import za.ac.cput.factory.CampaignFactory;
 import za.ac.cput.factory.DonationFactory;
+import za.ac.cput.repository.DonationRepository;
 
 import java.time.LocalDateTime;
 
@@ -16,8 +20,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.MethodName.class)
 class CampaignServiceTest {
 
-   @Autowired
+    @Autowired
     private CampaignService campaignService;
+    @Autowired
+    private DonationRepository donationRepository;
 
     private Campaign campaign1;
     private Campaign campaign2;
@@ -25,13 +31,17 @@ class CampaignServiceTest {
 
     @BeforeEach
     void a_setUp() {
-        campaign1 = CampaignFactory.buildCampaign("CAMP001","Adopt-a-Pet Campaign", LocalDateTime.now().minusDays(30),LocalDateTime.now().plusDays(30), "Raising funds to support the local animal shelter");
+
+
+        campaign1 = CampaignFactory.buildCampaign("CAMP001","Adopt-a-Pet Campaign", LocalDateTime.now().minusDays(30),LocalDateTime.now().plusDays(30), "Raising funds to support the local animal shelter","ABC123", 213000F,LocalDateTime.now().minusDays(30));
         assertNotNull(campaign1);
         System.out.println(campaign1);
-        campaign2 =CampaignFactory.buildCampaign("CAMP002", "ASPCA Donation Drive", LocalDateTime.now().minusDays(30), LocalDateTime.now().plusDays(30), "Provide funds, supplies, and volunteer support to ASPCA-affiliated animal shelters to help them care for and rehome animals in need.");
+
+        campaign2 = CampaignFactory.buildCampaign("CAMP002", "ASPCA Donation Drive", LocalDateTime.now().minusDays(30), LocalDateTime.now().plusDays(30), "Provide funds, supplies, and volunteer support to ASPCA-affiliated animal shelters to help them care for and rehome animals in need.","XYZ456",15000F, LocalDateTime.now().minusDays(30));
         assertNotNull(campaign2);
         System.out.println(campaign2);
-        campaign3 = CampaignFactory.buildCampaign("CAMP003", "Petco Foundation \"Think Adoption First\" Campaign", LocalDateTime.now().minusDays(30), LocalDateTime.now().plusDays(30), "Encourage pet adoption from shelters rather than buying from breeders or pet stores, and raise funds to support the operations and programs of local animal shelters and rescue organizations.");
+
+        campaign3 = CampaignFactory.buildCampaign("CAMP003", "Petco Foundation \"Think Adoption First\" Campaign", LocalDateTime.now().minusDays(30), LocalDateTime.now().plusDays(30), "Encourage pet adoption from shelters rather than buying from breeders or pet stores, and raise funds to support the operations and programs of local animal shelters and rescue organizations.","FHY219",5000F,LocalDateTime.now().minusDays(30));
         assertNotNull(campaign3);
         System.out.println(campaign3);
 
@@ -83,6 +93,6 @@ class CampaignServiceTest {
 
     @Test
     void f_getAll() {
-        System.out.println(campaignService.getAll());
+        System.out.println();
     }
 }

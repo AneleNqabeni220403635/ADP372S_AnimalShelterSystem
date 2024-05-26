@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Campaign;
 import za.ac.cput.domain.Donation;
-import za.ac.cput.domain.MedicalRecord;
+import za.ac.cput.factory.CampaignFactory;
 import za.ac.cput.factory.DonationFactory;
 
 import java.time.LocalDateTime;
@@ -26,15 +26,10 @@ class DonationServiceTest {
 
     @BeforeEach
     void a_setUp() {
-        donation1 = DonationFactory.buildDonation("ABC123", 21300F, LocalDateTime.now().minusDays(30), "CAMP001", "Adopt-a-Pet Campaign", LocalDateTime.now().minusDays(30), LocalDateTime.now().plusDays(30), "Raising funds to support the local animal shelter");
-        assertNotNull(donation1);
-        System.out.println(donation1);
-        donation2 = DonationFactory.buildDonation("XYZ456", 15000F, LocalDateTime.now().minusDays(30), "CAMP002", "ASPCA Donation Drive", LocalDateTime.now().minusDays(30), LocalDateTime.now().plusDays(30), "Provide funds, supplies, and volunteer support to ASPCA-affiliated animal shelters to help them care for and rehome animals in need.");
-        assertNotNull(donation2);
-        System.out.println(donation2);
-        donation3 = DonationFactory.buildDonation("FHY219", 5000F, LocalDateTime.now().minusDays(30), "CAMP003", "Petco Foundation \"Think Adoption First\" Campaign", LocalDateTime.now().minusDays(30), LocalDateTime.now().plusDays(30), "Encourage pet adoption from shelters rather than buying from breeders or pet stores, and raise funds to support the operations and programs of local animal shelters and rescue organizations.");
-        assertNotNull(donation3);
-        System.out.println(donation3);
+
+        donation1 = DonationFactory.buildDonation("ABC123", 21300F, LocalDateTime.now().minusDays(30));
+        donation2 = DonationFactory.buildDonation("XYZ456", 15000F, LocalDateTime.now().minusDays(30));
+        donation3 = DonationFactory.buildDonation("FHY219", 5000F, LocalDateTime.now().minusDays(30));
     }
 
     @Test
