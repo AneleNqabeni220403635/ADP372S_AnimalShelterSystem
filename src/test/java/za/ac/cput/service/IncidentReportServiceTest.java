@@ -38,6 +38,7 @@ class IncidentReportServiceTest {
     {
         incidentReportRepository.deleteAll();
 
+        // Get back to this after exams, animal and medical records needs some work on the factory
         MedicalRecord medicalRecord = MedicalRecordFactory.buildDefaultMedicalRecord(999999999999L);
         animal = AnimalFactory.buildAnimal(999999999999L, "Salem", 2, "Cat", medicalRecord);
         animal = animalRepository.save(animal);

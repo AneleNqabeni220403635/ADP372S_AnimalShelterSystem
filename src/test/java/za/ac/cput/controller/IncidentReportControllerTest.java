@@ -40,6 +40,9 @@ public class IncidentReportControllerTest
     @BeforeEach
     public void setUp()
     {
+        // Animal and medicalRecords needs work,
+        // Come back to this once that is sorted.
+        // in Animal controller, medical records is set to null, but if its null in the builder, null is returned for animal
         MedicalRecord medicalRecord = MedicalRecordFactory.buildDefaultMedicalRecord(99999999999L);
         Animal experiment626 = AnimalFactory.buildAnimal(99999999999L, "Stitch", 3, "Alien", medicalRecord);
 
