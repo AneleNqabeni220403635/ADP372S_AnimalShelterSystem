@@ -1,5 +1,6 @@
 package za.ac.cput.factory;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.Campaign;
 
@@ -9,29 +10,35 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CampaignFactoryTest {
 
+    private Campaign campaign1;
+    private Campaign campaign2;
+    private Campaign campaign3;
+
+    @BeforeEach
+    void setUp() {
+        campaign1 = CampaignFactory.buildCampaign("CAMP001","Adopt-a-Pet Campaign",LocalDateTime.now().minusDays(30),LocalDateTime.now().plusDays(30),"Raising funds to support the local animal shelter","NDW001", 400000,LocalDateTime.now());
+
+        campaign2 = CampaignFactory.buildCampaign("CAMP002", "ASPCA Donation Drive",LocalDateTime.now().minusDays(30), LocalDateTime.now().plusDays(30),"Provide funds, supplies, and volunteer support to ASPCA-affiliated animal shelters to help them care for and rehome animals in need.", "VTW002", 234000,LocalDateTime.now());
+
+        campaign3 = campaign2;
+
+    }
+
     @Test
     public void testCreateCampaign() {
-        String campaignId = "CAMP001";
-        String name = "Adopt-a-Pet Campaign";
-        String objective = "Raising funds to support the local animal shelter";
-        LocalDateTime startDate = LocalDateTime.now().minusDays(30);
-        LocalDateTime endDate = LocalDateTime.now().plusDays(30);
+        assertNotNull(campaign1);
+        System.out.println(campaign1);
 
-        Campaign campaign = new Campaign.CampaignBuilder()
-                .setCampaignId(campaignId)
-                .setName(name)
-                .setObjective(objective)
-                .setStartDate(startDate)
-                .setEndDate(endDate)
-                .build();
-
-        assertNotNull(campaign);
-        assertEquals(campaignId, campaign.getCampaignId());
-        assertEquals(name, campaign.getName());
-        assertEquals(objective, campaign.getObjective());
-        assertEquals(startDate, campaign.getStartDate());
-        assertEquals(endDate, campaign.getEndDate());
-
-        System.out.println(campaign);
     }
+
+    @Test
+    void testCreateInvalidCampaign() {
+        assertNull(campaign2);
+    }
+
+    @Test
+    void testCreateIdentity() {
+        assertEquals(campaign3, campaign2);
+    }
+
 }

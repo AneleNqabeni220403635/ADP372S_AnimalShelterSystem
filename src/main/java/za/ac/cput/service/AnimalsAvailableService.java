@@ -8,7 +8,7 @@ import za.ac.cput.repository.AnimalsAvailableRepository;
 import java.util.Set;
 
 @Service
-public class AnimalsAvailableService implements IAnimalsAvailableService {
+public abstract class AnimalsAvailableService implements IAnimalsAvailableService {
 
     private final AnimalsAvailableRepository animalsAvailableRepository;
 
@@ -32,6 +32,10 @@ public class AnimalsAvailableService implements IAnimalsAvailableService {
         return animalsAvailableRepository.save(animalsAvailable);
     }
 
+    @Override
+    public void delete(Long animalCode) {
+        animalsAvailableRepository.deleteById(animalCode);
+    }
 
     @Override
     public Set<AnimalsAvailable> getAll() {

@@ -1,4 +1,4 @@
-package za.ac.cput.service;
+package za.ac.cput.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,13 +7,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.AnimalsAvailable;
 import za.ac.cput.domain.MedicalRecord;
 import za.ac.cput.factory.AnimalsAvailableFactory;
+import za.ac.cput.service.AnimalsAvailableService;
 
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class AnimalsAvailableServiceTest {
+class AnimalsAvailableControllerTest {
+
+    @Autowired
+    private AnimalsAvailableController animalsAvailableController;
 
     @Autowired
     private AnimalsAvailableService animalsAvailableService;
@@ -31,43 +35,43 @@ class AnimalsAvailableServiceTest {
 
     @Test
     void create() {
-        AnimalsAvailable created = animalsAvailableService.create(animalsAvailable1);
+        AnimalsAvailable created = animalsAvailableController.create(animalsAvailable1);
         assertNotNull(created);
         assertEquals(animalsAvailable1.getAnimalCode(), created.getAnimalCode());
     }
 
     @Test
     void read() {
-        AnimalsAvailable created = animalsAvailableService.create(animalsAvailable2);
-        AnimalsAvailable read = animalsAvailableService.read(created.getAnimalCode());
+        AnimalsAvailable created = animalsAvailableController.create(animalsAvailable2);
+        AnimalsAvailable read = animalsAvailableController.read(created.getAnimalCode());
         assertNotNull(read);
         assertEquals(created.getAnimalCode(), read.getAvailable());
     }
 
     @Test
     void update() {
-        AnimalsAvailable created = animalsAvailableService.create(animalsAvailable1);
+        AnimalsAvailable created = animalsAvailableController.create(animalsAvailable1);
         created = new AnimalsAvailable.Builder()
                 .copy(created)
                 .setGender("Male")
                 .build();
-        AnimalsAvailable updated = animalsAvailableService.update(created);
+        AnimalsAvailable updated = animalsAvailableController.update(created);
         assertEquals("Male", updated.getGender());
     }
 
     @Test
     void delete() {
-        AnimalsAvailable created = animalsAvailableService.create(animalsAvailable1);
-        animalsAvailableService.delete(created.getAnimalCode());
+        AnimalsAvailable created = animalsAvailableController.create(animalsAvailable1);
+        animalsAvailableController.delete(created.getAnimalCode());
         AnimalsAvailable deleted = animalsAvailableService.read(created.getAnimalCode());
         assertNull(deleted);
     }
 
     @Test
     void getAll() {
-        animalsAvailableService.create(animalsAvailable1);
-        animalsAvailableService.create(animalsAvailable2);
-        Set<AnimalsAvailable> animalsAvailable = animalsAvailableService.getAll();
+        animalsAvailableController.create(animalsAvailable1);
+        animalsAvailableController.create(animalsAvailable2);
+        Set<AnimalsAvailable> animalsAvailable = animalsAvailableController.getall();
         assertTrue(animalsAvailable.size() >= 2);
     }
 }

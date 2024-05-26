@@ -20,7 +20,7 @@ class AdoptionServiceTest {
     private AdoptionService adoptionService;
 
 
-    private static Adoption adoption1; 
+    private static Adoption adoption1;
     private static Adoption adoption2;
     private static Animal animal1;
     private static Animal animal2;
@@ -58,7 +58,15 @@ class AdoptionServiceTest {
     }
 
     @Test
-    void d_getall() {
+    void d_delete() {
+        Adoption created = adoptionService.create(adoption1);
+        adoptionService.delete(created.getAdoptionId());
+        Adoption deleted = adoptionService.read(created.getAdoptionId());
+        assertNull(deleted);
+    }
+
+    @Test
+    void e_getall() {
         adoptionService.create(adoption1);
         adoptionService.create(adoption2);
         Set<Adoption> adoptions = adoptionService.getAll();

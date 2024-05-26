@@ -1,15 +1,22 @@
 package za.ac.cput.domain;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+
 import java.util.Objects;
 
+@Entity
 public class AnimalsAvailable extends Animal {
+    @Id
     private Long animalCode;
     private String species;
     private String breed;
     private String gender;
     private double weight;
     private boolean available;
-
+    @ManyToOne (cascade = CascadeType.ALL)
     private MedicalRecord medicalRecord;
 
 
@@ -81,6 +88,13 @@ public class AnimalsAvailable extends Animal {
                 ", available=" + available +
                 ", medicalRecord=" + medicalRecord +
                 '}';
+    }
+
+    public AnimalsAvailable create(AnimalsAvailable animalsAvailable) {
+        return animalsAvailable;
+    }
+
+    public void setGender(String male) {
     }
 
     public static class Builder {

@@ -4,11 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.MedicalRecord;
 import za.ac.cput.repository.MedicalRecordRepository;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class MedicalRecordService implements IMedicalRecordService {
+public class MedicalRecordService implements IMedicalRecordService{
     private MedicalRecordRepository repository;
 
     @Autowired
@@ -16,7 +17,6 @@ public class MedicalRecordService implements IMedicalRecordService {
 
         this.repository = repository;
     }
-
     @Override
     public MedicalRecord create(MedicalRecord medicalRecord) {
 
@@ -37,6 +37,7 @@ public class MedicalRecordService implements IMedicalRecordService {
 
     @Override
     public void delete(Long id) {
+
         repository.deleteById(id);
     }
     @Override

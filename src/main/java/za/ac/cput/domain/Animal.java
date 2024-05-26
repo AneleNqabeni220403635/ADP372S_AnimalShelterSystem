@@ -2,19 +2,19 @@ package za.ac.cput.domain;
 
 import jakarta.persistence.*;
 import java.util.Objects;
+import java.util.Set;
+import java.util.HashSet;
 
 @Entity
-public class  Animal {
+public class Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long animalCode;
     protected String name;
     protected int age;
     protected String type;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "animal")
-   protected MedicalRecord medicalRecord;
+    @OneToMany(mappedBy = "animal", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    protected Set<MedicalRecord> medicalRecords = new HashSet<>();
 
     protected Animal() {
 
@@ -25,7 +25,7 @@ public class  Animal {
         this.name = builder.name;
         this.age = builder.age;
         this.type = builder.type;
-        this.medicalRecord = builder.medicalRecord;
+        this.medicalRecords = builder.medicalRecords;
     }
 
     public Long getAnimalCode() {
@@ -44,20 +44,20 @@ public class  Animal {
         return type;
     }
 
-    public MedicalRecord getMedicalRecord() {
-        return medicalRecord;
+    public Set<MedicalRecord> getMedicalRecords() {
+        return medicalRecords;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Animal animal)) return false;
-        return getAge() == animal.getAge() && Objects.equals(getAnimalCode(), animal.getAnimalCode()) && Objects.equals(getName(), animal.getName()) && Objects.equals(getType(), animal.getType()) && Objects.equals(getMedicalRecord(), animal.getMedicalRecord());
+        return getAge() == animal.getAge() && Objects.equals(getAnimalCode(), animal.getAnimalCode()) && Objects.equals(getName(), animal.getName()) && Objects.equals(getType(), animal.getType()) && Objects.equals(getMedicalRecords(), animal.getMedicalRecords());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAnimalCode(), getName(), getAge(), getType(), getMedicalRecord());
+        return Objects.hash(getAnimalCode(), getName(), getAge(), getType(), getMedicalRecords());
     }
 
     @Override
@@ -67,7 +67,7 @@ public class  Animal {
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 ", type='" + type + '\'' +
-                ", medicalRecord=" + medicalRecord +
+                ", medicalRecords=" + medicalRecords +
                 '}';
     }
 
@@ -77,10 +77,11 @@ public class  Animal {
         protected String name;
         protected int age;
         protected String type;
-        protected MedicalRecord medicalRecord;
-public Builder(){
+        protected Set<MedicalRecord> medicalRecords = new HashSet<>();
 
-}
+        public Builder() {
+        }
+
         public Builder setAnimalCode(Long animalCode) {
             this.animalCode = animalCode;
             return this;
@@ -101,16 +102,22 @@ public Builder(){
             return this;
         }
 
-        public Builder setMedicalRecord(MedicalRecord medicalRecord) {
-            this.medicalRecord = medicalRecord;
+        public Builder setMedicalRecords(Set<MedicalRecord> medicalRecords) {
+            this.medicalRecords = medicalRecords;
             return this;
         }
+
+        public Builder addMedicalRecord(MedicalRecord medicalRecord) {
+            this.medicalRecords.add(medicalRecord);
+            return this;
+        }
+
         public Builder copy(Animal a) {
             this.animalCode = a.getAnimalCode();
             this.name = a.getName();
             this.age = a.getAge();
             this.type = a.getType();
-            this.medicalRecord = a.getMedicalRecord();
+            this.medicalRecords = a.getMedicalRecords();
             return this;
         }
 

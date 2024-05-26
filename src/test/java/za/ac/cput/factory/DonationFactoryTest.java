@@ -1,5 +1,6 @@
 package za.ac.cput.factory;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.Campaign;
 import za.ac.cput.domain.Donation;
@@ -9,33 +10,35 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DonationFactoryTest {
+    private Donation donation1;
+    private  Donation donation2;
+    private  Donation donation3;
+
+    @BeforeEach
+    void setUp() {
+        donation1 = DonationFactory.buildDonation("NDW001", 233600, LocalDateTime.now());
+
+        donation2 = DonationFactory.buildDonation("", 70000,LocalDateTime.now());
+
+        donation3 = donation1;
+
+    }
 
     @Test
-    public void testCreateDonation() {
-        Campaign campaign = new Campaign.CampaignBuilder()
-                .setCampaignId("CAMP001")
-                .setName("Adopt-a-Pet Campaign")
-                .setObjective("Raising funds to support the local animal shelter")
-                .setStartDate(LocalDateTime.now().minusDays(30))
-                .setEndDate(LocalDateTime.now().plusDays(30))
-                .build();
+    public void testCreateValidDonation() {
+        assertNotNull(donation1);
+        System.out.println(donation1);
 
-        String donationId = "ABC123";
-        float donationAmount = 250.50f;
-        LocalDateTime donationDate = LocalDateTime.now();
+    }
 
-        Donation donation = new Donation.DonationBuilder()
-                .setDonationId(donationId)
-                .setAmount(donationAmount)
-                .setDate(donationDate)
-                .setCampaign(campaign)
-                .build();
+    @Test
+    void testCreateInvalidDonation() {
+        assertNull(donation2);
+        System.out.println(donation2);
+    }
 
-        assertNotNull(donation);
-        assertEquals(donationId, donation.getDonationId());
-        assertEquals(donationAmount, donation.getAmount(), 0.01);
-        assertEquals(campaign, donation.getCampaign());
-
-        System.out.println(donation);
+    @Test
+    void testCreateIdentity() {
+        assertEquals(donation3, donation1);
     }
 }

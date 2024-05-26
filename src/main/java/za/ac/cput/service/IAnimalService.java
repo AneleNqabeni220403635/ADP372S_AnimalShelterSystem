@@ -6,5 +6,4 @@ import java.util.Set;
 
 public interface IAnimalService extends IService<Animal, Long>{
     Set <Animal> getall();
-    Set<Animal> findAllAnimalsByNameAndAge(String name, int age);
 }

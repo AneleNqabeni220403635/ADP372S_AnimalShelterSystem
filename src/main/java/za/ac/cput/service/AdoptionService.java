@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class AdoptionService implements IAdoptionService {
-
     private final AdoptionRepository adoptionRepository;
 
     @Autowired
@@ -31,6 +30,11 @@ public class AdoptionService implements IAdoptionService {
     @Override
     public Adoption update(Adoption adoption) {
         return adoptionRepository.save(adoption);
+    }
+
+    @Override
+    public void delete(Long id) {
+        adoptionRepository.deleteById(id);
     }
 
     @Override

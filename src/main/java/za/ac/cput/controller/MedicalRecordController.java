@@ -22,7 +22,7 @@ public class MedicalRecordController {
         return medicalRecordService.create(medicalRecord);
     }
 
-    @PostMapping("/read/{animal}")
+    @PostMapping("/read/{animalCode}")
     public MedicalRecord read(@PathVariable Long animal){
 
         return medicalRecordService.read(animal);
@@ -34,7 +34,7 @@ public class MedicalRecordController {
         return medicalRecordService.update(medicalRecord);
     }
 
-    @PostMapping("/delete/{animal}")
+    @PostMapping("/delete/{animalCode}")
     public void delete(@PathVariable Long animal){
         medicalRecordService.delete(animal);
     }
