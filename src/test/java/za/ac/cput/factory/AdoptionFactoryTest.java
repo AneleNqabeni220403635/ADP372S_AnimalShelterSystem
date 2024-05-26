@@ -17,7 +17,7 @@ public class AdoptionFactoryTest {
         LocalDate applicationDate = LocalDate.now();
         String status = "Pending";
 
-        Animal animal = AnimalFactory.buildAnimal("Leo", 5, "Lion", null);
+        Animal animal = AnimalFactory.buildAnimal(123456789L, "Leo", 5, "Lion", null);
 
         Adoption adoption = AdoptionFactory.createAdoption(adoptionId, applicantName, applicationDate, status, animal);
 
