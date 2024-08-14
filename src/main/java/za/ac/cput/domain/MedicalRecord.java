@@ -9,9 +9,11 @@ public class MedicalRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
+
     @ManyToOne
-    @JoinColumn(name = "animal_id", nullable = false)
-    protected Animal animal;
+    @JoinColumn(name = "dog_id", nullable = false)
+    protected Dog dog;
+
     protected LocalDate vaccinationDate;
     protected String medication;
     protected String behaviour;
@@ -22,7 +24,7 @@ public class MedicalRecord {
 
     private MedicalRecord(Builder builder) {
         this.id = builder.id;
-        this.animal = builder.animal;
+        this.dog = builder.dog;
         this.vaccinationDate = builder.vaccinationDate;
         this.medication = builder.medication;
         this.behaviour = builder.behaviour;
@@ -33,8 +35,8 @@ public class MedicalRecord {
         return id;
     }
 
-    public Animal getAnimal() {
-        return animal;
+    public Dog getDog() {
+        return dog;
     }
 
     public LocalDate getVaccinationDate() {
@@ -57,19 +59,24 @@ public class MedicalRecord {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof MedicalRecord that)) return false;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getAnimal(), that.getAnimal()) && Objects.equals(getVaccinationDate(), that.getVaccinationDate()) && Objects.equals(getMedication(), that.getMedication()) && Objects.equals(getBehaviour(), that.getBehaviour()) && Objects.equals(getNextCheckup(), that.getNextCheckup());
+        return Objects.equals(getId(), that.getId()) &&
+                Objects.equals(getDog(), that.getDog()) &&
+                Objects.equals(getVaccinationDate(), that.getVaccinationDate()) &&
+                Objects.equals(getMedication(), that.getMedication()) &&
+                Objects.equals(getBehaviour(), that.getBehaviour()) &&
+                Objects.equals(getNextCheckup(), that.getNextCheckup());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getAnimal(), getVaccinationDate(), getMedication(), getBehaviour(), getNextCheckup());
+        return Objects.hash(getId(), getDog(), getVaccinationDate(), getMedication(), getBehaviour(), getNextCheckup());
     }
 
     @Override
     public String toString() {
         return "MedicalRecord{" +
                 "id=" + id +
-                ", animal=" + animal +
+                ", dog=" + dog +
                 ", vaccinationDate=" + vaccinationDate +
                 ", medication='" + medication + '\'' +
                 ", behaviour='" + behaviour + '\'' +
@@ -79,7 +86,7 @@ public class MedicalRecord {
 
     public static class Builder {
         private Long id;
-        private Animal animal;
+        private Dog dog;
         private LocalDate vaccinationDate;
         private String medication;
         private String behaviour;
@@ -90,8 +97,8 @@ public class MedicalRecord {
             return this;
         }
 
-        public Builder setAnimal(Animal animal) {
-            this.animal = animal;
+        public Builder setDog(Dog dog) {
+            this.dog = dog;
             return this;
         }
 
@@ -117,7 +124,7 @@ public class MedicalRecord {
 
         public Builder copy(MedicalRecord m) {
             this.id = m.getId();
-            this.animal = m.getAnimal();
+            this.dog = m.getDog();
             this.vaccinationDate = m.getVaccinationDate();
             this.medication = m.getMedication();
             this.behaviour = m.getBehaviour();
