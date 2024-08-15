@@ -1,4 +1,4 @@
-package za.ac.cput.service;
+package za.ac.cput.service.Impl;
 
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Adoption;

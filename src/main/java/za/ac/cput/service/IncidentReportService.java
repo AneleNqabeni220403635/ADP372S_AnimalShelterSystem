@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.IncidentReport;
 import za.ac.cput.repository.IncidentReportRepository;
+import za.ac.cput.service.Impl.IIncidentReportService;
 
 import java.util.HashSet;
 import java.util.Set;

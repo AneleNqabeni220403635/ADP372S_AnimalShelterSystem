@@ -1,7 +1,6 @@
-package za.ac.cput.service;
+package za.ac.cput.service.Impl;
 
 import org.springframework.stereotype.Service;
-import za.ac.cput.domain.Campaign;
 import za.ac.cput.domain.Donation;
 
 import java.util.List;
