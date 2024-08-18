@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.repository.LostAndFoundRepository;
 import za.ac.cput.domain.LostAndFound;
+import za.ac.cput.service.Impl.ILostAndFoundService;
 
 import java.util.HashSet;
 import java.util.Set;
