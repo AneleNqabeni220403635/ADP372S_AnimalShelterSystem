@@ -1,1 +1,1 @@
-![screenshot](IMG-20240519-WA0049.jpg)
+![UML Diagram for Animal Shelter](AnimalShelter.png)
