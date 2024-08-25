@@ -6,8 +6,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import za.ac.cput.domain.Cat;
 import za.ac.cput.domain.Dog;
 import za.ac.cput.domain.MedicalRecord;
+import za.ac.cput.factory.MedicalRecordFactory;
 import za.ac.cput.util.Helper;
 
 import java.time.LocalDate;
@@ -22,96 +24,77 @@ public class MedicalRecordServiceTest {
     @Autowired
     private MedicalRecordService medicalRecordService;
 
-    @Autowired
-    private DogService dogService;
+    Dog dog = new Dog.Builder()
+            .setDogId(1L)
+            .setName("Buddy")
+            .setSize("Large")
+            .setAge(5)
+            .setGender("Male")
+            .setBreed("Golden Retriever")
+            .setCageNumber(0)
+            .build();
 
-    private static Dog roxy;
-    private static MedicalRecord medicalRecordForRoxy;
+    Cat cat = new Cat.Builder()
+            .setCatId(2L)
+            .setName("Whiskers")
+            .setSize("Large")
+            .setAge(3)
+            .setGender("Female")
+            .setBreed("Siamese")
+            .setCageNumber(5)
+            .build();
+
+    private final MedicalRecord medicalRecord = MedicalRecordFactory.buildMedicalRecord(1L,dog,cat,LocalDate.now(),"Med1","Good",LocalDate.now().plusMonths(6),"Annual checkup");
 
     @Test
     @Order(1)
-    void testCreateDog() {
-        long generatedDogId = Helper.generateDogId();
-
-        Dog roxy = new Dog.Builder()
-                .setDogId(generatedDogId)
-                .setAge(8)
-                .setBreed("Pitbull")
-                .setCageNumber(107)
-                .setGender("Female")
-                .setName("Roxy")
-                .setSize("Medium")
-                .build();
-
-        roxy = dogService.create(roxy);
-        assertNotNull(roxy);
-        assertNotNull(roxy.getDogId());
-        System.out.println("Created Dog: " + roxy);
-        System.out.println("Dog ID generated: " + roxy.getDogId());
+    void testCreate() {
+        MedicalRecord createdRecord = medicalRecordService.create(medicalRecord);
+        assertNotNull(createdRecord);
+        assert medicalRecord != null;
+        assertEquals(medicalRecord.getDescription(), createdRecord.getDescription());
+        System.out.println("Created: " + createdRecord);
     }
 
     @Test
     @Order(2)
-    void testCreateAndReadMedicalRecord() {
-        long generatedDogId = Helper.generateDogId();
-        Dog roxy = new Dog.Builder()
-                .setDogId(generatedDogId)
-                .setAge(8)
-                .setBreed("Pitbull")
-                .setCageNumber(107)
-                .setGender("Female")
-                .setName("Roxy")
-                .setSize("Medium")
-                .build();
-        roxy = dogService.create(roxy);
-
-
-        medicalRecordForRoxy = new MedicalRecord.Builder()
-                .setDog(roxy)
-                .setBehaviour("Calm")
-                .setMedication("Vitamins")
-                .setNextCheckup(LocalDate.of(2025, 12, 1))
-                .setVaccinationDate(LocalDate.of(2025, 6, 1))
-                .build();
-        medicalRecordForRoxy = medicalRecordService.create(medicalRecordForRoxy);
-        assertNotNull(medicalRecordForRoxy);
-        assertNotNull(medicalRecordForRoxy.getId());
-        assertEquals(roxy.getName(), medicalRecordForRoxy.getDog().getName());
-        System.out.println("Created Medical Record: " + medicalRecordForRoxy);
-
-        MedicalRecord readMedicalRecord = medicalRecordService.read(medicalRecordForRoxy.getId());
-        assertNotNull(readMedicalRecord);
-        assertEquals(medicalRecordForRoxy.getId(), readMedicalRecord.getId());
-        System.out.println("Read Medical Record: " + readMedicalRecord);
+    void testRead() {
+        MedicalRecord readRecord = medicalRecordService.read(medicalRecord.getId());
+        assertNotNull(readRecord);
+        assertEquals(medicalRecord.getDescription(), readRecord.getDescription());
+        System.out.println("Read: " + readRecord);
     }
 
     @Test
     @Order(3)
-    void testUpdateMedicalRecord() {
+    void testUpdate() {
+        assert medicalRecord != null;
         MedicalRecord updatedRecord = new MedicalRecord.Builder()
-                .copy(medicalRecordForRoxy)
-                .setBehaviour("Aggressive")
+                .copy(medicalRecord)
+                .setDescription("Updated checkup")
                 .build();
-
         MedicalRecord updated = medicalRecordService.update(updatedRecord);
         assertNotNull(updated);
-        assertEquals("Aggressive", updated.getBehaviour());
-        System.out.println("Updated Medical Record: " + updated);
+        assertEquals("Updated checkup", updated.getDescription());
+        System.out.println("Updated: " + updated);
     }
 
     @Test
     @Order(4)
-    void testDeleteMedicalRecord() {
-        medicalRecordService.delete(medicalRecordForRoxy.getId());
-        MedicalRecord deletedMedicalRecord = medicalRecordService.read(medicalRecordForRoxy.getId());
-        assertNull(deletedMedicalRecord);
-        System.out.println("Deleted Medical Record");
+    void testGetAll() {
+        Set<MedicalRecord> records = medicalRecordService.getall();
+        assertFalse(records.isEmpty());
+        System.out.println("All Medical Records: " + records);
     }
+
     @Test
     @Order(5)
-    void testGetAllMedicalRecords() {
-        Set<MedicalRecord> medicalRecords = medicalRecordService.getall();
-        assertNotNull(medicalRecords);
-        System.out.println("All Medical Records: " + medicalRecords);
+    void testDelete() {
+        assert medicalRecord != null;
+        medicalRecordService.delete(medicalRecord.getId());
+        MedicalRecord deleted = medicalRecordService.read(medicalRecord.getId());
+        assertNull(deleted);
+        System.out.println("Deleted");
     }
+
 }
