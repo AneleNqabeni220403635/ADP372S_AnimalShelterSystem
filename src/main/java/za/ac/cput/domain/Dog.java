@@ -5,8 +5,10 @@ import java.util.Objects;
 
 @Entity
 public class Dog {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "dog_id")
     protected long dogId;
     protected String name;
     protected String size;
@@ -15,7 +17,8 @@ public class Dog {
     protected String breed;
     protected int cageNumber;
 
-    protected Dog() {
+
+    public Dog() {
     }
 
     private Dog(Builder builder) {
@@ -28,7 +31,8 @@ public class Dog {
         this.cageNumber = builder.cageNumber;
     }
 
-    public Long getDogId() {
+
+    public long getDogId() {
         return dogId;
     }
 
@@ -73,6 +77,7 @@ public class Dog {
     public int hashCode() {
         return Objects.hash(getDogId(), getName(), getSize(), getAge(), getGender(), getBreed(), getCageNumber());
     }
+
 
     @Override
     public String toString() {
@@ -149,4 +154,5 @@ public class Dog {
             return new Dog(this);
         }
     }
+
 }
