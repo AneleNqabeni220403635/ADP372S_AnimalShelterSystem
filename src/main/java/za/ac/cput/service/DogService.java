@@ -4,13 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Dog;
 import za.ac.cput.repository.DogRepository;
+import za.ac.cput.service.Impl.IDogService;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class DogService implements IDogService {
-    private DogRepository repository;
+
+    private final DogRepository repository;
 
     @Autowired
     public DogService(DogRepository repository) {

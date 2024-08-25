@@ -4,45 +4,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.MedicalRecord;
 import za.ac.cput.repository.MedicalRecordRepository;
+import za.ac.cput.service.Impl.IMedicalRecordService;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class MedicalRecordService implements IMedicalRecordService{
-    private MedicalRecordRepository repository;
+public class MedicalRecordService implements IMedicalRecordService {
+    private final MedicalRecordRepository repository;
 
     @Autowired
-    MedicalRecordService(MedicalRecordRepository repository) {
-
+    public MedicalRecordService(MedicalRecordRepository repository) {
         this.repository = repository;
     }
-    @Override
-    public MedicalRecord create(MedicalRecord medicalRecord) {
 
+
+    public MedicalRecord create(MedicalRecord medicalRecord) {
         return repository.save(medicalRecord);
     }
 
-    @Override
-    public MedicalRecord read(Long id) {
 
+    public MedicalRecord read(Long id) {
         return repository.findById(id).orElse(null);
     }
 
-    @Override
-    public MedicalRecord update(MedicalRecord medicalRecord){
 
+    public MedicalRecord update(MedicalRecord medicalRecord) {
         return repository.save(medicalRecord);
     }
 
-    @Override
-    public void delete(Long id) {
 
+    public void delete(Long id) {
         repository.deleteById(id);
     }
-    @Override
-    public Set<MedicalRecord> getall() {
 
+
+    public Set<MedicalRecord> getall() {
         return repository.findAll().stream().collect(Collectors.toSet());
     }
 }
