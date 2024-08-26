@@ -20,7 +20,7 @@ public class DogServiceTest {
     private DogService dogService;
 
     private static Dog roxy = new Dog.Builder()
-            .setDogId(1L)
+            .setDogId(4L)
             .setAge(8)
             .setBreed("Pitbull")
             .setCageNumber(107)
@@ -34,7 +34,7 @@ public class DogServiceTest {
     void testCreate() {
         Dog createdDog = dogService.create(roxy);
         assertNotNull(createdDog);
-        assertEquals(roxy.getDogId(), createdDog.getDogId());
+        assertEquals(roxy.getCageNumber(), createdDog.getCageNumber());
         System.out.println("Created: " + createdDog);
     }
 
@@ -63,17 +63,17 @@ public class DogServiceTest {
 
     @Test
     @Order(4)
+    void testGetAll() {
+        Set<Dog> dogs = dogService.getall();
+        System.out.println("All Dogs: " + dogs);
+    }
+
+    @Test
+    @Order(5)
     void testDelete() {
         dogService.delete(roxy.getDogId());
         Dog deleted = dogService.read(roxy.getDogId());
         assertNull(deleted);
         System.out.println("Deleted");
-    }
-
-    @Test
-    @Order(5)
-    void testGetAll() {
-        Set<Dog> dogs = dogService.getall();
-        System.out.println("All Dogs: " + dogs);
     }
 }

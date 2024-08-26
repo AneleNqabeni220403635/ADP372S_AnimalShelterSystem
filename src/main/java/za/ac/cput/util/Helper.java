@@ -18,7 +18,39 @@ public class Helper {
         return System.currentTimeMillis();
     }
 
+    public static long generatePetOwnerId() {
+        return System.currentTimeMillis();
+    }
+
+    public static long generateEmployeeId() {
+        return System.currentTimeMillis();
+    }
+
+    public static long generateCatId() {
+        return System.currentTimeMillis();
+    }
+
+    public static long generateApplicantId() {
+        return System.currentTimeMillis();
+    }
+
+    public static long generateSaleId() {
+        return System.currentTimeMillis();
+    }
+
+    public static long generateOwnerRecordId() {
+        return System.currentTimeMillis();
+    }
+
     public static long generateMedicalRecordId() {
         return System.currentTimeMillis();
     }
+
+    public static long generateVolunteerId() {
+        return System.currentTimeMillis();
+    }
+
+
+
 }
+

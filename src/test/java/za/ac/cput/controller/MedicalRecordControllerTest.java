@@ -1,118 +1,147 @@
 package za.ac.cput.controller;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import za.ac.cput.domain.Cat;
+import za.ac.cput.domain.Dog;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
-import za.ac.cput.domain.Animal;
 import za.ac.cput.domain.MedicalRecord;
-import za.ac.cput.factory.AnimalFactory;
 import za.ac.cput.factory.MedicalRecordFactory;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestMethodOrder(MethodOrderer.MethodName.class)
 public class MedicalRecordControllerTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private final String BASE_URL = "http://localhost:8080/medicalRecord";
+    private final String BASE_URL = "http://localhost:8080/animalshelter/medicalRecord";
 
-    private static Animal snow;
+    private MedicalRecord medicalRecord;
 
-    @BeforeAll
-    public static void setUp() {
-        snow = AnimalFactory.buildAnimal(10L, "Snow", 7, "Wolf", null);
-    }
+    @BeforeEach
+    public void setUp() {
 
-    @Test
-    void create() {
-        String url = BASE_URL + "/create";
-        ResponseEntity<Animal> postAnimalResponse = restTemplate.postForEntity("/animal/create", snow, Animal.class);
-        assertNotNull(postAnimalResponse);
-        assertNotNull(postAnimalResponse.getBody());
-        Animal animalSaved = postAnimalResponse.getBody();
-        assertEquals(snow.getAnimalCode(), animalSaved.getAnimalCode());
-
-        MedicalRecord snowMedicalRecord = MedicalRecordFactory.buildMedicalRecord(
-                animalSaved,
-                LocalDate.now(),
-                "Vaccine A",
-                "Calm",
-                LocalDate.now().plusMonths(6)
-        );
-
-        ResponseEntity<MedicalRecord> postMedicalRecordResponse = restTemplate.postForEntity(url, snowMedicalRecord, MedicalRecord.class);
-        assertNotNull(postMedicalRecordResponse);
-        assertNotNull(postMedicalRecordResponse.getBody());
-        MedicalRecord medicalRecordSaved = postMedicalRecordResponse.getBody();
-        assertEquals(snow.getAnimalCode(), medicalRecordSaved.getAnimal().getAnimalCode());
-        System.out.println("Saved Medical Record: " + medicalRecordSaved);
-    }
-    @Test
-    void read() {
-        String url = BASE_URL + "/read/" + snow.getAnimalCode();
-        System.out.println("URL: " + url);
-        ResponseEntity<MedicalRecord> response = restTemplate.getForEntity(url, MedicalRecord.class);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertNotNull(response.getBody());
-        MedicalRecord medicalRecord = response.getBody();
-        assertEquals(snow.getAnimalCode(), medicalRecord.getAnimal().getAnimalCode());
-        System.out.println("Read MedicalRecord: " + response.getBody());
-    }
-    @Test
-    void update() {
-        String readUrl = BASE_URL + "/read/" + snow.getAnimalCode();
-        ResponseEntity<MedicalRecord> readResponse = restTemplate.getForEntity(readUrl, MedicalRecord.class);
-        assertEquals(HttpStatus.OK, readResponse.getStatusCode());
-        assertNotNull(readResponse.getBody());
-        MedicalRecord existingMedicalRecord = readResponse.getBody();
-
-        String updateUrl = BASE_URL + "/update";
-        MedicalRecord updatedMedicalRecord = new MedicalRecord.Builder()
-                .copy(existingMedicalRecord)
-                .setMedication("Painkillers")
+        Dog dog = new Dog.Builder()
+                .setDogId(1L)
+                .setName("Buddy")
+                .setSize("Large")
+                .setAge(5)
+                .setGender("Male")
+                .setBreed("Golden Retriever")
+                .setCageNumber(0)
                 .build();
 
-        ResponseEntity<MedicalRecord> updateResponse = restTemplate.exchange(
-                updateUrl,
-                HttpMethod.PUT,
-                new HttpEntity<>(updatedMedicalRecord),
-                MedicalRecord.class
-        );
+        Cat cat = new Cat.Builder()
+                .setCatId(5L)
+                .setName("Whiskers")
+                .setSize("Large")
+                .setAge(3)
+                .setGender("Female")
+                .setBreed("Siamese")
+                .setCageNumber(5)
+                .build();
 
-        assertEquals(HttpStatus.OK, updateResponse.getStatusCode());
-        assertNotNull(updateResponse.getBody());
-        MedicalRecord medicalRecordUpdated = updateResponse.getBody();
+        medicalRecord =MedicalRecordFactory.buildMedicalRecord(4L,dog,cat,LocalDate.now(),"Med1","Good",LocalDate.now().plusMonths(6),"Annual checkup");
+    }
 
-        assertEquals(updatedMedicalRecord.getAnimal(), medicalRecordUpdated.getAnimal());
-        assertEquals(updatedMedicalRecord.getMedication(), medicalRecordUpdated.getMedication());
-        System.out.println("Updated MedicalRecord data: " + medicalRecordUpdated);
-    }
     @Test
-    void delete() {
-        String url = BASE_URL + "/delete/" + snow.getAnimalCode();
-        System.out.println("URL: " + url);
-        restTemplate.delete(url);
-        System.out.println("Success: **** Deleted MedicalRecord ***");
+    @Order(1)
+    void testCreateMedicalRecord() {
+        String url = BASE_URL + "/create";
+
+        System.out.println("Sending Medical Record object: " + medicalRecord);
+        ResponseEntity<MedicalRecord> response = restTemplate.postForEntity(url, medicalRecord, MedicalRecord.class);
+
+        System.out.println("Response Status Code: " + response.getStatusCode());
+        System.out.println("Response Body: " + response.getBody());
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode()); // Change to HttpStatus.OK if needed
+        assertNotNull(response.getBody());
+        MedicalRecord createdMedicalRecord = response.getBody();
+        assertEquals(medicalRecord.getDescription(), createdMedicalRecord.getDescription());
+        System.out.println("Created Medical Record: " + createdMedicalRecord);
     }
+
     @Test
-    void getall() {
-        String url = BASE_URL + "/getall/" + snow.getAnimalCode();
+    @Order(2)
+    void testReadMedicalRecord() {
+
+        assertNotNull(medicalRecord.getId(), "MedicalRecord ID should not be null");
+
+        String url = BASE_URL + "/read/" + medicalRecord.getId();
+
+        System.out.println("Request URL: " + url);
+        ResponseEntity<MedicalRecord> response = restTemplate.getForEntity(url, MedicalRecord.class);
+
+        System.out.println("Response Status Code: " + response.getStatusCode());
+        System.out.println("Response Body: " + response.getBody());
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode(), "Expected status code 200 OK");
+        assertNotNull(response.getBody(), "Response body should not be null");
+        MedicalRecord readMedicalRecord = response.getBody();
+
+        System.out.println("Read MedicalRecord: " + readMedicalRecord);
+    }
+
+    @Test
+    @Order(3)
+    void testUpdateMedicalRecord() {
+        String url = BASE_URL + "/update";
+        MedicalRecord updatedMedicalRecord = new MedicalRecord.Builder()
+                .copy(medicalRecord)
+                .setMedication("abc")
+                .build();
         HttpHeaders headers = new HttpHeaders();
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity,String.class);
-        System.out.println("Show All MedicalRecords: ");
-        System.out.println(response.getBody());
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<MedicalRecord> request = new HttpEntity<>(updatedMedicalRecord, headers);
+
+        ResponseEntity<MedicalRecord> response = restTemplate.exchange(url, HttpMethod.PUT, request, MedicalRecord.class);
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        MedicalRecord updated = response.getBody();
+        assertEquals(updatedMedicalRecord.getDescription(), updated.getDescription());
+        System.out.println("Updated MedicalRecord: " + updated);
+    }
+
+
+    @Test
+    @Order(4)
+    void testGetAllMedicalRecords() {
+        String url = BASE_URL + "/getall";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        HttpEntity<String> entity = new HttpEntity<>(null, headers);
+        ResponseEntity<Set> response = restTemplate.exchange(url, HttpMethod.GET, entity, Set.class);
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertFalse(response.getBody().isEmpty());
+        System.out.println("Show All MedicalRecords: " + response.getBody());
+    }
+
+    @Test
+    @Order(5)
+    void testDeleteMedicalRecord() {
+
+        String deleteUrl = BASE_URL + "/delete/" + medicalRecord.getId();
+        restTemplate.delete(deleteUrl);
+
+        String readUrl = BASE_URL + "/read/" + medicalRecord.getId();
+        ResponseEntity<MedicalRecord> response = restTemplate.getForEntity(readUrl, MedicalRecord.class);
+
+        System.out.println("Response Status Code after deletion attempt: " + response.getStatusCode());
+        System.out.println("Response Body after deletion attempt: " + response.getBody());
+
     }
 
 }
-

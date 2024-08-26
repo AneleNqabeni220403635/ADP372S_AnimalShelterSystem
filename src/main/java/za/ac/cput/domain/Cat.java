@@ -1,88 +1,90 @@
 package za.ac.cput.domain;
 
 import jakarta.persistence.*;
+
 import java.util.Objects;
 
 @Entity
-public class Dog {
+public class Cat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "dog_id")
-    protected long dogId;
+    @Column(name = "cat_id")
+
+    protected long catId;
     protected String name;
-    protected String size;
-    protected int age;
-    protected String gender;
     protected String breed;
+    protected int age;
+    protected String size;
+    protected String gender;
     protected int cageNumber;
 
-
-    public Dog() {
+    public Cat() {
     }
 
-    private Dog(Builder builder) {
-        this.dogId = builder.dogId;
+    private Cat(Builder builder) {
+        this.catId = builder.catId;
         this.name = builder.name;
         this.size = builder.size;
         this.age = builder.age;
         this.gender = builder.gender;
         this.breed = builder.breed;
         this.cageNumber = builder.cageNumber;
+
     }
 
 
-    public long getDogId() {
-        return dogId;
-    }
-
-    public String getName() {
-        return name;
+    public long getCatId() {
+        return catId;
     }
 
     public String getSize() {
         return size;
     }
 
-    public int getAge() {
-        return age;
-    }
-
     public String getGender() {
         return gender;
-    }
-
-    public String getBreed() {
-        return breed;
     }
 
     public int getCageNumber() {
         return cageNumber;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getBreed() {
+        return breed;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Dog dog)) return false;
-        return getAge() == dog.getAge() &&
-                getCageNumber() == dog.getCageNumber() &&
-                Objects.equals(getDogId(), dog.getDogId()) &&
-                Objects.equals(getName(), dog.getName()) &&
-                Objects.equals(getSize(), dog.getSize()) &&
-                Objects.equals(getGender(), dog.getGender()) &&
-                Objects.equals(getBreed(), dog.getBreed());
+        if (!(o instanceof Cat cat)) return false;
+        return getAge() == cat.getAge() &&
+                getCageNumber() == cat.getCageNumber() &&
+                Objects.equals(getCatId(), cat.getCatId()) &&
+                Objects.equals(getName(), cat.getName()) &&
+                Objects.equals(getSize(), cat.getSize()) &&
+                Objects.equals(getGender(), cat.getGender()) &&
+                Objects.equals(getBreed(), cat.getBreed());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getDogId(), getName(), getSize(), getAge(), getGender(), getBreed(), getCageNumber());
+        return Objects.hash(getCatId(), getName(), getSize(), getAge(), getGender(), getBreed(), getCageNumber());
     }
 
 
     @Override
     public String toString() {
-        return "Dog{" +
-                "dogId=" + dogId +
+        return "Cat{" +
+                "catId=" + catId +
                 ", name='" + name + '\'' +
                 ", size='" + size + '\'' +
                 ", age=" + age +
@@ -93,7 +95,7 @@ public class Dog {
     }
 
     public static class Builder {
-        protected Long dogId;
+        protected Long catId;
         protected String name;
         protected String size;
         protected int age;
@@ -104,43 +106,43 @@ public class Dog {
         public Builder() {
         }
 
-        public Builder setDogId(Long dogId) {
-            this.dogId = dogId;
+        public Cat.Builder setCatId(Long catId) {
+            this.catId = catId;
             return this;
         }
 
-        public Builder setName(String name) {
+        public Cat.Builder setName(String name) {
             this.name = name;
             return this;
         }
 
-        public Builder setSize(String size) {
+        public Cat.Builder setSize(String size) {
             this.size = size;
             return this;
         }
 
-        public Builder setAge(int age) {
+        public Cat.Builder setAge(int age) {
             this.age = age;
             return this;
         }
 
-        public Builder setGender(String gender) {
+        public Cat.Builder setGender(String gender) {
             this.gender = gender;
             return this;
         }
 
-        public Builder setBreed(String breed) {
+        public Cat.Builder setBreed(String breed) {
             this.breed = breed;
             return this;
         }
 
-        public Builder setCageNumber(int cageNumber) {
+        public Cat.Builder setCageNumber(int cageNumber) {
             this.cageNumber = cageNumber;
             return this;
         }
 
-        public Builder copy(Dog d) {
-            this.dogId = d.getDogId();
+        public Cat.Builder copy(Cat d) {
+            this.catId = d.getCatId();
             this.name = d.getName();
             this.size = d.getSize();
             this.age = d.getAge();
@@ -150,9 +152,8 @@ public class Dog {
             return this;
         }
 
-        public Dog build() {
-            return new Dog(this);
+        public Cat build() {
+            return new Cat(this);
         }
     }
-
 }
