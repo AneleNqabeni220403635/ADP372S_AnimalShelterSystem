@@ -21,7 +21,7 @@ public class DogControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private final String BASE_URL = "http://localhost:8080/animalRescue/dog";
+    private final String BASE_URL = "http://localhost:8080/animalshelter/dog";
 
     private Dog roxy;
 

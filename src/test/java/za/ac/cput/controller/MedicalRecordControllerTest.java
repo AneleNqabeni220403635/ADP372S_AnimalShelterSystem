@@ -23,7 +23,7 @@ public class MedicalRecordControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private final String BASE_URL = "http://localhost:8080/animalRescue/medicalRecord";
+    private final String BASE_URL = "http://localhost:8080/animalshelter/medicalRecord";
 
     private MedicalRecord medicalRecord;
 
