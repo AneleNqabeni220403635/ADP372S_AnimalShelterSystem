@@ -12,20 +12,16 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import za.ac.cput.domain.Animal;
-import za.ac.cput.domain.IncidentReport;
-import za.ac.cput.domain.MedicalRecord;
-import za.ac.cput.factory.AnimalFactory;
-import za.ac.cput.factory.IncidentReportFactory;
-import za.ac.cput.factory.MedicalRecordFactory;
+import za.ac.cput.domain.Applicant;
+import za.ac.cput.factory.ApplicantFactory;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class IncidentReportControllerTest
+public class ApplicantControllerTest
 {
     @Autowired
     private TestRestTemplate restTemplate;
@@ -33,26 +29,16 @@ public class IncidentReportControllerTest
     private int port;
     @LocalManagementPort
     private int managementPort;
-    private IncidentReport incidentReport;
+    private Applicant applicant;
 
     private final String BASE_URL = "";
 
     @BeforeEach
     public void setUp()
     {
-        // Animal and medicalRecords needs work,
-        // Come back to this once that is sorted.
-        // in Animal controller, medical records is set to null, but if its null in the builder, null is returned for animal
-        MedicalRecord medicalRecord = MedicalRecordFactory.buildDefaultMedicalRecord(99999999999L);
-        Animal experiment626 = AnimalFactory.buildAnimal(99999999999L, "Stitch", 3, "Alien", medicalRecord);
-
-        incidentReport = IncidentReportFactory.createIncidentReport(
-                experiment626,
-                "Attack",
-                LocalDateTime.now(),
-                "Alien dog attacked Hawaiians",
-                "Captured",
-                "Lilo"
+        applicant = ApplicantFactory.createApplicant(
+                LocalDate.now(),
+                "Application Submitted"
         );
     }
 
@@ -76,14 +62,14 @@ public class IncidentReportControllerTest
         String url = BASE_URL + "/create";
 
         // When
-        ResponseEntity<IncidentReport> response = restTemplate.postForEntity(url, incidentReport, IncidentReport.class);
+        ResponseEntity<Applicant> response = restTemplate.postForEntity(url, applicant, Applicant.class);
 
         // Then
         assertNotNull(response);
         assertNotNull(response.getBody());
-        IncidentReport incidentReport1 = response.getBody();
-        assertTrue(incidentReport1.getId() > 0L);
-        System.out.println("Created: " + incidentReport1);
+        Applicant applicant1 = response.getBody();
+        assertTrue(applicant1.getId() > 0L);
+        System.out.println("Created: " + applicant1);
     }
 
     @Test
@@ -91,20 +77,20 @@ public class IncidentReportControllerTest
     public void read()
     {
         // Given
-        String url = BASE_URL + "/read/" + incidentReport.getId();
+        String url = BASE_URL + "/read/" + applicant.getId();
         System.out.println("URL: " + url);
 
         // When
-        ResponseEntity<IncidentReport> response = restTemplate.getForEntity(url, IncidentReport.class);
+        ResponseEntity<Applicant> response = restTemplate.getForEntity(url, Applicant.class);
 
         // Then
         assertNotNull(response);
         assertNotNull(response.getBody());
-        IncidentReport report = response.getBody();
-        assertEquals(incidentReport.getId(), report.getId());
-        assertEquals(incidentReport.getIncidentType(), report.getIncidentType());
-        assertEquals(incidentReport.getReportedBy(), report.getReportedBy());
-        System.out.println("Read: " + incidentReport);
+        Applicant report = response.getBody();
+        assertEquals(applicant.getId(), report.getId());
+        assertEquals(applicant.getApplicationDate(), report.getApplicationDate());
+        assertEquals(applicant.getApplicationStatus(), report.getApplicationStatus());
+        System.out.println("Read: " + applicant);
     }
 
     @Test
@@ -113,18 +99,18 @@ public class IncidentReportControllerTest
     {
         // Given
         String url = BASE_URL + "/update";
-        IncidentReport updatedIncidentReport = new IncidentReport.Builder().copy(incidentReport).setDescription("Alien dog terrorising Hawaii").build();
+        Applicant updatedApplicant = new Applicant.Builder().copy(applicant).setApplicationStatus("Background Check").build();
 
         // When
-        ResponseEntity<IncidentReport> response = restTemplate.postForEntity(url, updatedIncidentReport, IncidentReport.class);
+        ResponseEntity<Applicant> response = restTemplate.postForEntity(url, updatedApplicant, Applicant.class);
 
         // Then
         assertNotNull(response);
         assertNotNull(response.getBody());
-        IncidentReport incidentReport1 = response.getBody();
+        Applicant applicant1 = response.getBody();
 
-        assertEquals(incidentReport.getDescription(), updatedIncidentReport.getDescription());
-        System.out.println("Updated" + incidentReport1);
+        assertEquals(applicant.getApplicationStatus(), updatedApplicant.getApplicationStatus());
+        System.out.println("Updated" + applicant1);
     }
 
     @Test
@@ -135,15 +121,15 @@ public class IncidentReportControllerTest
         String url = BASE_URL + "/getAll"; // either getall or getAll should do the trick, just a bit easier on the eyes to read
 
         // When
-        ResponseEntity<IncidentReport[]> response = restTemplate.getForEntity(url, IncidentReport[].class);
+        ResponseEntity<Applicant[]> response = restTemplate.getForEntity(url, Applicant[].class);
 
         // Then
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
         assertTrue(response.getBody().length> 0);
-        for (IncidentReport report: response.getBody())
+        for (Applicant appl: response.getBody())
         {
-            System.out.println(report);
+            System.out.println(appl);
         }
     }
 
@@ -152,13 +138,13 @@ public class IncidentReportControllerTest
     public void delete ()
     {
         // Given
-        String url = BASE_URL +"/delete/"+ incidentReport.getId();
+        String url = BASE_URL +"/delete/"+ applicant.getId();
 
         // When
         restTemplate.delete(url);
 
         // Then
-        ResponseEntity<IncidentReport> response = restTemplate.getForEntity(BASE_URL + "/read/" + incidentReport.getId(), IncidentReport.class);
+        ResponseEntity<Applicant> response = restTemplate.getForEntity(BASE_URL + "/read/" + applicant.getId(), Applicant.class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNull(response.getBody());

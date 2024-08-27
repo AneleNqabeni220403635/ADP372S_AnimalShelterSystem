@@ -2,9 +2,9 @@ package za.ac.cput.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import za.ac.cput.domain.LostAndFound;
+import za.ac.cput.domain.Applicant;
 
 @Repository
-public interface LostAndFoundRepository extends JpaRepository<LostAndFound, Long>
+public interface ApplicantRepository extends JpaRepository<Applicant, Long>
 {
 }
