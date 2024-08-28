@@ -119,8 +119,8 @@ public class Applicant
                 "applicationDate=" + applicationDate + "," +
                 "applicationStatus='" + applicationStatus + "'," +
                 "petOwner=" + petOwner + "," +
-                "dog=" + dogId.getDogId() + "," +
-                "cat=" + catId.getCatId() +
+                "dog=" + ( dogId != null ? dogId.getDogId() : null ) + "," +
+                "cat=" + ( catId != null ? catId.getCatId() : null ) +
                 "}";
     }
 
