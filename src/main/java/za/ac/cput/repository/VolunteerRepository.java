@@ -2,7 +2,8 @@ package za.ac.cput.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import za.ac.cput.domain.Adoption;
+import za.ac.cput.domain.AnimalsAvailable;
+
 @Repository
-public interface AdoptionRepository extends JpaRepository<Adoption, Long> {
+public interface VolunteerRepository extends JpaRepository<AnimalsAvailable, Long> {
 }

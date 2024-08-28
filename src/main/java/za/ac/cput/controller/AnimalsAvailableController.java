@@ -3,11 +3,8 @@ package za.ac.cput.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import za.ac.cput.domain.Adoption;
 import za.ac.cput.domain.AnimalsAvailable;
-import za.ac.cput.domain.MedicalRecord;
-import za.ac.cput.service.AdoptionService;
-import za.ac.cput.service.AnimalsAvailableService;
+import za.ac.cput.service.VolunteerService;
 
 import java.util.Set;
 
@@ -16,7 +13,7 @@ import java.util.Set;
 public class AnimalsAvailableController {
 
     @Autowired
-    private AnimalsAvailableService animalsAvailableService;
+    private VolunteerService animalsAvailableService;
 
     @PostMapping("/create")
     public AnimalsAvailable create(@RequestBody AnimalsAvailable animalsAvailable) {

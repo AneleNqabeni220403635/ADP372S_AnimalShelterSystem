@@ -4,7 +4,7 @@ import za.ac.cput.domain.AnimalsAvailable;
 
 import java.util.Set;
 //@Service
-public interface IAnimalsAvailableService /*extends IService<AnimalsAvailable, Long >*/ {
+public interface IVolunteerService /*extends IService<AnimalsAvailable, Long >*/ {
     void delete(Long animalCode);
 
     AnimalsAvailable create(AnimalsAvailable animalsAvailable);

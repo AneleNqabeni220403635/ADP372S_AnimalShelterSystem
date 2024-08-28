@@ -3,17 +3,17 @@ package za.ac.cput.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.AnimalsAvailable;
-import za.ac.cput.repository.AnimalsAvailableRepository;
+import za.ac.cput.repository.VolunteerRepository;
 
 import java.util.Set;
 
 @Service
-public abstract class AnimalsAvailableService implements IAnimalsAvailableService {
+public abstract class VolunteerService implements IAnimalsAvailableService {
 
-    private final AnimalsAvailableRepository animalsAvailableRepository;
+    private final VolunteerRepository animalsAvailableRepository;
 
     @Autowired
-    public AnimalsAvailableService(AnimalsAvailableRepository animalsAvailableRepository) {
+    public VolunteerService(VolunteerRepository animalsAvailableRepository) {
         this.animalsAvailableRepository = animalsAvailableRepository;
     }
 
