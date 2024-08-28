@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class Employee {
+public class Volunteer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,16 +14,20 @@ public class Employee {
     protected String lastName;
     protected String contactNo;
     protected String emailAddress;
+    protected String streetAddress;
+    protected String availability;
 
-    public Employee() {
+    protected Volunteer() {
     }
 
-    private Employee(Builder builder) {
+    private Volunteer(Builder builder) {
         this.id = builder.id;
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
         this.contactNo = builder.contactNo;
         this.emailAddress = builder.emailAddress;
+        this.streetAddress = builder.streetAddress;
+        this.availability = builder.availability;
     }
 
     public Long getId() {
@@ -46,30 +50,42 @@ public class Employee {
         return emailAddress;
     }
 
+    public String getStreetAddress() {
+        return streetAddress;
+    }
+
+    public String getAvailability() {
+        return availability;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Employee employee)) return false;
-        return Objects.equals(getId(), employee.getId()) &&
-                Objects.equals(getFirstName(), employee.getFirstName()) &&
-                Objects.equals(getLastName(), employee.getLastName()) &&
-                Objects.equals(getContactNo(), employee.getContactNo()) &&
-                Objects.equals(getEmailAddress(), employee.getEmailAddress());
+        if (!(o instanceof Volunteer volunteer)) return false;
+        return Objects.equals(getId(), volunteer.getId()) &&
+                Objects.equals(getFirstName(), volunteer.getFirstName()) &&
+                Objects.equals(getLastName(), volunteer.getLastName()) &&
+                Objects.equals(getContactNo(), volunteer.getContactNo()) &&
+                Objects.equals(getEmailAddress(), volunteer.getEmailAddress()) &&
+                Objects.equals(getStreetAddress(), volunteer.getStreetAddress()) &&
+                Objects.equals(getAvailability(), volunteer.getAvailability());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getFirstName(), getLastName(), getContactNo(), getEmailAddress());
+        return Objects.hash(getId(), getFirstName(), getLastName(), getContactNo(), getEmailAddress(), getStreetAddress(), getAvailability());
     }
 
     @Override
     public String toString() {
-        return "Employee{" +
+        return "Volunteer{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", contactNo='" + contactNo + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
+                ", streetAddress='" + streetAddress + '\'' +
+                ", availability='" + availability + '\'' +
                 '}';
     }
 
@@ -79,6 +95,8 @@ public class Employee {
         private String lastName;
         private String contactNo;
         private String emailAddress;
+        private String streetAddress;
+        private String availability;
 
         public Builder setId(Long id) {
             this.id = id;
@@ -105,17 +123,29 @@ public class Employee {
             return this;
         }
 
-        public Builder copy(Employee e) {
-            this.id = e.getId();
-            this.firstName = e.getFirstName();
-            this.lastName = e.getLastName();
-            this.contactNo = e.getContactNo();
-            this.emailAddress = e.getEmailAddress();
+        public Builder setStreetAddress(String streetAddress) {
+            this.streetAddress = streetAddress;
             return this;
         }
 
-        public Employee build() {
-            return new Employee(this);
+        public Builder setAvailability(String availability) {
+            this.availability = availability;
+            return this;
+        }
+
+        public Builder copy(Volunteer v) {
+            this.id = v.getId();
+            this.firstName = v.getFirstName();
+            this.lastName = v.getLastName();
+            this.contactNo = v.getContactNo();
+            this.emailAddress = v.getEmailAddress();
+            this.streetAddress = v.getStreetAddress();
+            this.availability = v.getAvailability();
+            return this;
+        }
+
+        public Volunteer build() {
+            return new Volunteer(this);
         }
     }
 }
