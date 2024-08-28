@@ -37,7 +37,7 @@ public class ApplicantFactoryTest
         assertEquals(validApplicationDate, applicant.getApplicationDate());
         assertEquals(validApplicationStatus, applicant.getApplicationStatus());
         assertEquals(validPetOwner, applicant.getPetOwner());
-        assertEquals(validDog, applicant.getDog());
+        assertEquals(validDog, applicant.getDogId());
     }
 
     @Test
@@ -48,7 +48,7 @@ public class ApplicantFactoryTest
         assertEquals(validApplicationDate, applicant.getApplicationDate());
         assertEquals(validApplicationStatus, applicant.getApplicationStatus());
         assertEquals(validPetOwner, applicant.getPetOwner());
-        assertEquals(validCat, applicant.getCat());
+        assertEquals(validCat, applicant.getCatId());
     }
 
     @Test
