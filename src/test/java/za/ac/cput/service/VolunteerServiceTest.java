@@ -1,11 +1,13 @@
 package za.ac.cput.service;
 
+import za.ac.cput.domain.Volunteer;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import za.ac.cput.domain.AnimalsAvailable;
-import za.ac.cput.domain.MedicalRecord;
 import za.ac.cput.factory.VolunteerFactory;
 
 import java.util.Set;
@@ -13,61 +15,66 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class VolunteerServiceTest {
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class VolunteerServiceTest {
 
     @Autowired
-    private VolunteerService animalsAvailableService;
+    private VolunteerService volunteerService;
 
-    private MedicalRecord medicalRecord1;
-    private MedicalRecord medicalRecord2;
-    private AnimalsAvailable animalsAvailable1;
-    private AnimalsAvailable animalsAvailable2;
+    private static Volunteer volunteer;
 
     @BeforeEach
     void setUp() {
-        animalsAvailable1 = VolunteerFactory.createAnimalAvailable("Felis catus", "British ShortHair", "Male", 4.34, true, medicalRecord1);
-        animalsAvailable2 = VolunteerFactory.createAnimalAvailable("", "", "Female", 5.4, true, medicalRecord2);
+        volunteer= VolunteerFactory.buildVolunteer(3L,"Ketty","Ngodi","0835479366","ketty@gmail.com","Dosert street","online");
     }
 
     @Test
-    void create() {
-        AnimalsAvailable created = animalsAvailableService.create(animalsAvailable1);
-        assertNotNull(created);
-        assertEquals(animalsAvailable1.getAnimalCode(), created.getAnimalCode());
+    @Order(1)
+    void testCreate() {
+        Volunteer createdVolunteer = volunteerService.create(volunteer);
+        assertNotNull(createdVolunteer);
+        assertEquals(volunteer.getFirstName(), createdVolunteer.getFirstName());
+        System.out.println("Created: " + createdVolunteer);
     }
 
     @Test
-    void read() {
-        AnimalsAvailable created = animalsAvailableService.create(animalsAvailable2);
-        AnimalsAvailable read = animalsAvailableService.read(created.getAnimalCode());
-        assertNotNull(read);
-        assertEquals(created.getAnimalCode(), read.getAvailable());
+    @Order(2)
+    void testRead() {
+        Volunteer readVolunteer = volunteerService.read(volunteer.getId());
+        assertNotNull(readVolunteer);
+        assertEquals(volunteer.getFirstName(), readVolunteer.getFirstName());
+        System.out.println("Read: " + readVolunteer);
     }
 
     @Test
-    void update() {
-        AnimalsAvailable created = animalsAvailableService.create(animalsAvailable1);
-        created = new AnimalsAvailable.Builder()
-                .copy(created)
-                .setGender("Male")
+    @Order(3)
+    void testUpdate() {
+        Volunteer updatedVolunteer = new Volunteer.Builder()
+                .copy(volunteer)
+                .setFirstName("Memo")
                 .build();
-        AnimalsAvailable updated = animalsAvailableService.update(created);
-        assertEquals("Male", updated.getGender());
+        Volunteer updated = volunteerService.update(updatedVolunteer);
+        assertNotNull(updated);
+        assertEquals(updatedVolunteer.getFirstName(), updated.getFirstName());
+        System.out.println("Updated: " + updated);
     }
 
     @Test
-    void delete() {
-        AnimalsAvailable created = animalsAvailableService.create(animalsAvailable1);
-        animalsAvailableService.delete(created.getAnimalCode());
-        AnimalsAvailable deleted = animalsAvailableService.read(created.getAnimalCode());
+    @Order(4)
+    void testGetAll() {
+        Set<Volunteer> volunteers = volunteerService.getall();
+        assertNotNull(volunteers);
+        assertFalse(volunteers.isEmpty());
+        System.out.println("All Volunteers: " + volunteers);
+    }
+
+    @Test
+    @Order(5)
+    void testDelete() {
+        volunteerService.delete(volunteer.getId());
+        Volunteer deleted = volunteerService.read(volunteer.getId());
         assertNull(deleted);
+        System.out.println("Deleted");
     }
 
-    @Test
-    void getAll() {
-        animalsAvailableService.create(animalsAvailable1);
-        animalsAvailableService.create(animalsAvailable2);
-        Set<AnimalsAvailable> animalsAvailable = animalsAvailableService.getAll();
-        assertTrue(animalsAvailable.size() >= 2);
-    }
 }
