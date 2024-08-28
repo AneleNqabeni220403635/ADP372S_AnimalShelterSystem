@@ -21,11 +21,11 @@ public class Applicant
     protected PetOwner petOwner;
 
     @OneToOne
-    @JoinColumn(name = "dog_id", nullable = true)
+    @JoinColumn(name = "dog_id")
     protected Dog dogId;
 
     @OneToOne
-    @JoinColumn(name = "cat_id", nullable = true)
+    @JoinColumn(name = "cat_id")
     protected Cat catId;
 
     protected  Applicant()
@@ -114,7 +114,7 @@ public class Applicant
     @Override
     public String toString ()
     {
-        return "IncidentReport{" +
+        return "Applicant{" +
                 "id=" + id + "," +
                 "applicationDate=" + applicationDate + "," +
                 "applicationStatus='" + applicationStatus + "'," +
