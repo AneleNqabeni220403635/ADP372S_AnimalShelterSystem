@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
-import za.ac.cput.domain.Volunteer;
-import za.ac.cput.factory.VolunteerFactory;
+import za.ac.cput.domain.PetOwner;
+import za.ac.cput.factory.PetOwnerFactory;
 
 import java.util.Collections;
 import java.util.Set;
@@ -15,84 +15,84 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class VolunteerControllerTest {
+public class PetOwnerControllerTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private final String BASE_URL = "http://localhost:8080/animalRescue/volunteer";
+    private final String BASE_URL = "http://localhost:8080/animalshelter/petOwner";
 
-    private Volunteer volunteer;
+    private PetOwner petOwner;
 
     @BeforeEach
     public void setUp() {
-        volunteer=VolunteerFactory.buildVolunteer(4L,"ketty","Ngodi","0835479366","ketty@gmail.com","Dosert street","online");
+        petOwner = PetOwnerFactory.buildPetOwner(1L,"Manahil","Jawed", "12345678", "abc@gmail.com","abc street");
     }
+
     @Test
     @Order(1)
-    void testCreateVolunteer() {
+    void testCreatePetOwner() {
         String url = BASE_URL + "/create";
-
-        System.out.println("Sending Volunteer object: " + volunteer);
-        ResponseEntity<Volunteer> response = restTemplate.postForEntity(url, volunteer, Volunteer.class);
-
+        // Log the dog object being sent
+        System.out.println("Sending PetOwner object: " + petOwner);
+        ResponseEntity<PetOwner> response = restTemplate.postForEntity(url, petOwner, PetOwner.class);
+        // Log the response status and body
         System.out.println("Response Status Code: " + response.getStatusCode());
         System.out.println("Response Body: " + response.getBody());
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode()); // Change to HttpStatus.OK if needed
         assertNotNull(response.getBody());
-        Volunteer createdVolunteer = response.getBody();
-        assertEquals(volunteer.getFirstName(), createdVolunteer.getFirstName());
-        System.out.println("Created Volunteer: " + createdVolunteer);
+        PetOwner createdPetOwner = response.getBody();
+        assertEquals(petOwner.getFirstName(), createdPetOwner.getFirstName());
+        System.out.println("Created PetOwner: " + createdPetOwner);
     }
 
     @Test
     @Order(2)
-    void testReadVolunteer() {
-
-        assertNotNull(volunteer.getId(), "Volunteer ID should not be null");
-
-        String url = BASE_URL + "/read/" + volunteer.getId();
-
+    void testReadPetOwner() {
+        // Ensure the dog is created before reading
+        assertNotNull(petOwner.getId(), "PetOwner ID should not be null");
+        // Correct URL format
+        String url = BASE_URL + "/read/" + petOwner.getId();
+        // Log the URL being accessed
         System.out.println("Request URL: " + url);
-        ResponseEntity<Volunteer> response = restTemplate.getForEntity(url, Volunteer.class);
-
+        ResponseEntity<PetOwner> response = restTemplate.getForEntity(url, PetOwner.class);
+        // Log the response status and body
         System.out.println("Response Status Code: " + response.getStatusCode());
         System.out.println("Response Body: " + response.getBody());
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode(), "Expected status code 200 OK");
         assertNotNull(response.getBody(), "Response body should not be null");
-        Volunteer readVolunteer = response.getBody();
-
-        System.out.println("Read Volunteer: " + readVolunteer);
+        PetOwner readPetOwner = response.getBody();
+        // Log the details of the read dog
+        System.out.println("Read PetOwner: " + readPetOwner);
     }
 
     @Test
     @Order(3)
-    void testUpdateVolunteer() {
+    void testUpdatePetOwner() {
         String url = BASE_URL + "/update";
-        Volunteer updatedVolunteer = new Volunteer.Builder()
-                .copy(volunteer)
+        PetOwner updatedPetOwner = new PetOwner.Builder()
+                .copy(petOwner)
                 .setFirstName("Manahil")
                 .setLastName("Jawed")
                 .build();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<Volunteer> request = new HttpEntity<>(updatedVolunteer, headers);
-
-        ResponseEntity<Volunteer> response = restTemplate.exchange(url, HttpMethod.PUT, request, Volunteer.class);
+        HttpEntity<PetOwner> request = new HttpEntity<>(updatedPetOwner, headers);
+        // Using exchange method for PUT request
+        ResponseEntity<PetOwner> response = restTemplate.exchange(url, HttpMethod.PUT, request, PetOwner.class);
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
-        Volunteer updated = response.getBody();
-        assertEquals(updatedVolunteer.getFirstName(), updated.getFirstName());
-        System.out.println("Updated Volunteer: " + updated);
+        PetOwner updated = response.getBody();
+        assertEquals(updatedPetOwner.getFirstName(), updated.getFirstName());
+        System.out.println("Updated PetOwner: " + updated);
     }
-
 
     @Test
     @Order(4)
-    void testGetAllVolunteers() {
+    void testGetAllPetOwners() {
         String url = BASE_URL + "/getall";
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
@@ -102,23 +102,23 @@ public class VolunteerControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
         assertFalse(response.getBody().isEmpty());
-        System.out.println("Show All Volunteers: " + response.getBody());
+        System.out.println("Show All PetOwners: " + response.getBody());
     }
+
 
     @Test
     @Order(5)
-    void testDeleteVolunteer() {
-
-        String deleteUrl = BASE_URL + "/delete/" + volunteer.getId();
+    void testDeletePetOwner() {
+        // DELETE the dog
+        String deleteUrl = BASE_URL + "/delete/" + petOwner.getId();
         restTemplate.delete(deleteUrl);
-
-        String readUrl = BASE_URL + "/read/" + volunteer.getId();
-        ResponseEntity<Volunteer> response = restTemplate.getForEntity(readUrl, Volunteer.class);
-
+        // Verify the deletion by attempting to read the dog
+        String readUrl = BASE_URL + "/read/" + petOwner.getId();
+        ResponseEntity<PetOwner> response = restTemplate.getForEntity(readUrl, PetOwner.class);
+        // Log the result
         System.out.println("Response Status Code after deletion attempt: " + response.getStatusCode());
         System.out.println("Response Body after deletion attempt: " + response.getBody());
 
     }
-
 
 }
