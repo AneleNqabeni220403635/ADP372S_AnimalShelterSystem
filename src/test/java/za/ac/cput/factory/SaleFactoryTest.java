@@ -22,9 +22,9 @@ public class SaleFactoryTest {
                 .setId(1L)
                 .setPetOwner(null) // Assuming null for simplicity
                 .setApplicationDate(LocalDate.now())
-                .setDog(null)
-                .setCat(null)
-                .setApplicationStatus("Pending")
+                .setDogId(null)
+                .setCatId(null)
+                .setStatus("Pending")
                 .build();
 
         employee = new Employee.Builder()
