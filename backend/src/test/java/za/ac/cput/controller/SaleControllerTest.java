@@ -22,7 +22,7 @@ public class SaleControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private final String BASE_URL = "http://localhost:8080/animalshelterdb/sale";
+    private final String BASE_URL = "http://localhost:8080/animalshelter/sale";
 
     private Sale sale;
 
