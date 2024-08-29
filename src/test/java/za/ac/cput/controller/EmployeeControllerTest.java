@@ -20,7 +20,7 @@ public class EmployeeControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private final String BASE_URL = "http://localhost:8080/animalRescue/employee";
+    private final String BASE_URL = "http://localhost:8080/animalshelter/employee";
 
     private Employee employee;
 

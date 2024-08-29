@@ -20,7 +20,7 @@ public class CatControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private final String BASE_URL = "http://localhost:8080/animalshelterdb/cat";
+    private final String BASE_URL = "http://localhost:8080/animalshelter/cat";
 
     private static Cat whiskers;
 
