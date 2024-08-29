@@ -6,7 +6,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-public class Applicant {
+public class Applicant
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
@@ -27,10 +28,12 @@ public class Applicant {
 
     protected String status;
 
-    public Applicant() {
+    public Applicant()
+    {
     }
 
-    private Applicant(Builder builder) {
+    private Applicant(Builder builder)
+    {
         this.id = builder.id;
         this.petOwner = builder.petOwner;
         this.applicationDate = builder.applicationDate;
@@ -39,35 +42,46 @@ public class Applicant {
         this.status = builder.status;
     }
 
-    public Long getId() {
+    public Long getId()
+    {
         return id;
     }
 
-    public PetOwner getPetOwner() {
+    public PetOwner getPetOwner()
+    {
         return petOwner;
     }
 
-    public LocalDate getApplicationDate() {
+    public LocalDate getApplicationDate()
+    {
         return applicationDate;
     }
 
-    public Dog getDogId() {
+    public Dog getDogId()
+    {
         return dogId;
     }
 
-    public Cat getCatId() {
+    public Cat getCatId()
+    {
         return catId;
     }
 
-    public String getStatus() {
+    public String getStatus()
+    {
         return status;
     }
 
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Applicant applicant)) return false;
+    public boolean equals(Object o)
+    {
+        if (this == o)
+            return true;
+
+        if (!(o instanceof Applicant applicant))
+            return false;
+
         return Objects.equals(getId(), applicant.getId()) &&
                 Objects.equals(getPetOwner(), applicant.getPetOwner()) &&
                 Objects.equals(getApplicationDate(), applicant.getApplicationDate()) &&
@@ -77,12 +91,14 @@ public class Applicant {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return Objects.hash(getId(), getPetOwner(), getApplicationDate(), getDogId(), getCatId(), getStatus());
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Applicant{" +
                 "id=" + id +
                 ", petOwner=" + petOwner +
