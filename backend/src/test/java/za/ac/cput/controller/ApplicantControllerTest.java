@@ -33,7 +33,7 @@ public class ApplicantControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private final String BASE_URL = "http://localhost:8080/animalRescue/applicant";
+    private final String BASE_URL = "http://localhost:8080/animalshelter/applicant";
     private Applicant applicant;
 
     @BeforeEach
