@@ -25,7 +25,7 @@ public class OwnerRecordControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private final String BASE_URL = "http://localhost:8080/animalRescue/ownerRecord";
+    private final String BASE_URL = "http://localhost:8080/animalshelter/ownerRecord";
 
     private OwnerRecord ownerRecord;
 

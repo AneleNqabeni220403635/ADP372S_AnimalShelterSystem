@@ -41,7 +41,7 @@ public class DogControllerTest {
         System.out.println("Response Status Code: " + response.getStatusCode());
         System.out.println("Response Body: " + response.getBody());
         assertNotNull(response);
-        assertEquals(HttpStatus.OK, response.getStatusCode()); // Change to HttpStatus.OK if needed
+        assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
         Dog createdDog = response.getBody();
         assertEquals(roxy.getName(), createdDog.getName());
