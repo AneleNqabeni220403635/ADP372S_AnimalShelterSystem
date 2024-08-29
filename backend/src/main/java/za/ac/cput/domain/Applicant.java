@@ -105,11 +105,12 @@ public class Applicant
                 ", applicationDate=" + applicationDate +
                 ", dogId=" + dogId +
                 ", catId=" + catId +
-                ", status='" + status + '\'' +
+                ", status='" + status + "'" +
                 '}';
     }
 
-    public static class Builder {
+    public static class Builder
+    {
         private Long id;
         private PetOwner petOwner;
         private LocalDate applicationDate;
@@ -117,37 +118,44 @@ public class Applicant
         private Cat catId;
         private String status;
 
-        public Builder setId(Long id) {
+        public Builder setId(Long id)
+        {
             this.id = id;
             return this;
         }
 
-        public Builder setPetOwner(PetOwner petOwner) {
+        public Builder setPetOwner(PetOwner petOwner)
+        {
             this.petOwner = petOwner;
             return this;
         }
 
-        public Builder setApplicationDate(LocalDate applicationDate) {
+        public Builder setApplicationDate(LocalDate applicationDate)
+        {
             this.applicationDate = applicationDate;
             return this;
         }
 
-        public Builder setDogId(Dog dogId) {
+        public Builder setDogId(Dog dogId)
+        {
             this.dogId = dogId;
             return this;
         }
 
-        public Builder setCatId(Cat catId) {
+        public Builder setCatId(Cat catId)
+        {
             this.catId = catId;
             return this;
         }
 
-        public Builder setStatus(String status) {
+        public Builder setStatus(String status)
+        {
             this.status = status;
             return this;
         }
 
-        public Builder copy(Applicant a) {
+        public Builder copy(Applicant a)
+        {
             this.id = a.getId();
             this.petOwner = a.getPetOwner();
             this.applicationDate = a.getApplicationDate();
