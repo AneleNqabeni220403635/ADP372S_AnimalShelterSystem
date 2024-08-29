@@ -6,47 +6,45 @@ import za.ac.cput.domain.Applicant;
 import za.ac.cput.repository.ApplicantRepository;
 import za.ac.cput.service.Impl.IApplicantService;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ApplicantService implements IApplicantService {
-
     private final ApplicantRepository repository;
 
     @Autowired
-    public ApplicantService(ApplicantRepository repository)
-    {
+    public ApplicantService(ApplicantRepository repository) {
+
         this.repository = repository;
     }
 
-    @Override
+
     public Applicant create(Applicant applicant) {
+
         return repository.save(applicant);
     }
 
-    @Override
+
     public Applicant read(Long id) {
+
         return repository.findById(id).orElse(null);
     }
 
-    @Override
+
     public Applicant update(Applicant applicant) {
-        if (repository.existsById(applicant.getId())) {
-            return repository.save(applicant);
-        }
-        return null;
+        return repository.save(applicant);
     }
 
-    public Set<Applicant> getAll() {
-        return new HashSet<>(repository.findAll());
-    }
 
-    @Override
     public void delete(Long id) {
-        if (repository.existsById(id))
-        {
-            repository.deleteById(id);
-        }
+
+        repository.deleteById(id);
+    }
+
+
+    public Set<Applicant> getall() {
+
+        return repository.findAll().stream().collect(Collectors.toSet());
     }
 }

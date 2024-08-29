@@ -20,7 +20,7 @@ public class DogServiceTest {
     private DogService dogService;
 
     private static Dog roxy = new Dog.Builder()
-            .setDogId(4L)
+            .setDogId(1L)
             .setAge(8)
             .setBreed("Pitbull")
             .setCageNumber(107)

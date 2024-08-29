@@ -11,64 +11,91 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ApplicantFactoryTest
-{
-    private LocalDate validApplicationDate;
-    private String validApplicationStatus;
-    private PetOwner validPetOwner;
-    private Dog validDog;
-    private Cat validCat;
+public class ApplicantFactoryTest {
+    private PetOwner petOwner;
+    private Dog dog;
+    private Cat cat;
 
     @BeforeEach
-    protected void setup()
-    {
-        validApplicationDate = LocalDate.now();
-        validApplicationStatus = Applicant.Statuses[0];
-        validPetOwner = PetOwnerFactory.buildPetOwner("Jack", "Parrow", "0211234567", "parrowj@cput.ac.za", "1 Roeland Street, Cape Town, 8000");
-        validDog = DogFactory.buildDog("Simba", "Medium", 7, "Male", "Rottweiler", 104);
-        validCat = CatFactory.buildCat("Garfield", "Large",5, "Male", "Maincoon", 55 );
+    void setUp() {
+        petOwner = new PetOwner.Builder()
+                .setId(1L)
+                .setFirstName("Jack")
+                .setContactNo("parrowj@cput.ac.za")
+                .build();
+
+        dog = new Dog.Builder()
+                .setDogId(1L)
+                .setName("Buddy")
+                .setSize("Medium")
+                .setAge(5)
+                .setGender("Male")
+                .setBreed("Labrador")
+                .setCageNumber(101)
+                .build();
+
+        cat = new Cat.Builder()
+                .setCatId(1L)
+                .setName("Whiskers")
+                .setSize("Small")
+                .setAge(4)
+                .setGender("Female")
+                .setBreed("Siamese")
+                .setCageNumber(201)
+                .build();
     }
 
     @Test
-    protected void testCreateApplicantWithValidInput_Dog()
-    {
-        Applicant applicant = ApplicantFactory.createApplicant(validApplicationDate, validApplicationStatus, validPetOwner, validDog, null);
+    void testBuildApplicantWithId() {
+        Applicant applicant = ApplicantFactory.buildApplicant(1L, petOwner, LocalDate.now(), dog, cat, "Pending");
+
         assertNotNull(applicant);
-        assertEquals(validApplicationDate, applicant.getApplicationDate());
-        assertEquals(validApplicationStatus, applicant.getApplicationStatus());
-        assertEquals(validPetOwner, applicant.getPetOwner());
-        assertEquals(validDog, applicant.getDogId());
+        assertEquals(1L, applicant.getId());
+        assertEquals(petOwner, applicant.getPetOwner());
+        assertEquals(LocalDate.now(), applicant.getApplicationDate());
+        assertEquals(dog, applicant.getDogId());
+        assertEquals(cat, applicant.getCatId());
+        assertEquals("Pending", applicant.getStatus());
     }
 
     @Test
-    protected void testCreateApplicantWithValidInput_Cat()
-    {
-        Applicant applicant = ApplicantFactory.createApplicant(validApplicationDate, validApplicationStatus, validPetOwner, null, validCat);
+    void testBuildApplicantWithoutId() {
+        Applicant applicant = ApplicantFactory.buildApplicant(petOwner, LocalDate.now(), dog, cat, "Approved");
+
         assertNotNull(applicant);
-        assertEquals(validApplicationDate, applicant.getApplicationDate());
-        assertEquals(validApplicationStatus, applicant.getApplicationStatus());
-        assertEquals(validPetOwner, applicant.getPetOwner());
-        assertEquals(validCat, applicant.getCatId());
+        assertNotNull(applicant.getId());
+        assertEquals(petOwner, applicant.getPetOwner());
+        assertEquals(LocalDate.now(), applicant.getApplicationDate());
+        assertEquals(dog, applicant.getDogId());
+        assertEquals(cat, applicant.getCatId());
+        assertEquals("Approved", applicant.getStatus());
     }
 
     @Test
-    protected void testCreateApplicantWithInvalidApplicationStatus()
-    {
-        Applicant applicant = ApplicantFactory.createApplicant(validApplicationDate, "", validPetOwner, null, null);
+    void testBuildApplicantWithInvalidData() {
+        Applicant applicant = ApplicantFactory.buildApplicant(null, null, null, null, "");
+
         assertNull(applicant);
     }
 
     @Test
-    protected void testCreateApplicantWithNullApplicationStatus()
-    {
-        Applicant applicant = ApplicantFactory.createApplicant(validApplicationDate, null, validPetOwner, validDog, null);
+    void testBuildApplicantWithNullPetOwner() {
+        Applicant applicant = ApplicantFactory.buildApplicant(1L, null, LocalDate.now(), dog, cat, "Pending");
+
         assertNull(applicant);
     }
 
     @Test
-    protected void testCreateApplicantWithNullPetOwner()
-    {
-        Applicant applicant = ApplicantFactory.createApplicant(validApplicationDate, null, null, validDog, null);
+    void testBuildApplicantWithNullApplicationDate() {
+        Applicant applicant = ApplicantFactory.buildApplicant(1L, petOwner, null, dog, cat, "Pending");
+
+        assertNull(applicant);
+    }
+
+    @Test
+    void testBuildApplicantWithNullStatus() {
+        Applicant applicant = ApplicantFactory.buildApplicant(1L, petOwner, LocalDate.now(), dog, cat, null);
+
         assertNull(applicant);
     }
 }

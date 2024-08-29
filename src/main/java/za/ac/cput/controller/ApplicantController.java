@@ -41,6 +41,6 @@ public class ApplicantController
     @GetMapping("/getAll")
     public Set<Applicant> getAll()
     {
-        return applicantService.getAll();
+        return applicantService.getall();
     }
 }

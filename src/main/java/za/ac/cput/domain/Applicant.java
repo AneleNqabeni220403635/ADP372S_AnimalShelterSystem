@@ -6,19 +6,16 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-public class Applicant
-{
+public class Applicant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private LocalDate applicationDate;
-
-    private String applicationStatus;
+    protected Long id;
 
     @ManyToOne
     @JoinColumn(name = "petOwner_id", nullable = false)
     protected PetOwner petOwner;
+
+    protected LocalDate applicationDate;
 
     @OneToOne
     @JoinColumn(name = "dog_id")
@@ -28,126 +25,84 @@ public class Applicant
     @JoinColumn(name = "cat_id")
     protected Cat catId;
 
-    protected  Applicant()
-    {
+    protected String status;
+
+    public Applicant() {
     }
 
-    private Applicant(Builder builder)
-    {
+    private Applicant(Builder builder) {
         this.id = builder.id;
-        this.applicationDate = builder.applicationDate;
-        this.applicationStatus = builder.applicationStatus;
         this.petOwner = builder.petOwner;
+        this.applicationDate = builder.applicationDate;
         this.dogId = builder.dogId;
         this.catId = builder.catId;
+        this.status = builder.status;
     }
 
     public Long getId() {
         return id;
     }
 
+    public PetOwner getPetOwner() {
+        return petOwner;
+    }
+
     public LocalDate getApplicationDate() {
         return applicationDate;
     }
 
-    public String getApplicationStatus() {
-        return applicationStatus;
+    public Dog getDogId() {
+        return dogId;
     }
 
-    public PetOwner getPetOwner() { return petOwner; }
-
-    public Dog getDogId() { return dogId; }
-
-    public Cat getCatId() { return catId; }
-
-    // ever seen the show CatDog? I get the theme song stuck in my head everytime i see these classes
-    // https://www.youtube.com/watch?v=QSFj4vEDZQw
-    // enjoy
-
-    @Transient
-    public static String[] Statuses =  {
-            "Application_Submitted",
-            "Application_Review",
-            "Background_Check",
-            "PreAdoption_Interview",
-            "Home_Visit_Scheduled",
-            "Home_Visit_Completed",
-            "Approved",
-            "Meet_Greet_Scheduled",
-            "Adoption_Pending",
-            "Adoption_Finalized",
-            "Adoption_Denied",
-            "On_Hold",
-            "Withdrawn",
-            "Followup_Scheduled"
-    };
-
-    @Override
-    public int hashCode ()
-    {
-        return Objects.hash(
-                getId(),
-                getApplicationDate(),
-                getApplicationStatus(),
-                getPetOwner(),
-                getDogId(),
-                getCatId()
-        );
+    public Cat getCatId() {
+        return catId;
     }
 
-    @Override
-    public boolean equals (Object o)
-    {
-        if (this == o)
-            return true;
-        if (!(o instanceof Applicant applicant))
-            return false;
+    public String getStatus() {
+        return status;
+    }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Applicant applicant)) return false;
         return Objects.equals(getId(), applicant.getId()) &&
-                Objects.equals(getApplicationDate(), applicant.getApplicationDate()) &&
-                Objects.equals(getApplicationStatus(), applicant.getApplicationStatus()) &&
                 Objects.equals(getPetOwner(), applicant.getPetOwner()) &&
+                Objects.equals(getApplicationDate(), applicant.getApplicationDate()) &&
                 Objects.equals(getDogId(), applicant.getDogId()) &&
-                Objects.equals(getCatId(), applicant.getCatId());
+                Objects.equals(getCatId(), applicant.getCatId()) &&
+                Objects.equals(getStatus(), applicant.getStatus());
     }
 
     @Override
-    public String toString ()
-    {
-        return "Applicant{" +
-                "id=" + id + "," +
-                "applicationDate=" + applicationDate + "," +
-                "applicationStatus='" + applicationStatus + "'," +
-                "petOwner=" + petOwner + "," +
-                "dog=" + ( dogId != null ? dogId.getDogId() : null ) + "," +
-                "cat=" + ( catId != null ? catId.getCatId() : null ) +
-                "}";
+    public int hashCode() {
+        return Objects.hash(getId(), getPetOwner(), getApplicationDate(), getDogId(), getCatId(), getStatus());
     }
 
-    public static class Builder
-    {
+    @Override
+    public String toString() {
+        return "Applicant{" +
+                "id=" + id +
+                ", petOwner=" + petOwner +
+                ", applicationDate=" + applicationDate +
+                ", dogId=" + dogId +
+                ", catId=" + catId +
+                ", status='" + status + '\'' +
+                '}';
+    }
+
+    public static class Builder {
         private Long id;
-        private LocalDate applicationDate;
-        private String applicationStatus;
         private PetOwner petOwner;
+        private LocalDate applicationDate;
         private Dog dogId;
         private Cat catId;
+        private String status;
 
-        public Builder setId (Long id)
-        {
+        public Builder setId(Long id) {
             this.id = id;
-            return this;
-        }
-
-        public Builder setApplicationDate (LocalDate applicationDate)
-        {
-            this.applicationDate = applicationDate;
-            return this;
-        }
-
-        public Builder setApplicationStatus (String applicationStatus)
-        {
-            this.applicationStatus = applicationStatus;
             return this;
         }
 
@@ -156,29 +111,37 @@ public class Applicant
             return this;
         }
 
-        public Builder setDog(Dog dogId) {
+        public Builder setApplicationDate(LocalDate applicationDate) {
+            this.applicationDate = applicationDate;
+            return this;
+        }
+
+        public Builder setDogId(Dog dogId) {
             this.dogId = dogId;
             return this;
         }
 
-        public Builder setCat(Cat catId) {
+        public Builder setCatId(Cat catId) {
             this.catId = catId;
             return this;
         }
 
-        public Builder copy (Applicant applicant)
-        {
-            this.id = applicant.id;
-            this.applicationDate = applicant.applicationDate;
-            this.applicationStatus = applicant.applicationStatus;
-            this.petOwner = applicant.petOwner;
-            this.dogId = applicant.getDogId();
-            this.catId = applicant.getCatId();
+        public Builder setStatus(String status) {
+            this.status = status;
             return this;
         }
 
-        public Applicant build()
-        {
+        public Builder copy(Applicant a) {
+            this.id = a.getId();
+            this.petOwner = a.getPetOwner();
+            this.applicationDate = a.getApplicationDate();
+            this.dogId = a.getDogId();
+            this.catId = a.getCatId();
+            this.status = a.getStatus();
+            return this;
+        }
+
+        public Applicant build() {
             return new Applicant(this);
         }
     }
