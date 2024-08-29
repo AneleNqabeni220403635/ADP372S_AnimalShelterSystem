@@ -60,10 +60,10 @@ public class SaleControllerTest {
 
         Applicant applicant= new Applicant.Builder()
                 .setId(1L)
-                .setCat(cat)
-                .setDog(dog)
+                .setCatId(cat)
+                .setDogId(dog)
                 .setPetOwner(petOwner)
-                .setApplicationStatus("processing")
+                .setStatus("processing")
                 .setApplicationDate(LocalDate.now())
                 .build();
 
