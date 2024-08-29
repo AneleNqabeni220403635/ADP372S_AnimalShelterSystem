@@ -25,7 +25,7 @@ public class VolunteerServiceTest {
 
     @BeforeEach
     void setUp() {
-        volunteer= VolunteerFactory.buildVolunteer(3L,"Ketty","Ngodi","0835479366","ketty@gmail.com","Dosert street","online");
+        volunteer= VolunteerFactory.buildVolunteer(1L,"Ketty","Ngodi","0835479366","ketty@gmail.com","Dosert street","online");
     }
 
     @Test

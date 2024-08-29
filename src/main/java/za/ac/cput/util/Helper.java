@@ -50,7 +50,5 @@ public class Helper {
         return System.currentTimeMillis();
     }
 
-
-
 }
 
