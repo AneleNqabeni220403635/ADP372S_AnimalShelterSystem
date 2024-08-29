@@ -13,7 +13,9 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import za.ac.cput.domain.Applicant;
+import za.ac.cput.domain.PetOwner;
 import za.ac.cput.factory.ApplicantFactory;
+import za.ac.cput.factory.PetOwnerFactory;
 
 import java.time.LocalDate;
 
@@ -30,15 +32,17 @@ public class ApplicantControllerTest
     @LocalManagementPort
     private int managementPort;
     private Applicant applicant;
+    private PetOwner petOwner;
 
     private final String BASE_URL = "";
 
     @BeforeEach
     public void setUp()
     {
+        petOwner = PetOwnerFactory.buildPetOwner("Jack","Parrow", "0721234567", "parrowj@cput.ac.za", "80 Constitution Street, Cape Town, 7925");
         applicant = ApplicantFactory.createApplicant(
                 LocalDate.now(),
-                "Application Submitted"
+                "Application Submitted",petOwner, null, null
         );
     }
 

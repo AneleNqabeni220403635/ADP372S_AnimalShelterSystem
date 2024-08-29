@@ -23,7 +23,7 @@ public class ApplicantFactoryTest
     protected void setup()
     {
         validApplicationDate = LocalDate.now();
-        validApplicationStatus = "Application_Submitted";
+        validApplicationStatus = Applicant.Statuses[0];
         validPetOwner = PetOwnerFactory.buildPetOwner("Jack", "Parrow", "0211234567", "parrowj@cput.ac.za", "1 Roeland Street, Cape Town, 8000");
         validDog = DogFactory.buildDog("Simba", "Medium", 7, "Male", "Rottweiler", 104);
         validCat = CatFactory.buildCat("Garfield", "Large",5, "Male", "Maincoon", 55 );
@@ -37,7 +37,7 @@ public class ApplicantFactoryTest
         assertEquals(validApplicationDate, applicant.getApplicationDate());
         assertEquals(validApplicationStatus, applicant.getApplicationStatus());
         assertEquals(validPetOwner, applicant.getPetOwner());
-        assertEquals(validDog, applicant.getDog());
+        assertEquals(validDog, applicant.getDogId());
     }
 
     @Test
@@ -48,7 +48,7 @@ public class ApplicantFactoryTest
         assertEquals(validApplicationDate, applicant.getApplicationDate());
         assertEquals(validApplicationStatus, applicant.getApplicationStatus());
         assertEquals(validPetOwner, applicant.getPetOwner());
-        assertEquals(validCat, applicant.getCat());
+        assertEquals(validCat, applicant.getCatId());
     }
 
     @Test

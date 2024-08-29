@@ -21,12 +21,12 @@ public class Applicant
     protected PetOwner petOwner;
 
     @OneToOne
-    @JoinColumn(name = "dog_id", nullable = true)
-    protected Dog dog;
+    @JoinColumn(name = "dog_id")
+    protected Dog dogId;
 
     @OneToOne
-    @JoinColumn(name = "cat_id", nullable = true)
-    protected Cat cat;
+    @JoinColumn(name = "cat_id")
+    protected Cat catId;
 
     protected  Applicant()
     {
@@ -37,6 +37,9 @@ public class Applicant
         this.id = builder.id;
         this.applicationDate = builder.applicationDate;
         this.applicationStatus = builder.applicationStatus;
+        this.petOwner = builder.petOwner;
+        this.dogId = builder.dogId;
+        this.catId = builder.catId;
     }
 
     public Long getId() {
@@ -53,9 +56,9 @@ public class Applicant
 
     public PetOwner getPetOwner() { return petOwner; }
 
-    public Dog getDog() { return dog; }
+    public Dog getDogId() { return dogId; }
 
-    public Cat getCat() { return cat; }
+    public Cat getCatId() { return catId; }
 
     // ever seen the show CatDog? I get the theme song stuck in my head everytime i see these classes
     // https://www.youtube.com/watch?v=QSFj4vEDZQw
@@ -87,8 +90,8 @@ public class Applicant
                 getApplicationDate(),
                 getApplicationStatus(),
                 getPetOwner(),
-                getDog(),
-                getCat()
+                getDogId(),
+                getCatId()
         );
     }
 
@@ -104,20 +107,20 @@ public class Applicant
                 Objects.equals(getApplicationDate(), applicant.getApplicationDate()) &&
                 Objects.equals(getApplicationStatus(), applicant.getApplicationStatus()) &&
                 Objects.equals(getPetOwner(), applicant.getPetOwner()) &&
-                Objects.equals(getDog(), applicant.getDog()) &&
-                Objects.equals(getCat(), applicant.getCat());
+                Objects.equals(getDogId(), applicant.getDogId()) &&
+                Objects.equals(getCatId(), applicant.getCatId());
     }
 
     @Override
     public String toString ()
     {
-        return "IncidentReport{" +
+        return "Applicant{" +
                 "id=" + id + "," +
                 "applicationDate=" + applicationDate + "," +
                 "applicationStatus='" + applicationStatus + "'," +
                 "petOwner=" + petOwner + "," +
-                "dog=" + dog + "," +
-                "cat=" + cat +
+                "dog=" + ( dogId != null ? dogId.getDogId() : null ) + "," +
+                "cat=" + ( catId != null ? catId.getCatId() : null ) +
                 "}";
     }
 
@@ -127,8 +130,8 @@ public class Applicant
         private LocalDate applicationDate;
         private String applicationStatus;
         private PetOwner petOwner;
-        private Dog dog;
-        private Cat cat;
+        private Dog dogId;
+        private Cat catId;
 
         public Builder setId (Long id)
         {
@@ -153,13 +156,13 @@ public class Applicant
             return this;
         }
 
-        public Builder setDog(Dog dog) {
-            this.dog = dog;
+        public Builder setDog(Dog dogId) {
+            this.dogId = dogId;
             return this;
         }
 
-        public Builder setCat(Cat cat) {
-            this.cat = cat;
+        public Builder setCat(Cat catId) {
+            this.catId = catId;
             return this;
         }
 
@@ -169,8 +172,8 @@ public class Applicant
             this.applicationDate = applicant.applicationDate;
             this.applicationStatus = applicant.applicationStatus;
             this.petOwner = applicant.petOwner;
-            this.dog = applicant.dog;
-            this.cat = applicant.cat;
+            this.dogId = applicant.getDogId();
+            this.catId = applicant.getCatId();
             return this;
         }
 
