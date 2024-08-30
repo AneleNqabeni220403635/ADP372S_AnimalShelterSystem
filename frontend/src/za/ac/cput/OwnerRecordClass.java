@@ -10,11 +10,11 @@ public class OwnerRecordClass {
     private String returnDate;
 
     public OwnerRecordClass(DogClass dog,CatClass cat,PetOwnerClass pet,String takenDate,String returnDate) {
-    	this.dog=dog;
-    	this.cat=cat;
-    	this.petOwner=pet;
-    	this.takenDate=takenDate;
-    	this.returnDate=returnDate;
+        this.dog=dog;
+        this.cat=cat;
+        this.petOwner=pet;
+        this.takenDate=takenDate;
+        this.returnDate=returnDate;
     }
 
     public PetOwnerClass getPetOwner() {
@@ -57,8 +57,9 @@ public class OwnerRecordClass {
         this.returnDate = returnDate;
     }
 
-	public byte[] getBytes(String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public byte[] getBytes(String string) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
+

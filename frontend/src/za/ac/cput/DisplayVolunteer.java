@@ -66,7 +66,7 @@ public class DisplayVolunteer extends JPanel {
                 if (rbtnSingleRecord.isSelected()) {
                     String selectedItem = (String) cmbVolunteerId.getSelectedItem();
                     if (selectedItem != null) {
-                        String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
+                        String id = selectedItem.split(" - ")[0];
                         fetchVolunteerDetails(id);
                     }
                 }
@@ -164,18 +164,16 @@ public class DisplayVolunteer extends JPanel {
         });
         add(btnBack);
 
-        // Table setup
         tblAllVolunteers = new JTable();
 //        scrollPane = new JScrollPane(tblAllVolunteers);
 ////        lblVolunteerId.setBounds(150, 155, 150, 30);
 //        scrollPane.setBounds(150, 150, 600, 200);
-//        scrollPane.setVisible(false); // Initially hidden
-//        add(scrollPane);
+//        scrollPane.setVisible(false);
 
-        // Populate ComboBox with volunteer IDs
+
         populateVolunteerIds();
 
-        // Add action listeners for radio buttons
+
         rbtnSingleRecord.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 txtFirstName.setVisible(true);

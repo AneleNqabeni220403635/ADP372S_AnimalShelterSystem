@@ -19,11 +19,11 @@ public class CreateEmployee extends JPanel {
     private JTextField txtContactNo;
     private JTextField txtEmailAddress;
 
-    public CreateEmployee(CardLayout cardLayout, JPanel cardPanel) {
+    public CreateEmployee (CardLayout cardLayout, JPanel cardPanel) {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
-        JLabel lblTitle = new JLabel("Create New Employee Record");
+        JLabel lblTitle = new JLabel("Create New Employee Record:");
         lblTitle.setFont(new Font("Dialog", Font.BOLD, 24));
         lblTitle.setForeground(SystemColor.controlLtHighlight);
         lblTitle.setBounds(240, 81, 350, 40);
@@ -75,7 +75,7 @@ public class CreateEmployee extends JPanel {
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    // Create JSON string for employee
+
                     String jsonInputString = String.format(
                             "{\"firstName\":\"%s\",\"lastName\":\"%s\",\"contactNo\":\"%s\",\"emailAddress\":\"%s\"}",
                             txtFirstName.getText(),
@@ -83,22 +83,22 @@ public class CreateEmployee extends JPanel {
                             txtContactNo.getText(),
                             txtEmailAddress.getText()
 
-                        );
+                    );
 
-                    // Set up HTTP connection to send data to backend
+
                     URL url = new URL("http://localhost:8080/animalshelter/employee/create"); // Update to correct endpoint
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("POST");
                     connection.setRequestProperty("Content-Type", "application/json; utf-8");
                     connection.setDoOutput(true);
 
-                    // Send JSON input string to the backend
+
                     try (OutputStream os = connection.getOutputStream()) {
                         byte[] input = jsonInputString.getBytes("utf-8");
                         os.write(input, 0, input.length);
                     }
 
-                    // Check for successful response
+
                     int responseCode = connection.getResponseCode();
                     StringBuilder response = new StringBuilder();
                     if (responseCode == HttpURLConnection.HTTP_OK) {
@@ -113,10 +113,10 @@ public class CreateEmployee extends JPanel {
                         JSONObject jsonResponse = new JSONObject(response.toString());
                         String employeeId = jsonResponse.optString("id", "No ID returned");
 
-                        JOptionPane.showMessageDialog(null, "Employee created successfully!\nEmployee ID: " + employeeId);
+                        JOptionPane.showMessageDialog(null, "Employee was created successfully!\nEmployee ID: " + employeeId);
                         cardLayout.show(cardPanel, "Employee");
                     } else {
-                        JOptionPane.showMessageDialog(null, "Error: Unable to create Employee.");
+                        JOptionPane.showMessageDialog(null, "Error: Unable to create Employee/s.");
                     }
 
                 } catch (Exception ex) {
@@ -132,7 +132,7 @@ public class CreateEmployee extends JPanel {
         btnBack.setBounds(468, 368, 150, 40);
         btnBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "Employee"); // Change "Employee" to the actual name of the previous panel
+                cardLayout.show(cardPanel, "Employee");
             }
         });
         add(btnBack);

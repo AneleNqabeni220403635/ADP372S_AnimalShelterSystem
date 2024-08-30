@@ -1,6 +1,5 @@
 package za.ac.cput;
 
-
 public class CatClass {
     private String catId;
     private String name;
@@ -20,7 +19,6 @@ public class CatClass {
         this.age = age;
     }
 
-    // Getter and Setter for id
     public String getId() {
         return catId;
     }
@@ -29,7 +27,6 @@ public class CatClass {
         this.catId = id;
     }
 
-    // Getter and Setter for name
     public String getName() {
         return name;
     }
@@ -38,9 +35,8 @@ public class CatClass {
         this.name = name;
     }
 
-    // Getter and Setter for breed
     public String getBreed() {
-    	System.out.print("breead is "+breed);
+        System.out.print("breed is " + breed);
         return breed;
     }
 
@@ -48,7 +44,6 @@ public class CatClass {
         this.breed = breed;
     }
 
-    // Getter and Setter for cageNumber
     public String getCageNumber() {
         return cageNumber;
     }
@@ -57,7 +52,6 @@ public class CatClass {
         this.cageNumber = cageNumber;
     }
 
-    // Getter and Setter for gender
     public String getGender() {
         return gender;
     }
@@ -66,7 +60,6 @@ public class CatClass {
         this.gender = gender;
     }
 
-    // Getter and Setter for size
     public String getSize() {
         return size;
     }
@@ -75,7 +68,6 @@ public class CatClass {
         this.size = size;
     }
 
-    // Getter and Setter for age
     public String getAge() {
         return age;
     }

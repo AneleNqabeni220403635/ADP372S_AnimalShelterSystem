@@ -35,14 +35,14 @@ public class UpdateCat extends JPanel {
         lblTitle.setBounds(254, 55, 350, 40);
         add(lblTitle);
         
-        String[] options = {"Select Cat", "Option 1", "Option 2"}; // Example options
+        String[] options = {"Select Cat", "Option 1", "Option 2"};
         cboOptions = new JComboBox<>(options);
         cboOptions.setBounds(318, 153, 300, 30);
         cboOptions.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String selectedItem = (String) cboOptions.getSelectedItem();
                 if (selectedItem != null) {
-                    String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
+                    String id = selectedItem.split(" - ")[0];
                     fetchCatDetails(id);
                 }
             }
@@ -125,7 +125,7 @@ public class UpdateCat extends JPanel {
         btnBack.setBounds(472, 500, 150, 40);
         btnBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "Cat"); // Change "MainMenu" to the actual name of the main panel
+                cardLayout.show(cardPanel, "Cat");
             }
         });
         add(btnBack);
@@ -141,7 +141,7 @@ public class UpdateCat extends JPanel {
 
     void populateCatIds() {
         try {
-            URL url = new URL("http://localhost:8080/animalshelter/cat/getall"); // Endpoint to get cat IDs
+            URL url = new URL("http://localhost:8080/animalshelter/cat/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Accept", "application/json");
@@ -157,7 +157,7 @@ public class UpdateCat extends JPanel {
                 }
 
                 JSONArray jsonArray = new JSONArray(response.toString());
-                cboOptions.removeAllItems(); // Clear previous items
+                cboOptions.removeAllItems();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     int id = jsonObject.getInt("catId");
@@ -195,10 +195,10 @@ public class UpdateCat extends JPanel {
                 
                 txtName.setText(jsonObject.optString("name", ""));
                 txtSize.setText(jsonObject.optString("size", ""));
-                txtAge.setText(String.valueOf(jsonObject.optInt("age", 0))); // Convert integer to string
+                txtAge.setText(String.valueOf(jsonObject.optInt("age", 0)));
                 txtGender.setText(jsonObject.optString("gender", ""));
                 txtBreed.setText(jsonObject.optString("breed", ""));
-                txtCageNumber.setText(String.valueOf(jsonObject.optInt("cageNumber", 0))); // Convert integer to string
+                txtCageNumber.setText(String.valueOf(jsonObject.optInt("cageNumber", 0)));
 
             } else {
                 JOptionPane.showMessageDialog(null, "Error: Unable to fetch cat details.");
@@ -216,7 +216,7 @@ public class UpdateCat extends JPanel {
             return;
         }
         
-        String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
+        String id = selectedItem.split(" - ")[0];
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("catId", Integer.parseInt(id));

@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="ADP372S_AnimalShelterSystem" options="-parameters" />
+      <module name="ADP372S_AnimalShelterSystem" options="-parameters -verbose -Xlint:all,-options,-path" />
     </option>
   </component>
 </project>

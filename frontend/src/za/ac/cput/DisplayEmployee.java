@@ -29,15 +29,15 @@ public class DisplayEmployee extends JPanel {
         lblTitle.setForeground(SystemColor.controlLtHighlight);
         lblTitle.setBounds(254, 55, 350, 40);
         add(lblTitle);
-        
-        String[] options = {"Select Employee"}; // Initialize with placeholder
+
+        String[] options = {"Select Employee"};
         cboOptions = new JComboBox<>(options);
         cboOptions.setBounds(318, 153, 300, 30);
         cboOptions.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String selectedItem = (String) cboOptions.getSelectedItem();
                 if (selectedItem != null) {
-                    String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
+                    String id = selectedItem.split(" - ")[0];
                     fetchEmployeeDetails(id);
                 }
             }
@@ -93,7 +93,7 @@ public class DisplayEmployee extends JPanel {
         btnBack.setBounds(467, 392, 150, 40);
         btnBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "Employee"); // Navigate back to Employee panel
+                cardLayout.show(cardPanel, "Employee");
             }
         });
         add(btnBack);
@@ -103,13 +103,13 @@ public class DisplayEmployee extends JPanel {
         lblEmployeeId.setFont(new Font("Dialog", Font.BOLD, 16));
         lblEmployeeId.setBounds(139, 152, 150, 30);
         add(lblEmployeeId);
-        
+
         populateEmployeeIds();
     }
-    
+
     private void populateEmployeeIds() {
         try {
-            URL url = new URL("http://localhost:8080/animalshelter/employee/getall"); // Endpoint to get employee IDs
+            URL url = new URL("http://localhost:8080/animalshelter/employee/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Accept", "application/json");
@@ -160,7 +160,7 @@ public class DisplayEmployee extends JPanel {
                 }
 
                 JSONObject jsonObject = new JSONObject(response.toString());
-                
+
                 txtFirstName.setText(jsonObject.optString("firstName", ""));
                 txtLastName.setText(jsonObject.optString("lastName", ""));
                 txtContactNo.setText(jsonObject.optString("contactNo", ""));
