@@ -5,17 +5,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.io.*;
-import za.ac.cput.CatClass;
-import za.ac.cput.DogClass;
-import za.ac.cput.PetOwnerClass;
+
 public class CreatePetOwner extends JPanel {
 
     private static final long serialVersionUID = 1L;
@@ -107,36 +103,32 @@ public class CreatePetOwner extends JPanel {
 
         ButtonGroup petGroup = new ButtonGroup();
 
-        // Buttons
         JButton btnAdd = new JButton("Add");
         btnAdd.setFont(new Font("Dialog", Font.BOLD, 16));
         btnAdd.setBounds(162, 432, 150, 40);
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    // Gather pet owner details
+
                     String firstName = txtFirstName.getText();
                     String lastName = txtLastName.getText();
                     String contactNo = txtContactNo.getText();
                     String emailAddress = txtEmailAddress.getText();
                     String streetAddress = txtStreetAddress.getText();
                     
-                    // Gather pet details based on the selected pet type
                     String selectedPetId = "";
                     
                     String petId = selectedPetId.split(" - ")[0];  // Extract just the ID
                     
 
-                    // Construct JSON payload for pet owner creation
                     String petOwnerJson = String.format(
                         "{\"firstName\":\"%s\",\"lastName\":\"%s\",\"contactNo\":\"%s\",\"emailAddress\":\"%s\",\"streetAddress\":\"%s\"}",
                         firstName, lastName, contactNo, emailAddress, streetAddress
                     );
 
-                    // Send request to create pet owner and get response
                     String responseJson = sendRequest1("http://localhost:8080/animalshelter/petOwner/create", petOwnerJson);
                     if (responseJson != null) {
-                        // Parse the response JSON
+
                         JSONObject responseObject = new JSONObject(responseJson);
                         String createdPetId = String.valueOf(responseObject.optInt("id"));
                         System.out.println(createdPetId);
@@ -151,7 +143,6 @@ public class CreatePetOwner extends JPanel {
                         JOptionPane.showMessageDialog(null, "Created Pet Owner record.");
                         
                       
-                        // Optionally clear form fields or update UI
                     } else {
                         JOptionPane.showMessageDialog(null, "Failed to create Pet Owner record.");
                     }
@@ -168,12 +159,12 @@ public class CreatePetOwner extends JPanel {
         btnCancel.setBounds(464, 432, 150, 40);
         btnCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "Cat"); // Change to appropriate panel name
+                cardLayout.show(cardPanel, "Cat");
             }
         });
         add(btnCancel);
 
-        togglePetSelection(true); // Initialize dropdowns based on default selection
+        togglePetSelection(true);
     }
 
     private void togglePetSelection(boolean isCat) {
@@ -186,7 +177,7 @@ public class CreatePetOwner extends JPanel {
 
     private void fetchCatData() {
         try {
-            URL url = new URL("http://localhost:8080/animalshelter/cat/getall"); // Endpoint to get cat IDs
+            URL url = new URL("http://localhost:8080/animalshelter/cat/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Accept", "application/json");
@@ -228,7 +219,7 @@ public class CreatePetOwner extends JPanel {
 
     private void fetchDogData() {
         try {
-            URL url = new URL("http://localhost:8080/animalshelter/dog/getall"); // Endpoint to get dog IDs
+            URL url = new URL("http://localhost:8080/animalshelter/dog/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Accept", "application/json");
