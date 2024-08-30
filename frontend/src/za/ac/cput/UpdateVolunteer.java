@@ -38,7 +38,6 @@ public class UpdateVolunteer extends JPanel {
         lblVolunteerId.setBounds(150, 115, 150, 30);
         add(lblVolunteerId);
 
-        // ComboBox to select Volunteer ID
         cmbVolunteerId = new JComboBox<>();
         cmbVolunteerId.setBounds(318, 115, 300, 30);
         cmbVolunteerId.addActionListener(new ActionListener() {
@@ -132,13 +131,12 @@ public class UpdateVolunteer extends JPanel {
         });
         add(btnBack);
 
-        // Populate ComboBox with volunteer IDs
         populateVolunteerIds();
     }
 
     private void populateVolunteerIds() {
         try {
-            URL url = new URL("http://localhost:8080/animalshelter/volunteer/getall"); // Endpoint to get volunteer IDs
+            URL url = new URL("http://localhost:8080/animalshelter/volunteer/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Accept", "application/json");
@@ -153,7 +151,7 @@ public class UpdateVolunteer extends JPanel {
                     }
                 }
 
-                // Assuming the response is a JSON array of volunteer objects
+
                 JSONArray jsonArray = new JSONArray(response.toString());
                 cmbVolunteerId.removeAllItems(); // Clear previous items
                 for (int i = 0; i < jsonArray.length(); i++) {
@@ -161,7 +159,7 @@ public class UpdateVolunteer extends JPanel {
                     int id = jsonObject.getInt("id"); // Get ID as an integer
                     String firstName = jsonObject.getString("firstName");
                     String lastName = jsonObject.getString("lastName");
-                    // Format: "ID - FirstName LastName"
+
                     cmbVolunteerId.addItem(String.format("%d - %s %s", id, firstName, lastName));
                 }
             } else {
@@ -217,7 +215,7 @@ public class UpdateVolunteer extends JPanel {
         
         String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
 
-        // Create JSON object from form data
+
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id", id); // Include the ID
         jsonObject.put("firstName", txtFirstName.getText());

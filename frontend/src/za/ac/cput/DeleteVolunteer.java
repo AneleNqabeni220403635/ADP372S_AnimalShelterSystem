@@ -38,7 +38,6 @@ public class DeleteVolunteer extends JPanel {
         lblVolunteerId.setBounds(150, 115, 150, 30);
         add(lblVolunteerId);
 
-        // ComboBox to select Volunteer ID
         cmbVolunteerId = new JComboBox<>();
         cmbVolunteerId.setBounds(318, 115, 300, 30);
         cmbVolunteerId.addActionListener(new ActionListener() {
@@ -138,13 +137,12 @@ public class DeleteVolunteer extends JPanel {
         });
         add(btnBack);
 
-        // Populate ComboBox with volunteer IDs
         populateVolunteerIds();
     }
 
     private void populateVolunteerIds() {
         try {
-            URL url = new URL("http://localhost:8080/animalshelter/volunteer/getall"); // Endpoint to get volunteer IDs
+            URL url = new URL("http://localhost:8080/animalshelter/volunteer/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Accept", "application/json");
@@ -159,9 +157,8 @@ public class DeleteVolunteer extends JPanel {
                     }
                 }
 
-                // Assuming the response is a JSON array of volunteer objects
                 JSONArray jsonArray = new JSONArray(response.toString());
-                cmbVolunteerId.removeAllItems(); // Clear previous items
+                cmbVolunteerId.removeAllItems();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     int id = jsonObject.getInt("id"); // Get ID as an integer
@@ -221,7 +218,7 @@ public class DeleteVolunteer extends JPanel {
         
         String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
 
-        // Create JSON object with only the ID
+
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id", id); // Include only the ID
 
@@ -240,14 +237,14 @@ public class DeleteVolunteer extends JPanel {
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 JOptionPane.showMessageDialog(null, "Volunteer Deleted successfully.");
-                // Optionally, clear the text fields after deletion
+
                 txtFirstName.setText("");
                 txtLastName.setText("");
                 txtContactNo.setText("");
                 txtEmailAddress.setText("");
                 txtStreetAddress.setText("");
                 txtAvailability.setText("");
-                // Optionally, re-populate the ComboBox
+
                 populateVolunteerIds();
             } else {
                 JOptionPane.showMessageDialog(null, "Error: Unable to Delete volunteer.");
