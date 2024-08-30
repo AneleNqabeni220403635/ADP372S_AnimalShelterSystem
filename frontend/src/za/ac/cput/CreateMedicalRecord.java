@@ -27,7 +27,7 @@ public class CreateMedicalRecord extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
-        JLabel lblTitle = new JLabel("Create New Medical Record");
+        JLabel lblTitle = new JLabel("Create A New Medical Record");
         lblTitle.setFont(new Font("Dialog", Font.BOLD, 24));
         lblTitle.setForeground(SystemColor.controlLtHighlight);
         lblTitle.setBounds(218, 43, 450, 40);
@@ -81,12 +81,12 @@ public class CreateMedicalRecord extends JPanel {
         lblNextCheckup.setBounds(150, 274, 136, 30);
         add(lblNextCheckup);
 
-        // Initialize spinnerNextCheckup properly
+
         SpinnerDateModel model = new SpinnerDateModel();
-        model.setValue(new Date()); // Default to current date
+        model.setValue(new Date());
         spinnerNextCheckup = new JSpinner(model); // Initialize the spinner
         JSpinner.DateEditor editor = new JSpinner.DateEditor(spinnerNextCheckup, "yyyy-MM-dd");
-        spinnerNextCheckup.setEditor(editor); // Set the editor after initializing
+        spinnerNextCheckup.setEditor(editor);
         spinnerNextCheckup.setBounds(304, 274, 300, 30);
         add(spinnerNextCheckup);
 
@@ -105,7 +105,7 @@ public class CreateMedicalRecord extends JPanel {
         rdbtnCat.setForeground(SystemColor.controlLtHighlight);
         rdbtnCat.setBackground(new Color(0, 128, 128));
         rdbtnCat.setBounds(150, 386, 100, 30);
-        rdbtnCat.setSelected(true); // Default selection
+        rdbtnCat.setSelected(true);
         rdbtnCat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 togglePetSelection(true);
@@ -154,7 +154,6 @@ public class CreateMedicalRecord extends JPanel {
         });
         add(btnBack);
 
-        // Set default state
         togglePetSelection(true);
     }
 
