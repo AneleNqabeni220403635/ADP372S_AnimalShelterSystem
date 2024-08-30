@@ -23,7 +23,6 @@ public class MedicalRecord extends JPanel {
         btnCreateMedicalRecord.setBounds(274, 198, 228, 46);
         btnCreateMedicalRecord.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Switch to the CreateMedicalRecord panel
                 cardLayout.show(cardPanel, "CreateMedicalRecord");
             }
         });
@@ -33,7 +32,7 @@ public class MedicalRecord extends JPanel {
         btnUpdateMedicalRecord.setBounds(274, 256, 228, 46);
         btnUpdateMedicalRecord.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Switch to the CreateMedicalRecord panel
+
                 cardLayout.show(cardPanel, "UpdateMedicalRecord");
             }
         });
@@ -43,7 +42,6 @@ public class MedicalRecord extends JPanel {
         btnDeleteMedicalRecord.setBounds(274, 316, 228, 46);
         btnDeleteMedicalRecord.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Switch to the CreateMedicalRecord panel
                 cardLayout.show(cardPanel, "DeleteMedicalRecord");
             }
         });
@@ -53,7 +51,6 @@ public class MedicalRecord extends JPanel {
         btnManageMedicalRecord.setBounds(274, 376, 228, 46);
         btnManageMedicalRecord.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Switch to the CreateMedicalRecord panel
                 cardLayout.show(cardPanel, "DisplayMedicalRecord");
             }
         });
