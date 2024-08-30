@@ -23,7 +23,7 @@ public class Volunteer extends JPanel {
         btnCreateVolunteer.setBounds(274, 198, 228, 46);
         btnCreateVolunteer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Switch to the CreateVolunteer panel
+
                 cardLayout.show(cardPanel, "CreateVolunteer");
             }
         });
@@ -33,7 +33,7 @@ public class Volunteer extends JPanel {
         btnUpdateVolunteer.setBounds(274, 256, 228, 46);
         btnUpdateVolunteer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Switch to the CreateVolunteer panel
+
                 cardLayout.show(cardPanel, "UpdateVolunteer");
             }
         });
