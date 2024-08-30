@@ -12,10 +12,10 @@ public class ApplicantClass {
     private String applicationDate;
     private String status;
 
-    public ApplicantClass(PetOwnerClass pet,String applicationDate,DogClass dog,CatClass cat,String status1) {
+    public ApplicantClass(PetOwnerClass pet_owner, String applicationDate, DogClass dog, CatClass cat, String status1) {
     	this.dog=dog;
     	this.cat=cat;
-    	this.petOwner=pet;
+    	this.petOwner=pet_owner;
     	this.applicationDate=applicationDate;
     	this.status=status1;
     }
@@ -44,11 +44,11 @@ public class ApplicantClass {
         this.dog = dog;
     }
 
-    public String getapplicationDate() {
+    public String getApplicationDate() {
         return applicationDate;
     }
 
-    public void setapplicationDate(String applicationDate) {
+    public void setApplicationDate(String applicationDate) {
         this.applicationDate = applicationDate;
     }
 

@@ -14,6 +14,8 @@ import java.awt.Color;
 public class Applicant extends JPanel {
 
     private static final long serialVersionUID = 1L;
+    private static final int widthBtn = 228;
+    private static final int heightBtn = 46;
 
     public Applicant(CardLayout cardLayout, JPanel cardPanel) {
         setLayout(null);
@@ -26,7 +28,7 @@ public class Applicant extends JPanel {
         add(lblApplicantManagement);
 
         JButton btnCreateApplicant = new JButton("Add New Applicant Record");
-        btnCreateApplicant.setBounds(274, 198, 228, 46);
+        btnCreateApplicant.setBounds(274, 198, widthBtn, heightBtn);
         btnCreateApplicant.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Switch to the CreateApplicant panel
@@ -38,7 +40,7 @@ public class Applicant extends JPanel {
         add(btnCreateApplicant);
 
         JButton btnUpdateApplicant = new JButton("Update Applicant Record");
-        btnUpdateApplicant.setBounds(274, 256, 228, 46);
+        btnUpdateApplicant.setBounds(274, 256, widthBtn, heightBtn);
         btnUpdateApplicant.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Switch to the CreateApplicant panel
@@ -50,7 +52,7 @@ public class Applicant extends JPanel {
         add(btnUpdateApplicant);
 
         JButton btnDeleteApplicant = new JButton("Delete Applicant Record");
-        btnDeleteApplicant.setBounds(274, 316, 228, 46);
+        btnDeleteApplicant.setBounds(274, 316, widthBtn, heightBtn);
         btnDeleteApplicant.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Switch to the CreateApplicant panel
@@ -62,7 +64,7 @@ public class Applicant extends JPanel {
         add(btnDeleteApplicant);
 
         JButton btnManageApplicant = new JButton("View Applicant Record");
-        btnManageApplicant.setBounds(274, 376, 228, 46);
+        btnManageApplicant.setBounds(274, 376, widthBtn, heightBtn);
         btnManageApplicant.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Switch to the CreateApplicant panel
