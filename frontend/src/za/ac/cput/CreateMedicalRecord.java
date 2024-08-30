@@ -82,7 +82,7 @@ public class CreateMedicalRecord extends JPanel {
 
         SpinnerDateModel model = new SpinnerDateModel();
         model.setValue(new Date());
-        spinnerNextCheckup = new JSpinner(model); // Initialize the spinner
+        spinnerNextCheckup = new JSpinner(model);
         JSpinner.DateEditor editor = new JSpinner.DateEditor(spinnerNextCheckup, "yyyy-MM-dd");
         spinnerNextCheckup.setEditor(editor);
         spinnerNextCheckup.setBounds(304, 274, 300, 30);

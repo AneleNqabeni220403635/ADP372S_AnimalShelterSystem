@@ -644,7 +644,7 @@ public class CreateApplicant extends JPanel {
         }
 
         jsonObject.put("petOwner", petOwnerJson);
-        jsonObject.put("applicationDate", or.getapplicationDate());
+        jsonObject.put("applicationDate", or.getApplicationDate());
         jsonObject.put("dogId", dogJson != null ? dogJson : JSONObject.NULL);
         jsonObject.put("catId", catJson != null ? catJson : JSONObject.NULL);
         jsonObject.put("status", or.getReturnDate());
