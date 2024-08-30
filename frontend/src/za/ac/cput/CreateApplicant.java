@@ -54,14 +54,12 @@ public class CreateApplicant extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
-        // Title Label
         JLabel lblTitle = new JLabel("Create New Applicant Record");
         lblTitle.setFont(new Font("Dialog", Font.BOLD, 24));
         lblTitle.setForeground(SystemColor.controlLtHighlight);
         lblTitle.setBounds(209, 84, 427, 40);
         add(lblTitle);
 
-        // Pet Owner Dropdown
         JLabel lblPetOwner = new JLabel("Pet Owner:");
         lblPetOwner.setFont(new Font("Dialog", Font.BOLD, 16));
         lblPetOwner.setForeground(SystemColor.controlLtHighlight);
@@ -83,7 +81,6 @@ public class CreateApplicant extends JPanel {
         cboPetOwner.setBounds(318, 155, 300, 30);
         add(cboPetOwner);
 
-        // Radio Buttons for Cat or Dog
         rdbtnCat = new JRadioButton("Cat");
         rdbtnCat.setForeground(SystemColor.controlLtHighlight);
         rdbtnCat.setBackground(new Color(0, 128, 128));
@@ -107,12 +104,10 @@ public class CreateApplicant extends JPanel {
         });
         add(rdbtnDog);
 
-        // Group the radio buttons
         petTypeGroup = new ButtonGroup();
         petTypeGroup.add(rdbtnCat);
         petTypeGroup.add(rdbtnDog);
 
-        // Cat Dropdown
         JLabel lblCat = new JLabel("Select Cat:");
         lblCat.setFont(new Font("Dialog", Font.BOLD, 16));
         lblCat.setForeground(SystemColor.controlLtHighlight);
@@ -135,7 +130,6 @@ public class CreateApplicant extends JPanel {
         cboCat.setEnabled(false); // Initially disabled
         add(cboCat);
 
-        // Dog Dropdown
         JLabel lblDog = new JLabel("Select Dog:");
         lblDog.setFont(new Font("Dialog", Font.BOLD, 16));
         lblDog.setForeground(SystemColor.controlLtHighlight);
@@ -148,7 +142,6 @@ public class CreateApplicant extends JPanel {
         cboDog.setEnabled(false); // Initially disabled
         add(cboDog);
 
-        // Application Date
         JLabel lblApplicationDate = new JLabel("Application Date:");
         lblApplicationDate.setFont(new Font("Dialog", Font.BOLD, 16));
         lblApplicationDate.setForeground(SystemColor.controlLtHighlight);
@@ -162,7 +155,6 @@ public class CreateApplicant extends JPanel {
         date=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         add(this.lblApplicationDate);
 
-        // Status Field
         JLabel lblStatus = new JLabel("Status:");
         lblStatus.setFont(new Font("Dialog", Font.BOLD, 16));
         lblStatus.setForeground(SystemColor.controlLtHighlight);
@@ -175,7 +167,6 @@ public class CreateApplicant extends JPanel {
         txtStatus.setEditable(false);
         add(txtStatus);
 
-        // Buttons
         JButton btnAdd = new JButton("Add");
         btnAdd.setFont(new Font("Dialog", Font.BOLD, 16));
         btnAdd.setBounds(150, 442, 150, 40);
@@ -199,10 +190,9 @@ public class CreateApplicant extends JPanel {
                         }
                     
                   System.out.println("RequestBody is"+petJson);
-                    // Set up HTTP connection to send data to backend
-                    URL url = new URL("http://localhost:8080/animalshelter/applicant/readCatId"); // Replace with your actual endpoint
+                    URL url = new URL("http://localhost:8080/animalshelter/applicant/readCatId");
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestMethod("POST"); // Correct HTTP method
+                    connection.setRequestMethod("POST");
                     connection.setRequestProperty("Content-Type", "application/json; utf-8");
                     connection.setDoOutput(true);
 
@@ -225,7 +215,6 @@ public class CreateApplicant extends JPanel {
                         }
                         System.out.println("Response: " + response);
 
-                        // Parse JSON response to extract details
                         String jsonResponse = response.toString();
                         if (!jsonResponse.isEmpty()) {
                             JSONObject jsonObj = new JSONObject(jsonResponse);
@@ -248,7 +237,6 @@ public class CreateApplicant extends JPanel {
                                   System.out.println("pet owner"+pet.getEmailAddress());
                                                  
                                   ApplicantClass or=new ApplicantClass(pet,date,null,cat1,"pending");
-                                  // Send request to create owner record
                                   System.out.println("Object"+or.getCat().getId());
                                   System.out.println("Object"+or.getPetOwner().getContactNo());
                                   System.out.println("Object"+or.getReturnDate());
@@ -258,7 +246,6 @@ public class CreateApplicant extends JPanel {
                                   System.out.println("Object: " + or);
                                   sendRequest(url1, or);
                                   JOptionPane.showMessageDialog(null, "Applicant created successfully!");
-//                            JOptionPane.showMessageDialog(null, "Empty response received from the server.");
                         }
                     } 
                     else {
@@ -281,7 +268,6 @@ public class CreateApplicant extends JPanel {
                              }
                          
                        System.out.println("RequestBody is"+petJson);
-                         // Set up HTTP connection to send data to backend
                          URL url = new URL("http://localhost:8080/animalshelter/applicant/readDogId"); // Replace with your actual endpoint
                          HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                          connection.setRequestMethod("POST"); // Correct HTTP method
@@ -307,7 +293,6 @@ public class CreateApplicant extends JPanel {
                              }
                              System.out.println("Response: " + response);
 
-                             // Parse JSON response to extract details
                              String jsonResponse = response.toString();
                              if (!jsonResponse.isEmpty()) {
                                  JSONObject jsonObj = new JSONObject(jsonResponse);
@@ -330,11 +315,6 @@ public class CreateApplicant extends JPanel {
                                        System.out.println("pet owner"+pet.getEmailAddress());
                                                       
                                        ApplicantClass or=new ApplicantClass(pet,date,cat1,null,"pending");
-//                                       // Send request to create owner record
-//                                       System.out.println("Object"+or.getCat().getId());
-//                                       System.out.println("Object"+or.getPetOwner().getContactNo());
-//                                       System.out.println("Object"+or.getReturnDate());
-//                                       System.out.println("Or Object"+or);
                                        
                                        String url1 = "http://localhost:8080/animalshelter/applicant/create";
                                        System.out.println("Object: " + or);
@@ -362,13 +342,11 @@ public class CreateApplicant extends JPanel {
         btnBack.setBounds(468, 442, 150, 40);
         btnBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "Applicant"); // Change "Applicant" to the actual name of the main panel
+                cardLayout.show(cardPanel, "Applicant");
             }
         });
         add(btnBack);
 
-        // Default state: Cat radio button selected
-        // Enable the Cat dropdown by default
         fetchPetOwnerData();
         togglePetSelection(true);
     }

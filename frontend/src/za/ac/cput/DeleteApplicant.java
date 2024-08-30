@@ -120,7 +120,7 @@ public class DeleteApplicant extends JPanel {
         rdbtnDog.setForeground(SystemColor.controlLtHighlight);
         rdbtnDog.setBackground(new Color(0, 128, 128));
         rdbtnDog.setBounds(252, 223, 100, 30);
-        rdbtnDog.setEnabled(false); // Initially disabled
+        rdbtnDog.setEnabled(false);
         rdbtnDog.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 toggleDropdowns(false);
@@ -128,12 +128,10 @@ public class DeleteApplicant extends JPanel {
         });
         add(rdbtnDog);
 
-        // Group the radio buttons
         petTypeGroup = new ButtonGroup();
         petTypeGroup.add(rdbtnCat);
         petTypeGroup.add(rdbtnDog);
 
-        // Cat Dropdown
         JLabel lblCat = new JLabel("Select Cat:");
         lblCat.setFont(new Font("Dialog", Font.BOLD, 16));
         lblCat.setForeground(SystemColor.controlLtHighlight);
@@ -146,7 +144,6 @@ public class DeleteApplicant extends JPanel {
         cboCat.setEnabled(false); // Initially disabled
         add(cboCat);
 
-        // Dog Dropdown
         JLabel lblDog = new JLabel("Select Dog:");
         lblDog.setFont(new Font("Dialog", Font.BOLD, 16));
         lblDog.setForeground(SystemColor.controlLtHighlight);
@@ -159,7 +156,6 @@ public class DeleteApplicant extends JPanel {
         cboDog.setEnabled(false); // Initially disabled
         add(cboDog);
 
-        // Application Date
         JLabel lblApplicationDate = new JLabel("Application Date:");
         lblApplicationDate.setFont(new Font("Dialog", Font.BOLD, 16));
         lblApplicationDate.setForeground(SystemColor.controlLtHighlight);
@@ -173,7 +169,6 @@ public class DeleteApplicant extends JPanel {
         date=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         add(this.lblApplicationDate);
 
-        // Status Field
         JLabel lblStatus = new JLabel("Status:");
         lblStatus.setFont(new Font("Dialog", Font.BOLD, 16));
         lblStatus.setForeground(SystemColor.controlLtHighlight);
@@ -186,7 +181,6 @@ public class DeleteApplicant extends JPanel {
         txtStatus.setEnabled(false); // Initially disabled
         add(txtStatus);
 
-        // Buttons
         JButton btnAdd = new JButton("Delete");
         btnAdd.setFont(new Font("Dialog", Font.BOLD, 16));
         btnAdd.addActionListener(new ActionListener() {
@@ -212,15 +206,8 @@ public class DeleteApplicant extends JPanel {
                                  int check= DeleteApplicant();
                                  if(check==1) {
                                 	 JOptionPane.showMessageDialog(null, "Applicant deleted successfully!");
-//                                  String url1 = "http://localhost:8080/animalshelter/applicant/update";
-//                                  System.out.println("Object: " + or);
-//                                  sendRequest(url1, or);
-                                  
                                  }
-                              
-                        
-                    } 
-                    
+                    }
                     else
                     {	
                              	System.out.println(petFinalId+""+petName+""+petBreed+""+petCageNo+""+petGender+""+petsize+""+petAge);
@@ -230,21 +217,11 @@ public class DeleteApplicant extends JPanel {
                                        System.out.println("pet owner"+pet.getEmailAddress());
                                                       
                                        ApplicantClass or=new ApplicantClass(pet,date,cat1,null,"pending");
-//                                       // Send request to create owner record
-//                                       System.out.println("Object"+or.getCat().getId());
-//                                       System.out.println("Object"+or.getPetOwner().getContactNo());
-//                                       System.out.println("Object"+or.getReturnDate());
-//                                       System.out.println("Or Object"+or);
                                        int check=DeleteApplicant();
                                        
                                        if(check==1) {
-//                                           String url1 = "http://localhost:8080/animalshelter/applicant/update";
-//                                           System.out.println("Object: " + or);
-//                                           sendRequest(url1, or);
                                     	   JOptionPane.showMessageDialog(null, "Applicant deleted successfully!");
-                                          
                                           }
-                                       
                              }
                     }
                 catch (Exception ex) {
@@ -262,16 +239,13 @@ public class DeleteApplicant extends JPanel {
         btnBack.setBounds(468, 442, 150, 40);
         btnBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "Applicant"); // Change "Applicant" to the actual name of the main panel
+                cardLayout.show(cardPanel, "Applicant");
             }
         });
         add(btnBack);
-
-        // Default state: Cat radio button selected
         rdbtnCat.setSelected(true);
-        toggleDropdowns(true); // Enable the Cat dropdown by default
+        toggleDropdowns(true);
 
-        // Initially disable all fields
         setFieldsEnabled(false);
         fetchApplicantData();
     }
@@ -293,7 +267,7 @@ public class DeleteApplicant extends JPanel {
     
 private void fetchApplicantData() {
     try {
-        URL url = new URL("http://localhost:8080/animalshelter/applicant/readStatus/Pending"); // Endpoint to get applicant data
+        URL url = new URL("http://localhost:8080/animalshelter/applicant/readStatus/Pending");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Accept", "application/json");
@@ -309,7 +283,7 @@ private void fetchApplicantData() {
             }
 
             JSONArray jsonArray = new JSONArray(response.toString());
-            cboApplicantID.removeAllItems(); // Clear previous items
+            cboApplicantID.removeAllItems();
             
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -354,15 +328,13 @@ private void fetchApplicantData() {
                     selectedPet="dog";
                 }
 
-                // Delete the Applicant ID dropdown
                 cboApplicantID.addItem(String.format("%s - %s - %s", applicantId, applicationDate,applicationStatus));
             }
-
-        } else {
+        } else
+        {
             JOptionPane.showMessageDialog(null, "Error: Unable to fetch applicant data.");
         }
-    } 
-    
+    }
     catch (Exception ex) {
         ex.printStackTrace();
         JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
@@ -388,20 +360,18 @@ private void fetchApplicantDetails(String id) {
                 }
             }
 
-            JSONObject jsonObject = new JSONObject(response.toString()); // Parse as JSONObject
-            
-//            // Clear previous items
+            JSONObject jsonObject = new JSONObject(response.toString());
+
             cboApplicantID.removeAllItems();
             cboCat.removeAllItems();
             cboDog.removeAllItems();
             cboPetOwner.removeAllItems();
 
-            // Extract Applicant Data
             applicantId = jsonObject.optString("id", "No ID");
             applicationDate = jsonObject.optString("applicationDate", "No Date");
             applicationStatus = jsonObject.optString("status", "No Status");
             txtStatus.setText(applicationStatus);
-            // Extract Pet Owner Data
+
             JSONObject petOwner = jsonObject.optJSONObject("petOwner");
             if (petOwner != null) {
                 petOwnerId = petOwner.optString("id", "No ID");
@@ -414,7 +384,7 @@ private void fetchApplicantDetails(String id) {
                 cboPetOwner.addItem(String.format("%s - %s - %s", petOwnerId, petOwnerfirstName, petOwnerlastName));
             }
 
-            // Extract Pet Data (Cat or Dog)
+
             JSONObject catId = jsonObject.optJSONObject("catId");
             JSONObject dogId = jsonObject.optJSONObject("dogId");
 
@@ -440,7 +410,7 @@ private void fetchApplicantDetails(String id) {
                 cboDog.addItem(String.format("%s - %s - %s", petFinalId, petName, petsize));
             }
 
-            // Delete the Applicant ID dropdown
+
             cboApplicantID.addItem(String.format("%s - %s - %s", applicantId, applicationDate, applicationStatus));
         } else {
             JOptionPane.showMessageDialog(null, "Error: Unable to fetch applicant details.");
@@ -450,6 +420,7 @@ private void fetchApplicantDetails(String id) {
         JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
     }
 }
+
 private String sendRequest(String url, ApplicantClass or) throws Exception {
     URL url1 = new URL(url);
     HttpURLConnection conn = (HttpURLConnection) url1.openConnection();
@@ -492,7 +463,7 @@ private String sendRequest(String url, ApplicantClass or) throws Exception {
     }
 
     jsonObject.put("petOwner", petOwnerJson);
-    jsonObject.put("applicationDate", or.getapplicationDate());
+    jsonObject.put("applicationDate", or.getApplicationDate());
     jsonObject.put("dogId", dogJson != null ? dogJson : JSONObject.NULL);
     jsonObject.put("catId", catJson != null ? catJson : JSONObject.NULL);
     jsonObject.put("status", or.getReturnDate());
@@ -519,8 +490,6 @@ private String sendRequest(String url, ApplicantClass or) throws Exception {
 
 private int DeleteApplicant() {
 
-
-    // Create JSON object with only the ID
     JSONObject jsonObject = new JSONObject();
     jsonObject.put("id", applicantId); // Include only the ID
 
