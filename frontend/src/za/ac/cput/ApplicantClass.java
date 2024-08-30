@@ -60,8 +60,4 @@ public class ApplicantClass {
         this.status = status;
     }
 
-	public byte[] getBytes(String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
