@@ -15,5 +15,4 @@ import java.util.regex.Pattern;
 
 public class CreateVolunteer extends JPanel {
 
-
-}
+    }
