@@ -1,6 +1,5 @@
 package za.ac.cput;
 
-
 public class DogClass {
     private String dogId;
     private String name;
@@ -20,7 +19,6 @@ public class DogClass {
         this.age = age;
     }
 
-    // Getter and Setter for id
     public String getId() {
         return dogId;
     }
@@ -29,7 +27,7 @@ public class DogClass {
         this.dogId = id;
     }
 
-    // Getter and Setter for name
+
     public String getName() {
         return name;
     }
@@ -38,7 +36,6 @@ public class DogClass {
         this.name = name;
     }
 
-    // Getter and Setter for breed
     public String getBreed() {
         return breed;
     }
@@ -47,7 +44,6 @@ public class DogClass {
         this.breed = breed;
     }
 
-    // Getter and Setter for cageNumber
     public String getCageNumber() {
         return cageNumber;
     }
@@ -56,7 +52,6 @@ public class DogClass {
         this.cageNumber = cageNumber;
     }
 
-    // Getter and Setter for gender
     public String getGender() {
         return gender;
     }
@@ -65,7 +60,7 @@ public class DogClass {
         this.gender = gender;
     }
 
-    // Getter and Setter for size
+
     public String getSize() {
         return size;
     }
@@ -74,7 +69,7 @@ public class DogClass {
         this.size = size;
     }
 
-    // Getter and Setter for age
+
     public String getAge() {
         return age;
     }
