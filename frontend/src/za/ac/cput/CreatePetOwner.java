@@ -128,7 +128,7 @@ public class CreatePetOwner extends JPanel {
 
                     String responseJson = sendRequest1("http://localhost:8080/animalshelter/petOwner/create", petOwnerJson);
                     if (responseJson != null) {
-                        // Parse the response JSON
+
                         JSONObject responseObject = new JSONObject(responseJson);
                         String createdPetId = String.valueOf(responseObject.optInt("id"));
                         System.out.println(createdPetId);
