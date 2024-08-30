@@ -18,10 +18,9 @@ public class LoginScreen extends JFrame {
         setLocationRelativeTo(null);
         setLayout(null);
 
-        // Set background color or image
-        getContentPane().setBackground(new Color(0, 153, 153)); // Teal color
 
-        // Create a logo label (Optional: Add an image icon here)
+        getContentPane().setBackground(new Color(0, 153, 153));
+
         JLabel lblLogo = new JLabel("Animal Shelter");
         lblLogo.setFont(new Font("Arial", Font.BOLD, 24));
         lblLogo.setForeground(Color.WHITE);
@@ -55,7 +54,7 @@ public class LoginScreen extends JFrame {
         JButton btnLogin = new JButton("Login");
         btnLogin.setFont(new Font("Arial", Font.BOLD, 16));
         btnLogin.setForeground(Color.WHITE);
-        btnLogin.setBackground(new Color(255, 102, 0)); // Orange color for the button
+        btnLogin.setBackground(new Color(255, 102, 0));
         btnLogin.setBounds(150, 180, 100, 35);
         getContentPane().add(btnLogin);
 
@@ -77,9 +76,9 @@ public class LoginScreen extends JFrame {
         String username = txtUsername.getText();
         String password = new String(txtPassword.getPassword());
 
-        // Check hardcoded credentials
+
         if (username.equals("admin") && password.equals("admin")) {
-            // If login is successful, open the main menu
+
             JOptionPane.showMessageDialog(this, "Login Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
             openMainMenu();
         } else {
@@ -90,7 +89,7 @@ public class LoginScreen extends JFrame {
     private void openMainMenu() {
         MainMenu mainMenu = new MainMenu();
         mainMenu.setVisible(true);
-        dispose(); // Close the login screen
+        dispose();
     }
 
     public static void main(String[] args) {

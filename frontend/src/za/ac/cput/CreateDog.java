@@ -96,33 +96,33 @@ public class CreateDog extends JPanel {
         btnAdd.setBounds(150, 500, 150, 40);
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Proceed with HTTP request if all validations pass
+
                 try {
-                    // Create JSON string manually
+
                     String jsonInputString = String.format(
-                        "{\"name\":\"%s\",\"size\":\"%s\",\"age\":\"%s\",\"gender\":\"%s\",\"breed\":\"%s\",\"cageNumber\":\"%s\"}",
-                        txtName.getText(),
-                        txtSize.getText(),
-                        txtAge.getText(),
-                        txtGender.getText(),
-                        txtBreed.getText(),
-                        txtCageNumber.getText()
+                            "{\"name\":\"%s\",\"size\":\"%s\",\"age\":\"%s\",\"gender\":\"%s\",\"breed\":\"%s\",\"cageNumber\":\"%s\"}",
+                            txtName.getText(),
+                            txtSize.getText(),
+                            txtAge.getText(),
+                            txtGender.getText(),
+                            txtBreed.getText(),
+                            txtCageNumber.getText()
                     );
 
-                    // Set up HTTP connection to send data to backend
+
                     URL url = new URL("http://localhost:8080/animalshelter/dog/create"); // Replace with your actual endpoint
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("POST");
                     connection.setRequestProperty("Content-Type", "application/json; utf-8");
                     connection.setDoOutput(true);
 
-                    // Send JSON input string to the backend
+
                     try (OutputStream os = connection.getOutputStream()) {
                         byte[] input = jsonInputString.getBytes("utf-8");
                         os.write(input, 0, input.length);
                     }
 
-                    // Check for successful response
+
                     int responseCode = connection.getResponseCode();
                     StringBuilder response = new StringBuilder();
                     if (responseCode == HttpURLConnection.HTTP_OK) {
@@ -133,7 +133,7 @@ public class CreateDog extends JPanel {
                             }
                         }
 
-                        // Parse JSON response to extract ID
+
                         JSONObject jsonResponse = new JSONObject(response.toString());
                         String id = jsonResponse.optString("dogId", "No ID returned");
 
@@ -158,7 +158,7 @@ public class CreateDog extends JPanel {
         btnBack.setBounds(472, 500, 150, 40);
         btnBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "Dog"); // Change "Dog" to the actual name of the panel you want to go back to
+                cardLayout.show(cardPanel, "Dog");
             }
         });
         add(btnBack);

@@ -31,15 +31,15 @@ public class DisplayDog extends JPanel {
         lblTitle.setForeground(SystemColor.controlLtHighlight);
         lblTitle.setBounds(254, 55, 350, 40);
         add(lblTitle);
-        
-        String[] options = {"Select Dog", "Option 1", "Option 2"}; // Example options
+
+        String[] options = {"Select Dog", "Option 1", "Option 2"};
         cboOptions = new JComboBox<>(options);
         cboOptions.setBounds(318, 153, 300, 30);
         cboOptions.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String selectedItem = (String) cboOptions.getSelectedItem();
                 if (selectedItem != null) {
-                    String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
+                    String id = selectedItem.split(" - ")[0];
                     fetchDogDetails(id);
                 }
             }
@@ -127,7 +127,7 @@ public class DisplayDog extends JPanel {
         btnBack.setBounds(472, 500, 150, 40);
         btnBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "Dog"); // Change "MainMenu" to the actual name of the main panel
+                cardLayout.show(cardPanel, "Dog");
             }
         });
         add(btnBack);
@@ -137,13 +137,13 @@ public class DisplayDog extends JPanel {
         lblDogId.setFont(new Font("Dialog", Font.BOLD, 16));
         lblDogId.setBounds(139, 152, 100, 30);
         add(lblDogId);
-        
+
         populateDogIds();
     }
-    
+
     private void populateDogIds() {
         try {
-            URL url = new URL("http://localhost:8080/animalshelter/dog/getall"); // Endpoint to get Dog IDs
+            URL url = new URL("http://localhost:8080/animalshelter/dog/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Accept", "application/json");
@@ -159,7 +159,7 @@ public class DisplayDog extends JPanel {
                 }
 
                 JSONArray jsonArray = new JSONArray(response.toString());
-                cboOptions.removeAllItems(); // Clear previous items
+                cboOptions.removeAllItems();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     int id = jsonObject.getInt("dogId");
@@ -194,13 +194,13 @@ public class DisplayDog extends JPanel {
                 }
 
                 JSONObject jsonObject = new JSONObject(response.toString());
-                
+
                 txtName.setText(jsonObject.optString("name", ""));
                 txtSize.setText(jsonObject.optString("size", ""));
-                txtAge.setText(String.valueOf(jsonObject.optInt("age", 0))); // Convert integer to string
+                txtAge.setText(String.valueOf(jsonObject.optInt("age", 0)));
                 txtGender.setText(jsonObject.optString("gender", ""));
                 txtBreed.setText(jsonObject.optString("breed", ""));
-                txtCageNumber.setText(String.valueOf(jsonObject.optInt("cageNumber", 0))); // Convert integer to string
+                txtCageNumber.setText(String.valueOf(jsonObject.optInt("cageNumber", 0)));
 
             } else {
                 JOptionPane.showMessageDialog(null, "Error: Unable to fetch Dog details.");
@@ -210,22 +210,22 @@ public class DisplayDog extends JPanel {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
         }
     }
- 
+
     private void DisplayDog() {
         String selectedItem = (String) cboOptions.getSelectedItem();
         if (selectedItem == null) {
             JOptionPane.showMessageDialog(null, "Please select a volunteer ID.");
             return;
         }
-        
-        String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
 
-        // Create JSON object with only the ID
+        String id = selectedItem.split(" - ")[0];
+
+
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id", id); // Include only the ID
+        jsonObject.put("id", id);
 
         try {
-            URL url = new URL("http://localhost:8080/animalshelter/dog/Display/"+id);
+            URL url = new URL("http://localhost:8080/animalshelter/dog/Display/" + id);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("Display");
             connection.setRequestProperty("Content-Type", "application/json");
@@ -238,15 +238,13 @@ public class DisplayDog extends JPanel {
 
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
-                JOptionPane.showMessageDialog(null, "Dog Displayd successfully.");
-                // Optionally, clear the text fields after deletion
+                JOptionPane.showMessageDialog(null, "Dog Displayed successfully.");
                 txtName.setText("");
                 txtSize.setText("");
                 txtBreed.setText("");
                 txtAge.setText("");
                 txtCageNumber.setText("");
                 txtGender.setText("");
-                // Optionally, re-populate the ComboBox
                 populateDogIds();
             } else {
                 JOptionPane.showMessageDialog(null, "Error: Unable to Display Dog.");
