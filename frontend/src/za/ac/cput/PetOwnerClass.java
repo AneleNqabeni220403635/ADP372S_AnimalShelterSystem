@@ -1,7 +1,8 @@
 package za.ac.cput;
 
+
 public class PetOwnerClass {
-	private String Id;
+    private String Id;
     private String firstName;
     private String lastName;
     private String contactNo;
@@ -9,7 +10,7 @@ public class PetOwnerClass {
     private String streetAddress;
 
     public PetOwnerClass(String createdPetId,String firstName, String lastName, String contactNo, String emailAddress, String streetAddress) {
-    	this.Id=createdPetId;
+        this.Id=createdPetId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.contactNo = contactNo;
@@ -17,12 +18,11 @@ public class PetOwnerClass {
         this.streetAddress = streetAddress;
     }
 
-    
+
     public String getId() {
         return Id;
     }
 
-    // Getter and Setter for firstName
     public String getFirstName() {
         return firstName;
     }
@@ -31,7 +31,6 @@ public class PetOwnerClass {
         this.firstName = firstName;
     }
 
-    // Getter and Setter for lastName
     public String getLastName() {
         return lastName;
     }
@@ -40,7 +39,6 @@ public class PetOwnerClass {
         this.lastName = lastName;
     }
 
-    // Getter and Setter for contactNo
     public String getContactNo() {
         return contactNo;
     }
@@ -49,9 +47,8 @@ public class PetOwnerClass {
         this.contactNo = contactNo;
     }
 
-    // Getter and Setter for emailAddress
     public String getEmailAddress() {
-    	System.out.print("email"+emailAddress);
+        System.out.print("email"+emailAddress);
         return emailAddress;
     }
 
@@ -59,7 +56,6 @@ public class PetOwnerClass {
         this.emailAddress = emailAddress;
     }
 
-    // Getter and Setter for streetAddress
     public String getStreetAddress() {
         return streetAddress;
     }
