@@ -11,53 +11,53 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class DeleteEmployee extends JPanel {
+public class DeleteEmployee extends  JPanel {
 
     private static final long serialVersionUID = 1L;
-    private JTextField txtFirstName;
-    private JTextField txtLastName;
-    private JTextField txtContactNo;
-    private JTextField txtEmailAddress;
-    private JComboBox<String> cboOptions;
+    private JTextField  txtFirstName;
+    private JTextField  txtLastName;
+    private JTextField  txtContactNo;
+    private JTextField  txtEmailAddress;
+    private JComboBox <String> cboOptions;
 
     public DeleteEmployee(CardLayout cardLayout, JPanel cardPanel) {
-        setLayout(null);
-        setBackground(new Color(0, 128, 128));
+        setLayout(null );
+        setBackground( new Color(0, 128, 128));
 
-        JLabel lblTitle = new JLabel("Delete Employee Record");
-        lblTitle.setFont(new Font("Dialog", Font.BOLD, 24));
-        lblTitle.setForeground(SystemColor.controlLtHighlight);
-        lblTitle.setBounds(254, 55, 350, 40);
-        add(lblTitle);
-        
-        String[] options = {"Select Employee"}; // Initialize with placeholder
-        cboOptions = new JComboBox<>(options);
-        cboOptions.setBounds(318, 153, 300, 30);
-        cboOptions.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String selectedItem = (String) cboOptions.getSelectedItem();
-                if (selectedItem != null) {
-                    String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
+        JLabel lblTitle = ew JLabel(" Delete Employee Record ");
+        lblTitle.setFont (new Font("Dialog", Font.BOLD, 24));
+        lblTitle.setForeground (SystemColor.controlLtHighlight);
+        lblTitle.setBounds (254, 55, 350, 40);
+        add( lblTitle);
+
+        String[ ] options = {"Select Employee"}; // Initialize with placeholder
+        cboOptions= new JComboBox<>(options);
+        cboOptions.setBounds( 318, 153, 300, 30);
+        cboOptions.addActionListener (new ActionListener() {
+            public void actionPerformed( ActionEvent e ) {
+                String selectedItem  = (String) cboOptions.getSelectedItem();
+                if ( selectedItem != null ) {
+                    String id = selectedItem.split(" - ") [0];
                     fetchEmployeeDetails(id);
                 }
             }
         });
         add(cboOptions);
 
-        JLabel lblFirstName = new JLabel("First Name:");
+        JLabel lblFirstName = new JLabel("First Name: ");
         lblFirstName.setFont(new Font("Dialog", Font.BOLD, 16));
         lblFirstName.setForeground(SystemColor.controlLtHighlight);
         lblFirstName.setBounds(139, 195, 100, 30);
         add(lblFirstName);
 
-        txtFirstName = new JTextField();
+        txtFirstName =new JTextField();
         txtFirstName.setBounds(318, 195, 300, 30);
         txtFirstName.setEditable(false);
         add(txtFirstName);
 
-        JLabel lblLastName = new JLabel("Last Name:");
-        lblLastName.setFont(new Font("Dialog", Font.BOLD, 16));
-        lblLastName.setForeground(SystemColor.controlLtHighlight);
+        JLabel lblLastName = new JLabel("Last Name : ");
+        lblLastName.setFont(new Font ("Dialog", Font.BOLD, 16));
+        lblLastName.setForeground( SystemColor.controlLtHighlight);
         lblLastName.setBounds(139, 237, 100, 30);
         add(lblLastName);
 
@@ -66,10 +66,10 @@ public class DeleteEmployee extends JPanel {
         txtLastName.setEditable(false);
         add(txtLastName);
 
-        JLabel lblContactNo = new JLabel("Contact No:");
-        lblContactNo.setFont(new Font("Dialog", Font.BOLD, 16));
-        lblContactNo.setForeground(SystemColor.controlLtHighlight);
-        lblContactNo.setBounds(139, 279, 100, 30);
+        JLabel lblContactNo = new JLabel("Contact No: ");
+        lblContactNo.setFont (new Font("Dialog", Font.BOLD, 16));
+        lblContactNo.setForeground (SystemColor.controlLtHighlight);
+        lblContactNo.setBounds (139, 279, 100, 30);
         add(lblContactNo);
 
         txtContactNo = new JTextField();
@@ -77,13 +77,13 @@ public class DeleteEmployee extends JPanel {
         txtContactNo.setEditable(false);
         add(txtContactNo);
 
-        JLabel lblEmailAddress = new JLabel("Email Address:");
+        JLabel lblEmailAddress = new JLabel("Email Address: ");
         lblEmailAddress.setFont(new Font("Dialog", Font.BOLD, 16));
         lblEmailAddress.setForeground(SystemColor.controlLtHighlight);
         lblEmailAddress.setBounds(139, 321, 150, 30);
         add(lblEmailAddress);
 
-        txtEmailAddress = new JTextField();
+        txtEmailAddress = new   JTextField();
         txtEmailAddress.setBounds(318, 321, 300, 30);
         txtEmailAddress.setEditable(false);
         add(txtEmailAddress);
@@ -113,10 +113,10 @@ public class DeleteEmployee extends JPanel {
         lblEmployeeId.setFont(new Font("Dialog", Font.BOLD, 16));
         lblEmployeeId.setBounds(139, 152, 150, 30);
         add(lblEmployeeId);
-        
+
         populateEmployeeIds();
     }
-    
+
     private void populateEmployeeIds() {
         try {
             URL url = new URL("http://localhost:8080/animalshelter/employee/getall"); // Endpoint to get employee IDs
@@ -170,7 +170,7 @@ public class DeleteEmployee extends JPanel {
                 }
 
                 JSONObject jsonObject = new JSONObject(response.toString());
-                
+
                 txtFirstName.setText(jsonObject.optString("firstName", ""));
                 txtLastName.setText(jsonObject.optString("lastName", ""));
                 txtContactNo.setText(jsonObject.optString("contactNo", ""));
@@ -185,19 +185,19 @@ public class DeleteEmployee extends JPanel {
         }
     }
 
-    
+
     private void deleteEmployee() {
         String selectedItem = (String) cboOptions.getSelectedItem();
         if (selectedItem == null) {
             JOptionPane.showMessageDialog(null, "Please select a Employee ID.");
             return;
         }
-        
-        String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
 
-        // Create JSON object with only the ID
+        String id = selectedItem.split(" - ")[0];
+
+
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id", id); // Include only the ID
+        jsonObject.put("id", id);
 
         try {
             URL url = new URL("http://localhost:8080/animalshelter/employee/delete/"+id);
@@ -214,13 +214,13 @@ public class DeleteEmployee extends JPanel {
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 JOptionPane.showMessageDialog(null, "Cat Deleted successfully.");
-                // Optionally, clear the text fields after deletion
+
                 txtFirstName.setText("");
                 txtLastName.setText("");
                 txtEmailAddress.setText("");
                 txtContactNo.setText("");
- 
-               
+
+
             } else {
                 JOptionPane.showMessageDialog(null, "Error: Unable to Delete Cat.");
             }
