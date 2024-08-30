@@ -31,15 +31,15 @@ public class UpdateDog extends JPanel {
         lblTitle.setForeground(SystemColor.controlLtHighlight);
         lblTitle.setBounds(254, 55, 350, 40);
         add(lblTitle);
-        
-        String[] options = {"Select Dog", "Option 1", "Option 2"}; // Example options
+
+        String[] options = {"Select Dog", "Option 1", "Option 2"};
         cboOptions = new JComboBox<>(options);
         cboOptions.setBounds(318, 153, 300, 30);
         cboOptions.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String selectedItem = (String) cboOptions.getSelectedItem();
                 if (selectedItem != null) {
-                    String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
+                    String id = selectedItem.split(" - ")[0];
                     fetchDogDetails(id);
                 }
             }
@@ -122,7 +122,7 @@ public class UpdateDog extends JPanel {
         btnBack.setBounds(472, 500, 150, 40);
         btnBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "Dog"); // Change "MainMenu" to the actual name of the main panel
+                cardLayout.show(cardPanel, "Dog");
             }
         });
         add(btnBack);
@@ -132,13 +132,13 @@ public class UpdateDog extends JPanel {
         lblDogId.setFont(new Font("Dialog", Font.BOLD, 16));
         lblDogId.setBounds(139, 152, 100, 30);
         add(lblDogId);
-        
+
         populateDogIds();
     }
-    
+
     private void populateDogIds() {
         try {
-            URL url = new URL("http://localhost:8080/animalshelter/dog/getall"); // Endpoint to get Dog IDs
+            URL url = new URL("http://localhost:8080/animalshelter/dog/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Accept", "application/json");
@@ -154,7 +154,7 @@ public class UpdateDog extends JPanel {
                 }
 
                 JSONArray jsonArray = new JSONArray(response.toString());
-                cboOptions.removeAllItems(); // Clear previous items
+                cboOptions.removeAllItems();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     int id = jsonObject.getInt("dogId");
@@ -189,13 +189,13 @@ public class UpdateDog extends JPanel {
                 }
 
                 JSONObject jsonObject = new JSONObject(response.toString());
-                
+
                 txtName.setText(jsonObject.optString("name", ""));
                 txtSize.setText(jsonObject.optString("size", ""));
-                txtAge.setText(String.valueOf(jsonObject.optInt("age", 0))); // Convert integer to string
+                txtAge.setText(String.valueOf(jsonObject.optInt("age", 0)));
                 txtGender.setText(jsonObject.optString("gender", ""));
                 txtBreed.setText(jsonObject.optString("breed", ""));
-                txtCageNumber.setText(String.valueOf(jsonObject.optInt("cageNumber", 0))); // Convert integer to string
+                txtCageNumber.setText(String.valueOf(jsonObject.optInt("cageNumber", 0)));
 
             } else {
                 JOptionPane.showMessageDialog(null, "Error: Unable to fetch Dog details.");
@@ -212,8 +212,8 @@ public class UpdateDog extends JPanel {
             JOptionPane.showMessageDialog(null, "Please select a Dog ID.");
             return;
         }
-        
-        String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
+
+        String id = selectedItem.split(" - ")[0];
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("DogId", Integer.parseInt(id));
@@ -239,7 +239,7 @@ public class UpdateDog extends JPanel {
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 JOptionPane.showMessageDialog(null, "Dog updated successfully.");
-                
+
             } else {
                 JOptionPane.showMessageDialog(null, "Error: Unable to update Dog.");
             }
