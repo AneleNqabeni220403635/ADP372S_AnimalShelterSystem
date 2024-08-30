@@ -32,14 +32,14 @@ public class DeleteCat extends JPanel {
         lblTitle.setBounds(254, 55, 350, 40);
         add(lblTitle);
         
-        String[] options = {"Select Cat", "Option 1", "Option 2"}; // Example options
+        String[] options = {"Select Cat", "Option 1", "Option 2"};
         cboOptions = new JComboBox<>(options);
         cboOptions.setBounds(318, 153, 300, 30);
         cboOptions.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String selectedItem = (String) cboOptions.getSelectedItem();
                 if (selectedItem != null) {
-                    String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
+                    String id = selectedItem.split(" - ")[0];
                     fetchCatDetails(id);
                 }
             }
@@ -115,7 +115,7 @@ public class DeleteCat extends JPanel {
         JButton btnDelete = new JButton("Delete");
         btnDelete.setFont(new Font("Dialog", Font.BOLD, 16));
         btnDelete.setBounds(150, 500, 150, 40);
-        btnDelete.addActionListener(new ActionListener() {
+        btnDelete.addActionListener (new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 DeleteCat();
                 cardLayout.show(cardPanel, "Cat");
@@ -128,7 +128,7 @@ public class DeleteCat extends JPanel {
         btnBack.setBounds(472, 500, 150, 40);
         btnBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "Cat"); // Change "MainMenu" to the actual name of the main panel
+                cardLayout.show(cardPanel, "Cat");
             }
         });
         add(btnBack);
@@ -144,7 +144,7 @@ public class DeleteCat extends JPanel {
     
     private void populateCatIds() {
         try {
-            URL url = new URL("http://localhost:8080/animalshelter/cat/getall"); // Endpoint to get cat IDs
+            URL url = new URL("http://localhost:8080/animalshelter/cat/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Accept", "application/json");
@@ -160,7 +160,7 @@ public class DeleteCat extends JPanel {
                 }
 
                 JSONArray jsonArray = new JSONArray(response.toString());
-                cboOptions.removeAllItems(); // Clear previous items
+                cboOptions.removeAllItems();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     int id = jsonObject.getInt("catId");
@@ -198,10 +198,10 @@ public class DeleteCat extends JPanel {
                 
                 txtName.setText(jsonObject.optString("name", ""));
                 txtSize.setText(jsonObject.optString("size", ""));
-                txtAge.setText(String.valueOf(jsonObject.optInt("age", 0))); // Convert integer to string
+                txtAge.setText(String.valueOf(jsonObject.optInt("age", 0)));
                 txtGender.setText(jsonObject.optString("gender", ""));
                 txtBreed.setText(jsonObject.optString("breed", ""));
-                txtCageNumber.setText(String.valueOf(jsonObject.optInt("cageNumber", 0))); // Convert integer to string
+                txtCageNumber.setText(String.valueOf(jsonObject.optInt("cageNumber", 0)));
 
             } else {
                 JOptionPane.showMessageDialog(null, "Error: Unable to fetch cat details.");
@@ -212,18 +212,17 @@ public class DeleteCat extends JPanel {
         }
     }
  
-    private void DeleteCat() {
+    private void  DeleteCat() {
         String selectedItem = (String) cboOptions.getSelectedItem();
         if (selectedItem == null) {
             JOptionPane.showMessageDialog(null, "Please select a volunteer ID.");
             return;
         }
         
-        String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
+        String id = selectedItem.split(" - ")[0];
 
-        // Create JSON object with only the ID
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id", id); // Include only the ID
+        jsonObject.put("id", id);
 
         try {
             URL url = new URL("http://localhost:8080/animalshelter/cat/delete/"+id);
@@ -240,14 +239,14 @@ public class DeleteCat extends JPanel {
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 JOptionPane.showMessageDialog(null, "Cat Deleted successfully.");
-                // Optionally, clear the text fields after deletion
+
                 txtName.setText("");
                 txtSize.setText("");
                 txtBreed.setText("");
                 txtAge.setText("");
                 txtCageNumber.setText("");
                 txtGender.setText("");
-                // Optionally, re-populate the ComboBox
+
                 populateCatIds();
             } else {
                 JOptionPane.showMessageDialog(null, "Error: Unable to Delete Cat.\nPlease Check Applicant or PetOwner");
