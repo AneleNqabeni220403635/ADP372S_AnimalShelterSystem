@@ -1,8 +1,6 @@
 package za.ac.cput;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +20,7 @@ public class UpdateMedicalRecord extends JPanel {
     private JComboBox<String> cboDog;
     private JComboBox<String> cboBehaviour;
     private JSpinner spinnerNextCheckup;
-    private JComboBox<String> cboMedicalRecordID; // New JComboBox for Medical Record ID
+    private JComboBox<String> cboMedicalRecordID;
 
     public UpdateMedicalRecord(CardLayout cardLayout, JPanel cardPanel) {
         setLayout(null);
@@ -34,14 +32,13 @@ public class UpdateMedicalRecord extends JPanel {
         lblTitle.setBounds(257, 36, 450, 40);
         add(lblTitle);
 
-        // Medical Record ID Dropdown
         JLabel lblMedicalRecordID = new JLabel("Record ID:");
         lblMedicalRecordID.setFont(new Font("Dialog", Font.BOLD, 16));
         lblMedicalRecordID.setForeground(SystemColor.controlLtHighlight);
         lblMedicalRecordID.setBounds(150, 86, 119, 30);
         add(lblMedicalRecordID);
 
-        cboMedicalRecordID = new JComboBox<>(new String[]{"Select Record ID", "Record1", "Record2", "Record3"}); // Replace with actual IDs
+        cboMedicalRecordID = new JComboBox<>(new String[]{"Select Record ID", "Record1", "Record2", "Record3"});
         cboMedicalRecordID.setBounds(296, 86, 300, 30);
         add(cboMedicalRecordID);
 
@@ -94,12 +91,12 @@ public class UpdateMedicalRecord extends JPanel {
         lblNextCheckup.setBounds(150, 293, 136, 30);
         add(lblNextCheckup);
 
-        // Initialize spinnerNextCheckup properly
+
         SpinnerDateModel model = new SpinnerDateModel();
-        model.setValue(new Date()); // Default to current date
-        spinnerNextCheckup = new JSpinner(model); // Initialize the spinner
+        model.setValue(new Date());
+        spinnerNextCheckup = new JSpinner(model);
         JSpinner.DateEditor editor = new JSpinner.DateEditor(spinnerNextCheckup, "yyyy-MM-dd");
-        spinnerNextCheckup.setEditor(editor); // Set the editor after initializing
+        spinnerNextCheckup.setEditor(editor);
         spinnerNextCheckup.setBounds(296, 293, 300, 30);
         add(spinnerNextCheckup);
 
@@ -118,7 +115,7 @@ public class UpdateMedicalRecord extends JPanel {
         rdbtnCat.setForeground(SystemColor.controlLtHighlight);
         rdbtnCat.setBackground(new Color(0, 128, 128));
         rdbtnCat.setBounds(150, 398, 100, 30);
-        rdbtnCat.setSelected(true); // Default selection
+        rdbtnCat.setSelected(true);
         rdbtnCat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 togglePetSelection(true);
@@ -167,7 +164,6 @@ public class UpdateMedicalRecord extends JPanel {
         });
         add(btnBack);
 
-        // Set default state
         togglePetSelection(true);
     }
 

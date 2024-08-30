@@ -115,15 +115,15 @@ public class CreatePetOwner extends JPanel{
                     String contactNo = txtContactNo.getText();
                     String emailAddress = txtEmailAddress.getText();
                     String streetAddress = txtStreetAddress.getText();
-                    
+
                     String selectedPetId = "";
-                    
+
                     String petId = selectedPetId.split(" - ")[0];  // Extract just the ID
-                    
+
 
                     String petOwnerJson = String.format(
-                        "{\"firstName\":\"%s\",\"lastName\":\"%s\",\"contactNo\":\"%s\",\"emailAddress\":\"%s\",\"streetAddress\":\"%s\"}",
-                        firstName, lastName, contactNo, emailAddress, streetAddress
+                            "{\"firstName\":\"%s\",\"lastName\":\"%s\",\"contactNo\":\"%s\",\"emailAddress\":\"%s\",\"streetAddress\":\"%s\"}",
+                            firstName, lastName, contactNo, emailAddress, streetAddress
                     );
 
                     String responseJson = sendRequest1("http://localhost:8080/animalshelter/petOwner/create", petOwnerJson);
@@ -138,11 +138,11 @@ public class CreatePetOwner extends JPanel{
                         String petOwnerContactNo=responseObject.optString("contactNo");
                         String petOwnerEmailAddress=responseObject.optString("emailAddress");
                         String petOwnerStreetAddress=responseObject.optString("streetAddress");
-                      
-                  
+
+
                         JOptionPane.showMessageDialog(null, "Created Pet Owner record.");
-                        
-                      
+
+
                     } else {
                         JOptionPane.showMessageDialog(null, "Failed to create Pet Owner record.");
                     }
@@ -193,7 +193,7 @@ public class CreatePetOwner extends JPanel{
                 }
 
                 JSONArray jsonArray = new JSONArray(response.toString());
-              
+
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     int id = jsonObject.getInt("catId");
@@ -206,7 +206,7 @@ public class CreatePetOwner extends JPanel{
                     petsize=jsonObject.optString("size", "N/A");
                     petAge=jsonObject.optString("age", "N/A");
                     petFinalId=String.valueOf(jsonObject.opt("catId"));
-                    
+
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Error: Unable to fetch cat IDs.");
@@ -235,11 +235,11 @@ public class CreatePetOwner extends JPanel{
                 }
 
                 JSONArray jsonArray = new JSONArray(response.toString());
-              
+
                 for (int i = 0; i < jsonArray.length(); i++) {
-                  
-                   
-           
+
+
+
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     int id = jsonObject.getInt("dogId");
                     String name = jsonObject.optString("name", "N/A");
@@ -251,7 +251,7 @@ public class CreatePetOwner extends JPanel{
                     petsize=jsonObject.optString("size", "N/A");
                     petAge=jsonObject.optString("age", "N/A");
                     petFinalId=String.valueOf(jsonObject.opt("dogId"));
-                    
+
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Error: Unable to fetch dog IDs.");
@@ -262,7 +262,7 @@ public class CreatePetOwner extends JPanel{
         }
     }
 
-  
+
     private String sendRequest(String url, OwnerRecordClass ownerRecord) throws Exception {
         URL url1 = new URL(url);
         HttpURLConnection conn = (HttpURLConnection) url1.openConnection();
@@ -326,7 +326,7 @@ public class CreatePetOwner extends JPanel{
             return response.toString();
         }
     }
-    
+
     private String sendRequest1(String urlString, String petOwnerJson) throws Exception {
         URL url = new URL(urlString);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
