@@ -21,7 +21,7 @@ public class CreateCat extends JPanel {
     private JTextField txtSize;
     private JTextField txtCageNumber;
 
-  
+
     public CreateCat (CardLayout cardLayout, JPanel cardPanel) {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
@@ -98,7 +98,7 @@ public class CreateCat extends JPanel {
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                	String jsonInputString = String.format(
+                    String jsonInputString = String.format(
                             "{\"name\":\"%s\",\"size\":\"%s\",\"age\":\"%s\",\"gender\":\"%s\",\"breed\":\"%s\",\"cageNumber\":\"%s\"}",
                             txtName.getText(),
                             txtSize.getText(),
@@ -106,7 +106,7 @@ public class CreateCat extends JPanel {
                             txtGender.getText(),
                             txtBreed.getText(),
                             txtCageNumber.getText()
-                        );
+                    );
 
                     URL url = new URL("http://localhost:8080/animalshelter/cat/create");
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();

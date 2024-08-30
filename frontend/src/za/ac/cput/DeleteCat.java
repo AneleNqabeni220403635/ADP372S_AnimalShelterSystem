@@ -31,7 +31,7 @@ public class DeleteCat extends JPanel {
         lblTitle.setForeground(SystemColor.controlLtHighlight);
         lblTitle.setBounds(254, 55, 350, 40);
         add(lblTitle);
-        
+
         String[] options = {"Select Cat", "Option 1", "Option 2"};
         cboOptions = new JComboBox<>(options);
         cboOptions.setBounds(318, 153, 300, 30);
@@ -138,10 +138,10 @@ public class DeleteCat extends JPanel {
         lblCatId.setFont(new Font("Dialog", Font.BOLD, 16));
         lblCatId.setBounds(139, 152, 100, 30);
         add(lblCatId);
-        
+
         populateCatIds();
     }
-    
+
     private void populateCatIds() {
         try {
             URL url = new URL("http://localhost:8080/animalshelter/cat/getall");
@@ -195,7 +195,7 @@ public class DeleteCat extends JPanel {
                 }
 
                 JSONObject jsonObject = new JSONObject(response.toString());
-                
+
                 txtName.setText(jsonObject.optString("name", ""));
                 txtSize.setText(jsonObject.optString("size", ""));
                 txtAge.setText(String.valueOf(jsonObject.optInt("age", 0)));
@@ -211,14 +211,14 @@ public class DeleteCat extends JPanel {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
         }
     }
- 
+
     private void  DeleteCat() {
         String selectedItem = (String) cboOptions.getSelectedItem();
         if (selectedItem == null) {
             JOptionPane.showMessageDialog(null, "Please select a volunteer ID.");
             return;
         }
-        
+
         String id = selectedItem.split(" - ")[0];
 
         JSONObject jsonObject = new JSONObject();

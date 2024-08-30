@@ -16,7 +16,7 @@ public class Cat extends JPanel {
 
     public Cat(CardLayout cardLayout, JPanel cardPanel) {
 
-         
+
         setLayout(null);
         setBackground(new Color(1, 128, 128));
 
@@ -31,9 +31,9 @@ public class Cat extends JPanel {
         btnCreateCat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Switch to the CreateCat panel
-            	cardPanel.add(new CreateCat(cardLayout,cardPanel), "CreateCat");
+                cardPanel.add(new CreateCat(cardLayout,cardPanel), "CreateCat");
                 cardLayout.show(cardPanel, "CreateCat");
-                
+
             }
         });
         add(btnCreateCat);
@@ -42,8 +42,8 @@ public class Cat extends JPanel {
         btnUpdateCat.setBounds(274, 256, 228, 46);
         btnUpdateCat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	cardPanel.add(new UpdateCat(cardLayout,cardPanel), "UpdateCat");
-                cardLayout.show(cardPanel, "UpdateCat");   
+                cardPanel.add(new UpdateCat(cardLayout,cardPanel), "UpdateCat");
+                cardLayout.show(cardPanel, "UpdateCat");
             }
         });
         add(btnUpdateCat);
@@ -53,7 +53,7 @@ public class Cat extends JPanel {
         btnDeleteCat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Switch to the CreateCat panel
-            	 cardPanel.add(new DeleteCat(cardLayout,cardPanel), "DeleteCat");
+                cardPanel.add(new DeleteCat(cardLayout,cardPanel), "DeleteCat");
                 cardLayout.show(cardPanel, "DeleteCat");
             }
         });
@@ -64,7 +64,7 @@ public class Cat extends JPanel {
         btnManageCat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Switch to the CreateCat panel
-            	cardPanel.add(new DisplayCat(cardLayout,cardPanel), "DisplayCat");
+                cardPanel.add(new DisplayCat(cardLayout,cardPanel), "DisplayCat");
                 cardLayout.show(cardPanel, "DisplayCat");
             }
         });

@@ -44,7 +44,7 @@ public class DeleteVolunteer extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String selectedItem = (String) cmbVolunteerId.getSelectedItem();
                 if (selectedItem != null) {
-                    String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
+                    String id = selectedItem.split(" - ")[0];
                     fetchVolunteerDetails(id);
                 }
             }
@@ -215,7 +215,7 @@ public class DeleteVolunteer extends JPanel {
             JOptionPane.showMessageDialog(null, "Please select a volunteer ID.");
             return;
         }
-        
+
         String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
 
 

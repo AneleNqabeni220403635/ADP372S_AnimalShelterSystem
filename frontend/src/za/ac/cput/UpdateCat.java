@@ -23,7 +23,7 @@ public class UpdateCat extends JPanel {
     private JComboBox<String> cboOptions;
 
     public UpdateCat() {
-    	
+
     }
     public UpdateCat(CardLayout cardLayout, JPanel cardPanel) {
         setLayout(null);
@@ -34,7 +34,7 @@ public class UpdateCat extends JPanel {
         lblTitle.setForeground(SystemColor.controlLtHighlight);
         lblTitle.setBounds(254, 55, 350, 40);
         add(lblTitle);
-        
+
         String[] options = {"Select Cat", "Option 1", "Option 2"};
         cboOptions = new JComboBox<>(options);
         cboOptions.setBounds(318, 153, 300, 30);
@@ -135,7 +135,7 @@ public class UpdateCat extends JPanel {
         lblCatId.setFont(new Font("Dialog", Font.BOLD, 16));
         lblCatId.setBounds(139, 152, 100, 30);
         add(lblCatId);
-        
+
         populateCatIds();
     }
 
@@ -192,7 +192,7 @@ public class UpdateCat extends JPanel {
                 }
 
                 JSONObject jsonObject = new JSONObject(response.toString());
-                
+
                 txtName.setText(jsonObject.optString("name", ""));
                 txtSize.setText(jsonObject.optString("size", ""));
                 txtAge.setText(String.valueOf(jsonObject.optInt("age", 0)));
@@ -215,7 +215,7 @@ public class UpdateCat extends JPanel {
             JOptionPane.showMessageDialog(null, "Please select a cat ID.");
             return;
         }
-        
+
         String id = selectedItem.split(" - ")[0];
 
         JSONObject jsonObject = new JSONObject();
@@ -242,7 +242,7 @@ public class UpdateCat extends JPanel {
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 JOptionPane.showMessageDialog(null, "Cat updated successfully.");
-               
+
             } else {
                 JOptionPane.showMessageDialog(null, "Error: Unable to update cat.");
             }

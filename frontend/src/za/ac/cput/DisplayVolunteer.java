@@ -317,9 +317,8 @@ public class DisplayVolunteer extends JPanel {
             JOptionPane.showMessageDialog(null, "Please select a volunteer ID.");
             return;
         }
-        
-        String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
 
+        String id = selectedItem.split(" - ")[0];
         try {
             URL url = new URL("http://localhost:8080/animalshelter/volunteer/read/" + id);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -345,3 +344,4 @@ public class DisplayVolunteer extends JPanel {
         }
     }
 }
+
