@@ -1,5 +1,6 @@
 package za.ac.cput;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,7 +24,7 @@ public class PetOwner extends JPanel {
         btnCreatePetOwner.setBounds(274, 198, 228, 46);
         btnCreatePetOwner.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-           
+
                 cardPanel.add(new CreatePetOwner(cardLayout,cardPanel), "CreatePetOwner");
 
                 cardLayout.show(cardPanel, "CreatePetOwner");
@@ -35,7 +36,7 @@ public class PetOwner extends JPanel {
         btnUpdatePetOwner.setBounds(274, 256, 228, 46);
         btnUpdatePetOwner.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Switch to the CreatePetOwner panel
+
                 cardPanel.add(new UpdatePetOwner(cardLayout,cardPanel), "UpdatePetOwner");
 
                 cardLayout.show(cardPanel, "UpdatePetOwner");
@@ -47,10 +48,9 @@ public class PetOwner extends JPanel {
         btnDeletePetOwner.setBounds(274, 316, 228, 46);
         btnDeletePetOwner.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	
+
                 cardPanel.add(new DeletePetOwner(cardLayout,cardPanel), "DeletePetOwner");
 
-                // Switch to the CreatePetOwner panel
                 cardLayout.show(cardPanel, "DeletePetOwner");
             }
         });
@@ -60,7 +60,7 @@ public class PetOwner extends JPanel {
         btnManagePetOwner.setBounds(274, 376, 228, 46);
         btnManagePetOwner.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Switch to the CreatePetOwner panel
+
                 cardPanel.add(new DisplayPetOwner(cardLayout,cardPanel), "DisplayPetOwner");
                 cardLayout.show(cardPanel, "DisplayPetOwner");
             }
@@ -77,3 +77,4 @@ public class PetOwner extends JPanel {
         add(btnBack);
     }
 }
+
