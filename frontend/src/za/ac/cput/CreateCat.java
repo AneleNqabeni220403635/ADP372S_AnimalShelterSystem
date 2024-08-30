@@ -22,7 +22,7 @@ public class CreateCat extends JPanel {
     private JTextField txtCageNumber;
 
   
-    public CreateCat(CardLayout cardLayout, JPanel cardPanel) {
+    public CreateCat (CardLayout cardLayout, JPanel cardPanel) {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
@@ -98,7 +98,6 @@ public class CreateCat extends JPanel {
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    // Create JSON string manually with correct sequence
                 	String jsonInputString = String.format(
                             "{\"name\":\"%s\",\"size\":\"%s\",\"age\":\"%s\",\"gender\":\"%s\",\"breed\":\"%s\",\"cageNumber\":\"%s\"}",
                             txtName.getText(),
@@ -109,20 +108,17 @@ public class CreateCat extends JPanel {
                             txtCageNumber.getText()
                         );
 
-                    // Set up HTTP connection to send data to backend
-                    URL url = new URL("http://localhost:8080/animalshelter/cat/create"); // Replace with your actual endpoint
+                    URL url = new URL("http://localhost:8080/animalshelter/cat/create");
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("POST");
                     connection.setRequestProperty("Content-Type", "application/json; utf-8");
                     connection.setDoOutput(true);
 
-                    // Send JSON input string to the backend
                     try (OutputStream os = connection.getOutputStream()) {
                         byte[] input = jsonInputString.getBytes("utf-8");
                         os.write(input, 0, input.length);
                     }
 
-                    // Check for successful response
                     int responseCode = connection.getResponseCode();
                     StringBuilder response = new StringBuilder();
                     if (responseCode == HttpURLConnection.HTTP_OK) {
@@ -156,7 +152,7 @@ public class CreateCat extends JPanel {
         btnBack.setBounds(472, 500, 150, 40);
         btnBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "Cat"); // Change "Cat" to the actual name of the previous panel
+                cardLayout.show(cardPanel, "Cat");
             }
         });
         add(btnBack);

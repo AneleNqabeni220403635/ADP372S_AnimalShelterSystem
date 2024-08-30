@@ -18,7 +18,7 @@ public class Cat extends JPanel {
 
          
         setLayout(null);
-        setBackground(new Color(0, 128, 128));
+        setBackground(new Color(1, 128, 128));
 
         JLabel lblCatManagement = new JLabel("Animal Shelter Application");
         lblCatManagement.setFont(new Font("Dialog", Font.BOLD, 30));
