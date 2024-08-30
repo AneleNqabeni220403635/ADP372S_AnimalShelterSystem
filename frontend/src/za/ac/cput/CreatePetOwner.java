@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.io.*;
 
-public class CreatePetOwner extends JPanel {
+public class CreatePetOwner extends JPanel{
 
     private static final long serialVersionUID = 1L;
     private JTextField txtFirstName;
