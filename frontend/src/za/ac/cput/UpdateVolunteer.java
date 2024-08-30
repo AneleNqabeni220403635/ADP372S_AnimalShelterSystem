@@ -171,8 +171,8 @@ public class UpdateVolunteer extends JPanel {
         }
     }
 
-    
-    
+
+
     private void fetchVolunteerDetails(String id) {
         try {
             URL url = new URL("http://localhost:8080/animalshelter/volunteer/read/" + id);
@@ -212,7 +212,7 @@ public class UpdateVolunteer extends JPanel {
             JOptionPane.showMessageDialog(null, "Please select a volunteer ID.");
             return;
         }
-        
+
         String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
 
 
