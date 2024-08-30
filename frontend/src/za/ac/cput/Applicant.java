@@ -31,7 +31,6 @@ public class Applicant extends JPanel {
         btnCreateApplicant.setBounds(274, 198, widthBtn, heightBtn);
         btnCreateApplicant.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Switch to the CreateApplicant panel
             	cardPanel.add(new CreateApplicant(cardLayout,cardPanel), "CreateApplicant");
               
                 cardLayout.show(cardPanel, "CreateApplicant");
@@ -43,7 +42,6 @@ public class Applicant extends JPanel {
         btnUpdateApplicant.setBounds(274, 256, widthBtn, heightBtn);
         btnUpdateApplicant.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Switch to the CreateApplicant panel
             	  cardPanel.add(new UpdateApplicant(cardLayout,cardPanel), "UpdateApplicant");
 
                 cardLayout.show(cardPanel, "UpdateApplicant");
@@ -55,7 +53,6 @@ public class Applicant extends JPanel {
         btnDeleteApplicant.setBounds(274, 316, widthBtn, heightBtn);
         btnDeleteApplicant.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Switch to the CreateApplicant panel
                 cardPanel.add(new DeleteApplicant(cardLayout,cardPanel), "DeleteApplicant");
               
                 cardLayout.show(cardPanel, "DeleteApplicant");
@@ -67,7 +64,6 @@ public class Applicant extends JPanel {
         btnManageApplicant.setBounds(274, 376, widthBtn, heightBtn);
         btnManageApplicant.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Switch to the CreateApplicant panel
             	  cardPanel.add(new DisplayApplicant(cardLayout,cardPanel), "DisplayApplicant");
                 cardLayout.show(cardPanel, "DisplayApplicant");
             }

@@ -61,14 +61,12 @@ public class UpdateApplicant extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
-        // Title Label
         JLabel lblTitle = new JLabel("Update New Applicant Record");
         lblTitle.setFont(new Font("Dialog", Font.BOLD, 24));
         lblTitle.setForeground(SystemColor.controlLtHighlight);
         lblTitle.setBounds(209, 84, 427, 40);
         add(lblTitle);
 
-        // Applicant ID Dropdown
         JLabel lblApplicantID = new JLabel("Applicant ID:");
         lblApplicantID.setFont(new Font("Dialog", Font.BOLD, 16));
         lblApplicantID.setForeground(SystemColor.controlLtHighlight);
@@ -90,7 +88,6 @@ public class UpdateApplicant extends JPanel {
         });
         add(cboApplicantID);
 
-        // Pet Owner Dropdown
         JLabel lblPetOwner = new JLabel("Pet Owner:");
         lblPetOwner.setFont(new Font("Dialog", Font.BOLD, 16));
         lblPetOwner.setForeground(SystemColor.controlLtHighlight);
@@ -103,7 +100,6 @@ public class UpdateApplicant extends JPanel {
         cboPetOwner.setEnabled(false); // Initially disabled
         add(cboPetOwner);
 
-        // Radio Buttons for Cat or Dog
         rdbtnCat = new JRadioButton("Cat");
         rdbtnCat.setForeground(SystemColor.controlLtHighlight);
         rdbtnCat.setBackground(new Color(0, 128, 128));
@@ -128,12 +124,10 @@ public class UpdateApplicant extends JPanel {
         });
         add(rdbtnDog);
 
-        // Group the radio buttons
         petTypeGroup = new ButtonGroup();
         petTypeGroup.add(rdbtnCat);
         petTypeGroup.add(rdbtnDog);
 
-        // Cat Dropdown
         JLabel lblCat = new JLabel("Select Cat:");
         lblCat.setFont(new Font("Dialog", Font.BOLD, 16));
         lblCat.setForeground(SystemColor.controlLtHighlight);
@@ -146,7 +140,6 @@ public class UpdateApplicant extends JPanel {
         cboCat.setEnabled(false); // Initially disabled
         add(cboCat);
 
-        // Dog Dropdown
         JLabel lblDog = new JLabel("Select Dog:");
         lblDog.setFont(new Font("Dialog", Font.BOLD, 16));
         lblDog.setForeground(SystemColor.controlLtHighlight);
@@ -159,7 +152,6 @@ public class UpdateApplicant extends JPanel {
         cboDog.setEnabled(false); // Initially disabled
         add(cboDog);
 
-        // Application Date
         JLabel lblApplicationDate = new JLabel("Application Date:");
         lblApplicationDate.setFont(new Font("Dialog", Font.BOLD, 16));
         lblApplicationDate.setForeground(SystemColor.controlLtHighlight);
@@ -173,7 +165,6 @@ public class UpdateApplicant extends JPanel {
         date=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         add(this.lblApplicationDate);
 
-        // Status Field
         JLabel lblStatus = new JLabel("Status:");
         lblStatus.setFont(new Font("Dialog", Font.BOLD, 16));
         lblStatus.setForeground(SystemColor.controlLtHighlight);
@@ -186,7 +177,6 @@ public class UpdateApplicant extends JPanel {
         txtStatus.setEnabled(false); // Initially disabled
         add(txtStatus);
 
-        // Buttons
         JButton btnAdd = new JButton("Update");
         btnAdd.setFont(new Font("Dialog", Font.BOLD, 16));
         btnAdd.addActionListener(new ActionListener() {
@@ -228,11 +218,6 @@ public class UpdateApplicant extends JPanel {
                                        System.out.println("pet owner"+pet.getEmailAddress());
                                                       
                                        ApplicantClass or=new ApplicantClass(pet,date,cat1,null,"Approved");
-//                                       // Send request to create owner record
-//                                       System.out.println("Object"+or.getCat().getId());
-//                                       System.out.println("Object"+or.getPetOwner().getContactNo());
-//                                       System.out.println("Object"+or.getReturnDate());
-//                                       System.out.println("Or Object"+or);
                                        int check=DeleteApplicant();
                                        
                                        if(check==1) {
@@ -264,11 +249,9 @@ public class UpdateApplicant extends JPanel {
         });
         add(btnBack);
 
-        // Default state: Cat radio button selected
         rdbtnCat.setSelected(true);
-        toggleDropdowns(true); // Enable the Cat dropdown by default
+        toggleDropdowns(true);
 
-        // Initially disable all fields
         setFieldsEnabled(false);
         fetchApplicantData();
     }
@@ -306,17 +289,15 @@ private void fetchApplicantData() {
             }
 
             JSONArray jsonArray = new JSONArray(response.toString());
-            cboApplicantID.removeAllItems(); // Clear previous items
+            cboApplicantID.removeAllItems();
             
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                // Extract Applicant Data
                 applicantId = jsonObject.optString("id", "No ID");
                 applicationDate = jsonObject.optString("applicationDate", "No Date");
                 applicationStatus = jsonObject.optString("status", "No Status");
 
-                // Extract Pet Owner Data
                 JSONObject petOwner = jsonObject.optJSONObject("petOwner");
                 if (petOwner != null) {
                     petOwnerId = petOwner.optString("id", "No ID");
@@ -327,7 +308,6 @@ private void fetchApplicantData() {
                     petOwnerstreetAddress = petOwner.optString("streetAddress", "No Street Address");
                 }
 
-                // Extract Pet Data (Cat or Dog)
                 JSONObject catId = jsonObject.optJSONObject("catId");
                 JSONObject dogId = jsonObject.optJSONObject("dogId");
 
@@ -351,7 +331,6 @@ private void fetchApplicantData() {
                     selectedPet="dog";
                 }
 
-                // Update the Applicant ID dropdown
                 cboApplicantID.addItem(String.format("%s - %s - %s", applicantId, applicationDate,applicationStatus));
             }
 
@@ -386,19 +365,16 @@ private void fetchApplicantDetails(String id) {
             }
 
             JSONObject jsonObject = new JSONObject(response.toString()); // Parse as JSONObject
-            
-//            // Clear previous items
+
             cboApplicantID.removeAllItems();
             cboCat.removeAllItems();
             cboDog.removeAllItems();
             cboPetOwner.removeAllItems();
 
-            // Extract Applicant Data
             applicantId = jsonObject.optString("id", "No ID");
             applicationDate = jsonObject.optString("applicationDate", "No Date");
             applicationStatus = jsonObject.optString("status", "No Status");
 
-            // Extract Pet Owner Data
             JSONObject petOwner = jsonObject.optJSONObject("petOwner");
             if (petOwner != null) {
                 petOwnerId = petOwner.optString("id", "No ID");
@@ -411,7 +387,6 @@ private void fetchApplicantDetails(String id) {
                 cboPetOwner.addItem(String.format("%s - %s - %s", petOwnerId, petOwnerfirstName, petOwnerlastName));
             }
 
-            // Extract Pet Data (Cat or Dog)
             JSONObject catId = jsonObject.optJSONObject("catId");
             JSONObject dogId = jsonObject.optJSONObject("dogId");
 
@@ -437,7 +412,6 @@ private void fetchApplicantDetails(String id) {
                 cboDog.addItem(String.format("%s - %s - %s", petFinalId, petName, petsize));
             }
 
-            // Update the Applicant ID dropdown
             cboApplicantID.addItem(String.format("%s - %s - %s", applicantId, applicationDate, applicationStatus));
         } else {
             JOptionPane.showMessageDialog(null, "Error: Unable to fetch applicant details.");
@@ -489,7 +463,7 @@ private String sendRequest(String url, ApplicantClass or) throws Exception {
     }
 
     jsonObject.put("petOwner", petOwnerJson);
-    jsonObject.put("applicationDate", or.getapplicationDate());
+    jsonObject.put("applicationDate", or.getApplicationDate());
     jsonObject.put("dogId", dogJson != null ? dogJson : JSONObject.NULL);
     jsonObject.put("catId", catJson != null ? catJson : JSONObject.NULL);
     jsonObject.put("status", or.getReturnDate());
