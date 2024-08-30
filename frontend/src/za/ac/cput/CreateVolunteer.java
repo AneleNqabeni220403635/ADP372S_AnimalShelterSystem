@@ -98,10 +98,8 @@ public class CreateVolunteer extends JPanel {
         btnAdd.setBounds(150, 500, 150, 40);
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Reset field background colors
                 resetFieldColors();
 
-                // Validate inputs
                 boolean valid = true;
                 StringBuilder errorMessage = new StringBuilder();
 
@@ -146,9 +144,7 @@ public class CreateVolunteer extends JPanel {
                     return;
                 }
 
-                // Proceed with HTTP request if all validations pass
                 try {
-                    // Create JSON string manually
                     String jsonInputString = String.format(
                         "{\"firstName\":\"%s\",\"lastName\":\"%s\",\"contactNo\":\"%s\",\"emailAddress\":\"%s\",\"streetAddress\":\"%s\",\"availability\":\"%s\"}",
                         txtFirstName.getText(),
@@ -159,20 +155,17 @@ public class CreateVolunteer extends JPanel {
                         txtAvailability.getText()
                     );
 
-                    // Set up HTTP connection to send data to backend
-                    URL url = new URL("http://localhost:8080/animalshelter/volunteer/create"); // Replace with your actual endpoint
+                    URL url = new URL("http://localhost:8080/animalshelter/volunteer/create");
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("POST");
                     connection.setRequestProperty("Content-Type", "application/json; utf-8");
                     connection.setDoOutput(true);
 
-                    // Send JSON input string to the backend
                     try (OutputStream os = connection.getOutputStream()) {
                         byte[] input = jsonInputString.getBytes("utf-8");
                         os.write(input, 0, input.length);
                     }
 
-                    // Check for successful response
                     int responseCode = connection.getResponseCode();
                     StringBuilder response = new StringBuilder();
                     if (responseCode == HttpURLConnection.HTTP_OK) {
@@ -183,7 +176,6 @@ public class CreateVolunteer extends JPanel {
                             }
                         }
 
-                        // Parse JSON response to extract ID
                         JSONObject jsonResponse = new JSONObject(response.toString());
                         String id = jsonResponse.optString("id", "No ID returned");
 
