@@ -53,7 +53,6 @@ public class DeletePetOwner extends JPanel {
         lblTitle.setBounds(222, 81, 396, 40);
         add(lblTitle);
 
-        // Dropdown for Pet Owner ID
         JLabel lblPetOwnerId = new JLabel("Pet Owner ID:");
         lblPetOwnerId.setFont(new Font("Dialog", Font.BOLD, 16));
         lblPetOwnerId.setForeground(SystemColor.controlLtHighlight);
@@ -66,7 +65,7 @@ public class DeletePetOwner extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String selectedItem = (String) cboPetOwnerId.getSelectedItem();
                 if (selectedItem != null) {
-                    String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
+                    String id = selectedItem.split(" - ")[0];
                     fetchPetOwnerById(id);
                 }
             }
@@ -128,7 +127,6 @@ public class DeletePetOwner extends JPanel {
         txtSize.setEditable(false);
         add(txtSize);
 
-        // Radio Buttons for Cat and Dog
         rdbtnCat = new JRadioButton("Cat");
         rdbtnCat.setFont(new Font("Dialog", Font.BOLD, 16));
         rdbtnCat.setForeground(SystemColor.controlLtHighlight);
@@ -158,19 +156,18 @@ public class DeletePetOwner extends JPanel {
         petGroup.add(rdbtnCat);
         petGroup.add(rdbtnDog);
 
-        // Dropdown for Cat
         cboCat = new JComboBox<>(new String[]{"Select Cat", "Persian", "Siamese", "Maine Coon"});
         cboCat.setBounds(318, 404, 300, 30);
         cboCat.setEnabled(true);
         add(cboCat);
 
-        // Dropdown for Dog
+
         cboDog = new JComboBox<>(new String[]{"Select Dog", "Beagle", "Bulldog", "Labrador"});
         cboDog.setBounds(318, 446, 300, 30);
         cboDog.setEnabled(false);
         add(cboDog);
 
-        // Buttons
+
         JButton btnAdd = new JButton("Delete");
         btnAdd.setFont(new Font("Dialog", Font.BOLD, 16));
         btnAdd.setBounds(150, 500, 150, 40);
@@ -191,7 +188,7 @@ public class DeletePetOwner extends JPanel {
         });
         add(btnBack);
 
-        // Set default state
+
         fetchPetOwnerData();
         togglePetSelection(true);
     }
@@ -208,7 +205,7 @@ public class DeletePetOwner extends JPanel {
 
     private void fetchPetOwnerData() {
         try {
-            URL url = new URL("http://localhost:8080/animalshelter/petOwner/getall"); // Endpoint to get cat IDs
+            URL url = new URL("http://localhost:8080/animalshelter/petOwner/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Accept", "application/json");
@@ -224,7 +221,7 @@ public class DeletePetOwner extends JPanel {
                 }
 
                 JSONArray jsonArray = new JSONArray(response.toString());
-                cboPetOwnerId.removeAllItems(); // Clear previous items
+                cboPetOwnerId.removeAllItems();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     int id = jsonObject.getInt("id");
@@ -254,7 +251,7 @@ public class DeletePetOwner extends JPanel {
 
     private void fetchCatData() {
         try {
-            URL url = new URL("http://localhost:8080/animalshelter/cat/getall"); // Endpoint to get cat IDs
+            URL url = new URL("http://localhost:8080/animalshelter/cat/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Accept", "application/json");
@@ -270,7 +267,7 @@ public class DeletePetOwner extends JPanel {
                 }
 
                 JSONArray jsonArray = new JSONArray(response.toString());
-                cboCat.removeAllItems(); // Clear previous items
+                cboCat.removeAllItems();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     int id = jsonObject.getInt("catId");
@@ -339,7 +336,7 @@ public class DeletePetOwner extends JPanel {
 
     private void fetchDogData() {
         try {
-            URL url = new URL("http://localhost:8080/animalshelter/dog/getall"); // Endpoint to get dog IDs
+            URL url = new URL("http://localhost:8080/animalshelter/dog/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Accept", "application/json");
@@ -355,7 +352,7 @@ public class DeletePetOwner extends JPanel {
                 }
 
                 JSONArray jsonArray = new JSONArray(response.toString());
-                cboDog.removeAllItems(); // Clear previous items
+                cboDog.removeAllItems();
                 for (int i = 0; i < jsonArray.length(); i++) {
 
 
@@ -389,11 +386,11 @@ public class DeletePetOwner extends JPanel {
             return;
         }
 
-        String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
+        String id = selectedItem.split(" - ")[0];
 
-        // Create JSON object with only the ID
+
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id", id); // Include only the ID
+        jsonObject.put("id", id);
 
         try {
             URL url = new URL("http://localhost:8080/animalshelter/petOwner/delete/"+id);
@@ -410,13 +407,13 @@ public class DeletePetOwner extends JPanel {
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 JOptionPane.showMessageDialog(null, "PetOwner Deleted successfully.");
-                // Optionally, clear the text fields after deletion
+
                 txtName.setText("");
                 txtBreed.setText("");
                 txtAge.setText("");
                 txtSize.setText("");
                 txtGender.setText("");
-                // Optionally, re-populate the ComboBox
+
                 fetchPetOwnerData();
             } else {
                 JOptionPane.showMessageDialog(null, "Error: Unable to Delete PetOwner.");

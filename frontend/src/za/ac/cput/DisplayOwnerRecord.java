@@ -1,5 +1,6 @@
 package za.ac.cput;
 
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -17,13 +18,12 @@ public class DisplayOwnerRecord extends JPanel {
     private JTable table;
     private DefaultTableModel tableModel;
 
-    // Constructor that accepts CardLayout and JPanel
     public DisplayOwnerRecord(CardLayout cardLayout, JPanel cardPanel) {
         setBackground(new Color(0, 128, 128));
 
-        // Initialize table model with column names
+
         tableModel = new DefaultTableModel(
-            new String[]{"Owner Name", "Cat Name", "Dog Name", "Taken Date", "Return Date"}, 0
+                new String[]{"Owner Name", "Cat Name", "Dog Name", "Taken Date", "Return Date"}, 0
         );
         setLayout(null);
         table = new JTable(tableModel);
@@ -32,7 +32,7 @@ public class DisplayOwnerRecord extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
         scrollPane.setBounds(61, 95, 678, 310);
         add(scrollPane);
-        
+
         JLabel lblOwnerRecord = new JLabel("Owner Record");
         lblOwnerRecord.setForeground(new Color(255, 255, 255));
         lblOwnerRecord.setFont(new Font("Dialog", Font.BOLD, 20));
@@ -44,19 +44,19 @@ public class DisplayOwnerRecord extends JPanel {
         btnBack.setBounds(590, 429, 150, 40);
         btnBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "Owner"); // Change "Owner" to the actual name of the main panel
+                cardLayout.show(cardPanel, "Owner");
             }
         });
         add(btnBack);
 
-        // Load owner records data
+
         loadOwnerRecordsData();
     }
 
     private void loadOwnerRecordsData() {
         SwingUtilities.invokeLater(() -> {
             try {
-                // API URL to fetch all owner records
+
                 URL url = new URL("http://localhost:8080/animalshelter/ownerRecord/getall");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
@@ -72,11 +72,11 @@ public class DisplayOwnerRecord extends JPanel {
                         }
                     }
 
-                    // Parse the response into JSON array
-                    JSONArray ownerRecordsArray = new JSONArray(response.toString());
-                    tableModel.setRowCount(0); // Clear existing rows
 
-                    // Populate table model with owner records data
+                    JSONArray ownerRecordsArray = new JSONArray(response.toString());
+                    tableModel.setRowCount(0);
+
+
                     for (int i = 0; i < ownerRecordsArray.length(); i++) {
                         JSONObject ownerRecordObject = ownerRecordsArray.getJSONObject(i);
 
@@ -86,7 +86,7 @@ public class DisplayOwnerRecord extends JPanel {
                         String takenDate = ownerRecordObject.optString("takenDate", "N/A");
                         String returnDate = ownerRecordObject.optString("returnDate", "N/A");
 
-                        // Add row to the table model
+
                         tableModel.addRow(new Object[]{ownerName, catName, dogName, takenDate, returnDate});
                     }
                 } else {
@@ -110,8 +110,8 @@ public class DisplayOwnerRecord extends JPanel {
 
     private String getCatName(JSONObject catJson) {
         if (catJson != null) {
-        	String catId=catJson.optString("catId", "N/A");
-        	String catName=catJson.optString("name", "N/A");
+            String catId=catJson.optString("catId", "N/A");
+            String catName=catJson.optString("name", "N/A");
             return catId+" - "+catName;
         }
         return "N/A";
@@ -119,9 +119,9 @@ public class DisplayOwnerRecord extends JPanel {
 
     private String getDogName(JSONObject dogJson) {
         if (dogJson != null) {
-        	
-        	String dogId=dogJson.optString("dogId", "N/A");
-        	String dogName=dogJson.optString("name", "N/A");
+
+            String dogId=dogJson.optString("dogId", "N/A");
+            String dogName=dogJson.optString("name", "N/A");
             return dogId+" - "+dogName;
         }
         return "N/A";
