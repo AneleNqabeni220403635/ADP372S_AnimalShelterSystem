@@ -3,6 +3,8 @@ package za.ac.cput.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Applicant;
+import za.ac.cput.domain.Cat;
+import za.ac.cput.domain.Dog;
 import za.ac.cput.service.ApplicantService;
 
 import java.util.Set;
@@ -42,5 +44,21 @@ public class ApplicantController
     public Set<Applicant> getAll()
     {
         return applicantService.getall();
+    }
+
+    @PostMapping("/readCatId/{catId}")
+    public Applicant readCatId(@PathVariable Long catId)
+    {
+        Cat cat = new Cat.Builder().setCatId(catId).build();
+        System.out.println("readCatId");
+        return applicantService.readCatId(cat);
+    }
+
+    @PostMapping("/readDogId/{dogId}")
+    public Applicant readDogId(@PathVariable Long dogId)
+    {
+        Dog dog = new Dog.Builder().setDogId(dogId).build();
+        System.out.println("readDogId");
+        return applicantService.readDogId(dog);
     }
 }

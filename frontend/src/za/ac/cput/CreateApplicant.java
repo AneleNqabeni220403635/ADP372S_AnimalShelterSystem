@@ -31,7 +31,7 @@ public class CreateApplicant extends JPanel {
     private JRadioButton rdbtnDog;
     private JLabel lblApplicationDate;
     private ButtonGroup petTypeGroup;
-    
+
     String petName;
     String petsize;
     String petAge;
@@ -39,14 +39,13 @@ public class CreateApplicant extends JPanel {
     String petBreed;
     String petCageNo;
     String petFinalId;
-    
+
     String ownerId;
     String ownerFirstName;
     String ownerLastName;
     String ownerContactName;
     String ownerEmail;
     String ownerStreet;
-    
     String date;
 
 
@@ -66,17 +65,17 @@ public class CreateApplicant extends JPanel {
         lblPetOwner.setBounds(150, 155, 135, 30);
         add(lblPetOwner);
 
-        String[] petOwners = {"Select Pet Owner"}; // Example data
+        String[] petOwners = {"Select Pet Owner"};
         cboPetOwner = new JComboBox<>(petOwners);
         cboPetOwner.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                    String selectedItem = (String) cboPetOwner.getSelectedItem();
-                    if (selectedItem != null) {
-                        String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
-                        fetchPetOwnerById(id);
-                    }
+                String selectedItem = (String) cboPetOwner.getSelectedItem();
+                if (selectedItem != null) {
+                    String id = selectedItem.split(" - ")[0];
+                    fetchPetOwnerById(id);
                 }
-            
+            }
+
         });
         cboPetOwner.setBounds(318, 155, 300, 30);
         add(cboPetOwner);
@@ -119,15 +118,15 @@ public class CreateApplicant extends JPanel {
         cboCat.setBounds(318, 235, 300, 30);
         cboCat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                    String selectedItem = (String) cboCat.getSelectedItem();
-                    if (selectedItem != null) {
-                        String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
-                        fetchCatDetails(id);
-                    }
+                String selectedItem = (String) cboCat.getSelectedItem();
+                if (selectedItem != null) {
+                    String id = selectedItem.split(" - ")[0];
+                    fetchCatDetails(id);
                 }
-            
+            }
+
         });
-        cboCat.setEnabled(false); // Initially disabled
+        cboCat.setEnabled(false);
         add(cboCat);
 
         JLabel lblDog = new JLabel("Select Dog:");
@@ -152,7 +151,7 @@ public class CreateApplicant extends JPanel {
         this.lblApplicationDate.setFont(new Font("Dialog", Font.PLAIN, 16));
         this.lblApplicationDate.setForeground(SystemColor.controlLtHighlight);
         this.lblApplicationDate.setBounds(318, 315, 300, 30);
-        date=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         add(this.lblApplicationDate);
 
         JLabel lblStatus = new JLabel("Status:");
@@ -178,7 +177,7 @@ public class CreateApplicant extends JPanel {
                     System.out.print(selectedPetType.equals("cat"));
                     if (selectedPetType.equals("cat")) {
                         CatClass cat = new CatClass(petFinalId, petName, petBreed, petCageNo, petGender, petsize, petAge);
-                        
+
                         if (cat != null) {
                             petJson.put("catId", cat.getId());
                             petJson.put("name", cat.getName());
@@ -188,165 +187,141 @@ public class CreateApplicant extends JPanel {
                             petJson.put("size", cat.getSize());
                             petJson.put("age", cat.getAge());
                         }
-                    
-                  System.out.println("RequestBody is"+petJson);
-                    URL url = new URL("http://localhost:8080/animalshelter/applicant/readCatId");
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestMethod("POST");
-                    connection.setRequestProperty("Content-Type", "application/json; utf-8");
-                    connection.setDoOutput(true);
 
-                    String jsonString = petJson.toString();
-                    
-                    try (OutputStream os = connection.getOutputStream()) {
-                        byte[] input = jsonString.getBytes("utf-8");
-                        os.write(input, 0, input.length);
-                    }
+                        System.out.println("RequestBody is" + petJson);
+                        URL url = new URL("http://localhost:8080/animalshelter/applicant/readCatId/" + cat.getId());
+                        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                        connection.setRequestMethod("POST");
+                        connection.setRequestProperty("Content-Type", "application/json; utf-8");
+                        connection.setDoOutput(true);
 
-                    int responseCode = connection.getResponseCode();
-                    StringBuilder response = new StringBuilder();
-                    
-                    if (responseCode == HttpURLConnection.HTTP_OK) {
-                        try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"))) {
-                            String line;
-                            while ((line = in.readLine()) != null) {
-                                response.append(line);
-                            }
+                        String jsonString = petJson.toString();
+
+                        try (OutputStream os = connection.getOutputStream()) {
+                            byte[] input = jsonString.getBytes("utf-8");
+                            os.write(input, 0, input.length);
                         }
-                        System.out.println("Response: " + response);
 
-                        String jsonResponse = response.toString();
-                        if (!jsonResponse.isEmpty()) {
-                            JSONObject jsonObj = new JSONObject(jsonResponse);
-                            String status = jsonObj.optString("status");
-                            
-                            if ("abc".equalsIgnoreCase(status)) {
-                                String catId = jsonObj.optJSONObject("petOwner").optString("id", "No ID returned");
-                                JOptionPane.showMessageDialog(null, "Applicant for this cat already exists.Applicant ID: " + catId);
+                        int responseCode = connection.getResponseCode();
+                        StringBuilder response = new StringBuilder();
+
+                        if (responseCode == HttpURLConnection.HTTP_OK) {
+                            try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"))) {
+                                String line;
+                                while ((line = in.readLine()) != null) {
+                                    response.append(line);
+                                }
+                            }
+                            System.out.println("Response: " + response);
+
+                            String jsonResponse = response.toString();
+                            if (!jsonResponse.isEmpty()) {
+                                JSONObject jsonObj = new JSONObject(jsonResponse);
+                                String status = jsonObj.optString("status");
+
+                                if ("abc".equalsIgnoreCase(status)) {
+                                    String catId = jsonObj.optJSONObject("petOwner").optString("id", "No ID returned");
+                                    JOptionPane.showMessageDialog(null, "Applicant for this cat already exists.Applicant ID: " + catId);
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Error");
+                                }
                             } else {
-                            	
-                            
-                            	
-                                JOptionPane.showMessageDialog(null, "Error");
+                                System.out.println(petFinalId + "" + petName + "" + petBreed + "" + petCageNo + "" + petGender + "" + petsize + "" + petAge);
+                                PetOwnerClass pet = new PetOwnerClass(ownerId, ownerFirstName, ownerLastName, ownerContactName, ownerEmail, ownerStreet);
+
+                                ApplicantClass or = new ApplicantClass(pet, date, null, cat, "pending");
+
+                                String url1 = "http://localhost:8080/animalshelter/applicant/create";
+                                System.out.println("Object: " + or);
+                                sendRequest(url1, or);
+                                JOptionPane.showMessageDialog(null, "Applicant created successfully!");
                             }
                         } else {
-                        	System.out.println(petFinalId+""+petName+""+petBreed+""+petCageNo+""+petGender+""+petsize+""+petAge);
-                          	 CatClass cat1=new CatClass(petFinalId, petName, petBreed,petCageNo, petGender, petsize, petAge);
-                                 System.out.print("Cat Breed"+cat1.getBreed());
-                              PetOwnerClass pet=new PetOwnerClass(ownerId,ownerFirstName , ownerLastName, ownerContactName, ownerEmail, ownerStreet);
-                                  System.out.println("pet owner"+pet.getEmailAddress());
-                                                 
-                                  ApplicantClass or=new ApplicantClass(pet,date,null,cat1,"pending");
-                                  System.out.println("Object"+or.getCat().getId());
-                                  System.out.println("Object"+or.getPetOwner().getContactNo());
-                                  System.out.println("Object"+or.getReturnDate());
-                                  System.out.println("Or Object"+or);
-                                  
-                                  String url1 = "http://localhost:8080/animalshelter/applicant/create";
-                                  System.out.println("Object: " + or);
-                                  sendRequest(url1, or);
-                                  JOptionPane.showMessageDialog(null, "Applicant created successfully!");
+                            JOptionPane.showMessageDialog(null, "Error: Unable to create applicant. Response Code: " + responseCode);
                         }
-                    } 
-                    else {
-                        JOptionPane.showMessageDialog(null, "Error: Unable to create applicant. Response Code: " + responseCode);
-                    }
-                    }
-                    
-                    else
-                    {	
-                             DogClass dog = new DogClass(petFinalId, petName, petBreed, petCageNo, petGender, petsize, petAge);
-                             
-                             if (dog != null) {
-                                 petJson.put("dogId", dog.getId());
-                                 petJson.put("name", dog.getName());
-                                 petJson.put("breed", dog.getBreed());
-                                 petJson.put("cageNumber", dog.getCageNumber());
-                                 petJson.put("gender", dog.getGender());
-                                 petJson.put("size", dog.getSize());
-                                 petJson.put("age", dog.getAge());
-                             }
-                         
-                       System.out.println("RequestBody is"+petJson);
-                         URL url = new URL("http://localhost:8080/animalshelter/applicant/readDogId"); // Replace with your actual endpoint
-                         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                         connection.setRequestMethod("POST"); // Correct HTTP method
-                         connection.setRequestProperty("Content-Type", "application/json; utf-8");
-                         connection.setDoOutput(true);
+                    } else {
+                        DogClass dog = new DogClass(petFinalId, petName, petBreed, petCageNo, petGender, petsize, petAge);
 
-                         String jsonString = petJson.toString();
-                         
-                         try (OutputStream os = connection.getOutputStream()) {
-                             byte[] input = jsonString.getBytes("utf-8");
-                             os.write(input, 0, input.length);
-                         }
+                        if (dog != null) {
+                            petJson.put("dogId", dog.getId());
+                            petJson.put("name", dog.getName());
+                            petJson.put("breed", dog.getBreed());
+                            petJson.put("cageNumber", dog.getCageNumber());
+                            petJson.put("gender", dog.getGender());
+                            petJson.put("size", dog.getSize());
+                            petJson.put("age", dog.getAge());
+                        }
 
-                         int responseCode = connection.getResponseCode();
-                         StringBuilder response = new StringBuilder();
-                         
-                         if (responseCode == HttpURLConnection.HTTP_OK) {
-                             try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"))) {
-                                 String line;
-                                 while ((line = in.readLine()) != null) {
-                                     response.append(line);
-                                 }
-                             }
-                             System.out.println("Response: " + response);
+                        System.out.println("RequestBody is" + petJson);
+                        URL url = new URL("http://localhost:8080/animalshelter/applicant/readDogId/" + dog.getId());
+                        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                        connection.setRequestMethod("POST");
+                        connection.setRequestProperty("Content-Type", "application/json; utf-8");
+                        connection.setDoOutput(true);
 
-                             String jsonResponse = response.toString();
-                             if (!jsonResponse.isEmpty()) {
-                                 JSONObject jsonObj = new JSONObject(jsonResponse);
-                                 String status = jsonObj.optString("status");
-                                 
-                                 if ("pending".equalsIgnoreCase(status)) {
-                                     String catId = jsonObj.optJSONObject("petOwner").optString("id", "No ID returned");
-                                     JOptionPane.showMessageDialog(null, "Applicant for this dog already exists.Applicant ID: " + catId);
-                                 } else {
-                                 	
-                                 
-                                 	
-                                     JOptionPane.showMessageDialog(null, "Error");
-                                 }
-                             } else {
-                             	System.out.println(petFinalId+""+petName+""+petBreed+""+petCageNo+""+petGender+""+petsize+""+petAge);
-                               	 DogClass cat1=new DogClass(petFinalId, petName, petBreed,petCageNo, petGender, petsize, petAge);
-                                      System.out.print("Cat Breed"+cat1.getBreed());
-                                   PetOwnerClass pet=new PetOwnerClass(ownerId,ownerFirstName , ownerLastName, ownerContactName, ownerEmail, ownerStreet);
-                                       System.out.println("pet owner"+pet.getEmailAddress());
-                                                      
-                                       ApplicantClass or=new ApplicantClass(pet,date,cat1,null,"pending");
-                                       
-                                       String url1 = "http://localhost:8080/animalshelter/applicant/create";
-                                       System.out.println("Object: " + or);
-                                       sendRequest(url1, or);
-                                       JOptionPane.showMessageDialog(null, "Applicant created successfully!");
-                                 JOptionPane.showMessageDialog(null, "Empty response received from the server.");
-                             }
-                         } else {
-                             JOptionPane.showMessageDialog(null, "Error: Unable to create applicant. Response Code: " + responseCode);
-                         }
-                         }
+                        String jsonString = petJson.toString();
+
+                        try (OutputStream os = connection.getOutputStream()) {
+                            byte[] input = jsonString.getBytes("utf-8");
+                            os.write(input, 0, input.length);
+                        }
+
+                        int responseCode = connection.getResponseCode();
+                        StringBuilder response = new StringBuilder();
+
+                        if (responseCode == HttpURLConnection.HTTP_OK) {
+                            try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"))) {
+                                String line;
+                                while ((line = in.readLine()) != null) {
+                                    response.append(line);
+                                }
+                            }
+                            System.out.println("Response: " + response);
+
+                            String jsonResponse = response.toString();
+                            if (!jsonResponse.isEmpty()) {
+                                JSONObject jsonObj = new JSONObject(jsonResponse);
+                                String status = jsonObj.optString("status");
+
+                                if ("pending".equalsIgnoreCase(status)) {
+                                    String catId = jsonObj.optJSONObject("petOwner").optString("id", "No ID returned");
+                                    JOptionPane.showMessageDialog(null, "Applicant for this dog already exists.Applicant ID: " + catId);
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Error");
+                                }
+                            } else {
+                                PetOwnerClass pet = new PetOwnerClass(ownerId, ownerFirstName, ownerLastName, ownerContactName, ownerEmail, ownerStreet);
+
+                                ApplicantClass or = new ApplicantClass(pet, date, dog, null, "pending");
+
+                                String url1 = "http://localhost:8080/animalshelter/applicant/create";
+                                System.out.println("Object: " + or);
+                                sendRequest(url1, or);
+                                JOptionPane.showMessageDialog(null, "Applicant created successfully!");
+                                JOptionPane.showMessageDialog(null, "Empty response received from the server.");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Error: Unable to create applicant. Response Code: " + responseCode);
+                        }
                     }
-                catch (Exception ex) {
+                } catch (Exception ex) {
                     ex.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
                 }
             }
         });
-
-        
         add(btnAdd);
 
         JButton btnBack = new JButton("Back");
         btnBack.setFont(new Font("Dialog", Font.BOLD, 16));
         btnBack.setBounds(468, 442, 150, 40);
-        btnBack.addActionListener(new ActionListener() {
+        btnBack.addActionListener(new ActionListener()
+        {
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(cardPanel, "Applicant");
             }
         });
         add(btnBack);
-
         fetchPetOwnerData();
         togglePetSelection(true);
     }
@@ -359,9 +334,8 @@ public class CreateApplicant extends JPanel {
         } else {
             fetchDogData();
         }
-        
     }
-    
+
     private void togglePetSelection(boolean isCatSelected) {
         cboCat.setEnabled(isCatSelected);
         cboDog.setEnabled(!isCatSelected);
@@ -371,10 +345,10 @@ public class CreateApplicant extends JPanel {
             fetchDogData();
         }
     }
-    
+
     private void fetchPetOwnerData() {
         try {
-        	
+
             URL url = new URL("http://localhost:8080/animalshelter/petOwner/getall"); // Endpoint to get cat IDs
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
@@ -395,20 +369,14 @@ public class CreateApplicant extends JPanel {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     int id = jsonObject.getInt("id");
-                    
-                    ownerId=String.valueOf(id);
+
+                    ownerId = String.valueOf(id);
                     String firstName = jsonObject.optString("firstName", "N/A");
-                    ownerFirstName=jsonObject.optString("firstName", "N/A");
-                    
+                    ownerFirstName = jsonObject.optString("firstName", "N/A");
                     String lastName = jsonObject.optString("lastName", "N/A");
-                    
-                    
-                    ownerContactName=jsonObject.optString("contactNumber", "N/A");
-                    
-                    ownerEmail=jsonObject.optString("emailAddress", "N/A");
-                    
-                    ownerStreet=jsonObject.optString("streetAddress", "N/A");
-                    
+                    ownerContactName = jsonObject.optString("contactNumber", "N/A");
+                    ownerEmail = jsonObject.optString("emailAddress", "N/A");
+                    ownerStreet = jsonObject.optString("streetAddress", "N/A");
                     cboPetOwner.addItem(String.format("%d - %s %s", id, firstName, lastName));
                 }
             } else {
@@ -419,10 +387,10 @@ public class CreateApplicant extends JPanel {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
         }
     }
-    
+
     private void fetchCatData() {
         try {
-            URL url = new URL("http://localhost:8080/animalshelter/cat/getall"); // Endpoint to get cat IDs
+            URL url = new URL("http://localhost:8080/animalshelter/cat/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Accept", "application/json");
@@ -443,9 +411,7 @@ public class CreateApplicant extends JPanel {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     int id = jsonObject.getInt("catId");
                     String name = jsonObject.optString("name", "N/A");
-                    
                     String breed = jsonObject.optString("breed", "N/A");
-                    
                     cboCat.addItem(String.format("%d - %s %s", id, name, breed));
                 }
             } else {
@@ -456,7 +422,7 @@ public class CreateApplicant extends JPanel {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
         }
     }
-    
+
     private void fetchPetOwnerById(String ownerid) {
         try {
             URL url = new URL("http://localhost:8080/animalshelter/petOwner/read/" + ownerid);
@@ -476,21 +442,12 @@ public class CreateApplicant extends JPanel {
 
                 JSONObject jsonObject = new JSONObject(response.toString());
                 int id = jsonObject.getInt("id");
-                String firstName = jsonObject.optString("firstName", "N/A");
-                
-                
-                ownerFirstName=jsonObject.optString("firstName", "N/A");
-               
-                String lastName = jsonObject.optString("lastName", "N/A");
-                
-                ownerLastName=jsonObject.optString("lastName", "N/A");
-                
-                ownerContactName=jsonObject.optString("contactNumber", "N/A");
-           
-                ownerEmail=jsonObject.optString("emailAddress", "N/A");
-                
-                ownerStreet=jsonObject.optString("streetAddress", "N/A");
-                
+                ownerFirstName = jsonObject.optString("firstName", "N/A");
+                ownerLastName = jsonObject.optString("lastName", "N/A");
+                ownerContactName = jsonObject.optString("contactNumber", "N/A");
+                ownerEmail = jsonObject.optString("emailAddress", "N/A");
+                ownerStreet = jsonObject.optString("streetAddress", "N/A");
+
             } else {
                 JOptionPane.showMessageDialog(null, "Error: Unable to fetch cat details.");
             }
@@ -521,20 +478,17 @@ public class CreateApplicant extends JPanel {
                 JSONArray jsonArray = new JSONArray(response.toString());
                 cboDog.removeAllItems(); // Clear previous items
                 for (int i = 0; i < jsonArray.length(); i++) {
-                  
-                   
-           
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     int id = jsonObject.getInt("dogId");
                     String name = jsonObject.optString("name", "N/A");
-                    petName=jsonObject.optString("name", "N/A");
+                    petName = jsonObject.optString("name", "N/A");
                     String breed = jsonObject.optString("breed", "N/A");
-                    petBreed=jsonObject.optString("breed", "N/A");
-                    petCageNo=jsonObject.optString("cageNumber", "N/A");
-                    petGender=jsonObject.optString("gender", "N/A");
-                    petsize=jsonObject.optString("size", "N/A");
-                    petAge=jsonObject.optString("age", "N/A");
-                    petFinalId=String.valueOf(jsonObject.opt("dogId"));
+                    petBreed = jsonObject.optString("breed", "N/A");
+                    petCageNo = jsonObject.optString("cageNumber", "N/A");
+                    petGender = jsonObject.optString("gender", "N/A");
+                    petsize = jsonObject.optString("size", "N/A");
+                    petAge = jsonObject.optString("age", "N/A");
+                    petFinalId = String.valueOf(jsonObject.opt("dogId"));
                     cboDog.addItem(String.format("%d - %s %s", id, name, breed));
                 }
             } else {
@@ -545,6 +499,7 @@ public class CreateApplicant extends JPanel {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
         }
     }
+
     private void fetchCatDetails(String id) {
         try {
             URL url = new URL("http://localhost:8080/animalshelter/cat/read/" + id);
@@ -563,13 +518,13 @@ public class CreateApplicant extends JPanel {
                 }
 
                 JSONObject jsonObject = new JSONObject(response.toString());
-                petFinalId=id;
-                petName=jsonObject.optString("name", "");
-                petsize=jsonObject.optString("size", "");
-                petAge= String.valueOf(jsonObject.optInt("age", 0)); // Convert integer to string
-                petGender= jsonObject.optString("gender", "");
-                petBreed=jsonObject.optString("breed", "");
-                petCageNo= String.valueOf(jsonObject.optInt("cageNumber", 0)); // Convert integer to string
+                petFinalId = id;
+                petName = jsonObject.optString("name", "");
+                petsize = jsonObject.optString("size", "");
+                petAge = String.valueOf(jsonObject.optInt("age", 0)); // Convert integer to string
+                petGender = jsonObject.optString("gender", "");
+                petBreed = jsonObject.optString("breed", "");
+                petCageNo = String.valueOf(jsonObject.optInt("cageNumber", 0)); // Convert integer to string
 
             } else {
                 JOptionPane.showMessageDialog(null, "Error: Unable to fetch cat details.");
@@ -579,7 +534,7 @@ public class CreateApplicant extends JPanel {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
         }
     }
-    
+
     private String sendRequest(String url, ApplicantClass or) throws Exception {
         URL url1 = new URL(url);
         HttpURLConnection conn = (HttpURLConnection) url1.openConnection();
@@ -629,7 +584,7 @@ public class CreateApplicant extends JPanel {
 
         String jsonString = jsonObject.toString();
 
-        System.out.println("request"+jsonString);
+        System.out.println("request" + jsonString);
         try (OutputStream os = conn.getOutputStream()) {
             byte[] input = jsonString.getBytes("utf-8");
             os.write(input, 0, input.length);
@@ -644,5 +599,4 @@ public class CreateApplicant extends JPanel {
             return response.toString();
         }
     }
-  
 }
