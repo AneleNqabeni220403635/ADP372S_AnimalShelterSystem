@@ -8,6 +8,7 @@ import za.ac.cput.domain.Dog;
 import za.ac.cput.repository.ApplicantRepository;
 import za.ac.cput.service.Impl.IApplicantService;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -54,5 +55,10 @@ public class ApplicantService implements IApplicantService
     public Applicant readDogId(Dog dog)
     {
         return repository.findByDogId(dog).orElse(null);
+    }
+    public List<Applicant> readStatus(String status)
+    {
+        System.out.println("Attempting to find applications with status of: " + status);
+        return repository.findByStatus(status);
     }
 }

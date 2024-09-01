@@ -7,6 +7,7 @@ import za.ac.cput.domain.Cat;
 import za.ac.cput.domain.Dog;
 import za.ac.cput.service.ApplicantService;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -50,7 +51,6 @@ public class ApplicantController
     public Applicant readCatId(@PathVariable Long catId)
     {
         Cat cat = new Cat.Builder().setCatId(catId).build();
-        System.out.println("readCatId");
         return applicantService.readCatId(cat);
     }
 
@@ -58,7 +58,12 @@ public class ApplicantController
     public Applicant readDogId(@PathVariable Long dogId)
     {
         Dog dog = new Dog.Builder().setDogId(dogId).build();
-        System.out.println("readDogId");
         return applicantService.readDogId(dog);
+    }
+
+    @GetMapping("/readStatus/{status}")
+    public List<Applicant> readDogId(@PathVariable String status)
+    {
+        return applicantService.readStatus(status);
     }
 }
