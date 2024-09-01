@@ -277,11 +277,10 @@ public class DisplayApplicant extends JPanel {
 
     private void fetchApplicantData() {
         try {
-            URL url = new URL("http://localhost:8080/animalshelter/applicant/getall"); // Endpoint to get applicant data
+            URL url = new URL("http://localhost:8080/animalshelter/applicant/getAll"); // Endpoint to get applicant data
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Accept", "application/json");
-
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 StringBuilder response = new StringBuilder();
@@ -289,6 +288,7 @@ public class DisplayApplicant extends JPanel {
                     String line;
                     while ((line = in.readLine()) != null) {
                         response.append(line);
+                        System.out.println(line);
                     }
                 }
 

@@ -73,14 +73,14 @@ public class UpdateApplicant extends JPanel {
         lblApplicantID.setBounds(150, 140, 150, 30);
         add(lblApplicantID);
 
-        String[] applicantIDs = {"Select Applicant Id","ID 1", "ID 2", "ID 3"}; // Example data
+        String[] applicantIDs = {"Select Applicant Id","ID 1", "ID 2", "ID 3"};
         cboApplicantID = new JComboBox<>(applicantIDs);
         cboApplicantID.setBounds(318, 140, 300, 30);
         cboApplicantID.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                     String selectedItem = (String) cboApplicantID.getSelectedItem();
                     if (selectedItem != null) {
-                        String id = selectedItem.split(" - ")[0]; // Extract ID from the selected item
+                        String id = selectedItem.split(" - ")[0];
                         fetchApplicantDetails(id);
                     }
                 }
@@ -273,7 +273,7 @@ public class UpdateApplicant extends JPanel {
     
 private void fetchApplicantData() {
     try {
-        URL url = new URL("http://localhost:8080/animalshelter/applicant/readStatus/Pending"); // Endpoint to get applicant data
+        URL url = new URL("http://localhost:8080/animalshelter/applicant/readStatus/Pending");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Accept", "application/json");
