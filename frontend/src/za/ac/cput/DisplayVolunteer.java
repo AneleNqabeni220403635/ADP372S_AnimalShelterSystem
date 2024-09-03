@@ -140,19 +140,7 @@ public class DisplayVolunteer extends JPanel {
         txtAvailability.setEditable(false);
         add(txtAvailability);
 
-        JButton btnDisplay = new JButton("Display");
-        btnDisplay.setFont(new Font("Dialog", Font.BOLD, 16));
-        btnDisplay.setBounds(150, 450, 150, 40);
-        btnDisplay.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (rbtnSingleRecord.isSelected()) {
-                    DisplayVolunteer();
-                } else {
-                    fetchAllVolunteers();
-                }
-            }
-        });
-        add(btnDisplay);
+
 
         JButton btnBack = new JButton("Back");
         btnBack.setFont(new Font("Dialog", Font.BOLD, 16));

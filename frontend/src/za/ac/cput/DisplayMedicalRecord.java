@@ -158,10 +158,7 @@ public class DisplayMedicalRecord extends JPanel {
         cboDog.setEnabled(false);
         add(cboDog);
 
-        JButton btnAdd = new JButton("Display");
-        btnAdd.setFont(new Font("Dialog", Font.BOLD, 16));
-        btnAdd.setBounds(150, 517, 150, 40);
-        add(btnAdd);
+
 
         JButton btnBack = new JButton("Back");
         btnBack.setFont(new Font("Dialog", Font.BOLD, 16));

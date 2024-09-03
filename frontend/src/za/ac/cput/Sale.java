@@ -24,7 +24,7 @@ public class Sale extends JPanel {
         btnCreateSale.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                cardPanel.add(new DisplaySale(cardLayout,cardPanel), "DisplaySale");
+                cardPanel.add(new CreateSale(cardLayout,cardPanel), "CreateSale");
 
                 cardLayout.show(cardPanel, "CreateSale");
             }
