@@ -129,6 +129,7 @@ public class CreateSale extends JPanel {
         cboCat = new JComboBox<>(cats);
         cboCat.setBounds(318, 275, 300, 30);
         cboCat.setEnabled(false); // Initially disabled
+        cboCat.setEditable(false);
         add(cboCat);
 
         JLabel lblDog = new JLabel("Dog");
@@ -192,10 +193,13 @@ public class CreateSale extends JPanel {
                 else
                 {
                     DogClass dog = new DogClass(petFinalId, petName, petBreed, petCageNo, petGender, petsize, petAge);
+
                     EmployeeClass emp=new EmployeeClass(EmployeeId,EmployeeFirstName,EmployeeLastName,EmployeeContactNumber,EmployeeEmailAddress);
                     PetOwnerClass pet=new PetOwnerClass(petOwnerId,petOwnerfirstName , petOwnerlastName, petOwnercontactNo, petOwneremailAddress, petOwnerstreetAddress);
                     ApplicantClass or=new ApplicantClass(pet,date,dog,null,"Approved");
                     SaleClass sale=new SaleClass("1",or,date,emp,txtPrice.getText());
+
+
                     String url1 = "http://localhost:8080/animalshelter/sale/create";
                     System.out.println("Object: " + sale);
                     try {
@@ -241,7 +245,7 @@ public class CreateSale extends JPanel {
         toggleDropdowns(true);
     }
     private void toggleDropdowns(boolean showCat) {
-        cboCat.setEnabled(showCat);
+        cboCat.setEnabled(!showCat);
         cboDog.setEnabled(!showCat);
     }
     private void fetchApplicantData() {
@@ -423,7 +427,7 @@ public class CreateSale extends JPanel {
                 EmployeeLastName = jsonObject.optString("lastName", "N/A");
                 EmployeeEmailAddress= jsonObject.optString("emailAddress", "N/A");
                 EmployeeContactNumber=jsonObject.optString("contactNumber", "N/A");
-                cboCat.addItem(String.format("%s - %s %s", EmployeeId, EmployeeFirstName, EmployeeLastName));
+                cboEmployee.addItem(String.format("%s - %s %s", EmployeeId, EmployeeFirstName, EmployeeLastName));
 
             } else {
                 JOptionPane.showMessageDialog(null, "Error: Unable to fetch cat details.");
@@ -518,11 +522,11 @@ public class CreateSale extends JPanel {
 
         JSONObject dogJson = null;
         if (sale.getApplicant().getDog() != null) {
-            DogClass cat1=new DogClass(petFinalId, petName, petBreed,petCageNo, petGender, petsize, petAge);
-            System.out.print("Cat Breed"+cat1.getBreed());
+            DogClass dog=new DogClass(petFinalId, petName, petBreed,petCageNo, petGender, petsize, petAge);
+            System.out.print("Dog Breed"+dog.getBreed());
             PetOwnerClass pet=new PetOwnerClass(petOwnerId,petOwnerfirstName , petOwnerlastName, petOwnercontactNo, petOwneremailAddress, petOwnerstreetAddress);
             System.out.println("pet owner"+pet.getEmailAddress());
-            ApplicantClass or=new ApplicantClass(pet,date,cat1,null,"");
+            ApplicantClass or=new ApplicantClass(pet,date,dog,null,"");
             int check= DeleteApplicant();
             if(check==1) {
                 String url11 = "http://localhost:8080/animalshelter/applicant/update";
@@ -531,13 +535,13 @@ public class CreateSale extends JPanel {
             }
             dogJson = new JSONObject();
             dogJson.put("dogId", sale.getApplicant().getDog().getId());
-            dogJson.put("name", sale.getApplicant().getCat().getName());
-            dogJson.put("breed",sale.getApplicant().getCat().getBreed());
-            dogJson.put("cageNumber", sale.getApplicant().getCat().getCageNumber());
-            dogJson.put("gender", sale.getApplicant().getCat().getGender());
-            dogJson.put("size", sale.getApplicant().getCat().getSize());
-            dogJson.put("size", sale.getApplicant().getCat().getSize());
-            owr=new OwnerRecordClass(null,sale.getApplicant().getCat(),sale.getApplicant().getPetOwner(),date,textField.getText());
+            dogJson.put("name", sale.getApplicant().getDog().getName());
+            dogJson.put("breed",sale.getApplicant().getDog().getBreed());
+            dogJson.put("cageNumber", sale.getApplicant().getDog().getCageNumber());
+            dogJson.put("gender", sale.getApplicant().getDog().getGender());
+            dogJson.put("size", sale.getApplicant().getDog().getSize());
+            dogJson.put("size", sale.getApplicant().getDog().getSize());
+            owr=new OwnerRecordClass(sale.getApplicant().getDog(),null,sale.getApplicant().getPetOwner(),date,textField.getText());
         }
 
         JSONObject applicantJson = null;
@@ -754,7 +758,7 @@ public class CreateSale extends JPanel {
                 response.append(responseLine.trim());
             }
 
-            JOptionPane.showMessageDialog(null, "Owner Record Created");
+//            JOptionPane.showMessageDialog(null, "Owner Record Created");
             return response.toString();
         }
     }

@@ -39,6 +39,8 @@ public class UpdateApplicant extends JPanel {
     String applicationDate;
     String applicationStatus;
     String petOwnerId;
+
+    String selectedPetType;
     String petOwnerfirstName;
     String petOwnerlastName;
     String petOwnercontactNo;
@@ -100,33 +102,33 @@ public class UpdateApplicant extends JPanel {
         cboPetOwner.setEnabled(false); // Initially disabled
         add(cboPetOwner);
 
-        rdbtnCat = new JRadioButton("Cat");
-        rdbtnCat.setForeground(SystemColor.controlLtHighlight);
-        rdbtnCat.setBackground(new Color(0, 128, 128));
-        rdbtnCat.setBounds(148, 223, 100, 30);
-        rdbtnCat.setEnabled(false); // Initially disabled
-        rdbtnCat.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                toggleDropdowns(true);
-            }
-        });
-        add(rdbtnCat);
+//        rdbtnCat = new JRadioButton("Cat");
+//        rdbtnCat.setForeground(SystemColor.controlLtHighlight);
+//        rdbtnCat.setBackground(new Color(0, 128, 128));
+//        rdbtnCat.setBounds(148, 223, 100, 30);
+//        rdbtnCat.setEnabled(false); // Initially disabled
+//        rdbtnCat.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                toggleDropdowns(true);
+//            }
+//        });
+//        add(rdbtnCat);
 
-        rdbtnDog = new JRadioButton("Dog");
-        rdbtnDog.setForeground(SystemColor.controlLtHighlight);
-        rdbtnDog.setBackground(new Color(0, 128, 128));
-        rdbtnDog.setBounds(252, 223, 100, 30);
-        rdbtnDog.setEnabled(false); // Initially disabled
-        rdbtnDog.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                toggleDropdowns(false);
-            }
-        });
-        add(rdbtnDog);
-
-        petTypeGroup = new ButtonGroup();
-        petTypeGroup.add(rdbtnCat);
-        petTypeGroup.add(rdbtnDog);
+//        rdbtnDog = new JRadioButton("Dog");
+//        rdbtnDog.setForeground(SystemColor.controlLtHighlight);
+//        rdbtnDog.setBackground(new Color(0, 128, 128));
+//        rdbtnDog.setBounds(252, 223, 100, 30);
+//        rdbtnDog.setEnabled(false); // Initially disabled
+//        rdbtnDog.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                toggleDropdowns(false);
+//            }
+//        });
+//        add(rdbtnDog);
+//
+//        petTypeGroup = new ButtonGroup();
+//        petTypeGroup.add(rdbtnCat);
+//        petTypeGroup.add(rdbtnDog);
 
         JLabel lblCat = new JLabel("Select Cat:");
         lblCat.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -182,9 +184,9 @@ public class UpdateApplicant extends JPanel {
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    String selectedPetType = rdbtnCat.isSelected() ? "cat" : "dog";
+//                    String selectedPetType = rdbtnCat.isSelected() ? "cat" : "dog";
                     JSONObject petJson = new JSONObject();
-                    System.out.print(selectedPetType.equals("cat"));
+//                    System.out.print(selectedPetType.equals("cat"));
                     if (selectedPet.equals("cat")) {
                         	System.out.println(petFinalId+""+petName+""+petBreed+""+petCageNo+""+petGender+""+petsize+""+petAge);
                           	 CatClass cat1=new CatClass(petFinalId, petName, petBreed,petCageNo, petGender, petsize, petAge);
@@ -249,8 +251,8 @@ public class UpdateApplicant extends JPanel {
         });
         add(btnBack);
 
-        rdbtnCat.setSelected(true);
-        toggleDropdowns(true);
+//        rdbtnCat.setSelected(true);
+//        toggleDropdowns(true);
 
         setFieldsEnabled(false);
         fetchApplicantData();
@@ -263,8 +265,8 @@ public class UpdateApplicant extends JPanel {
 
     private void setFieldsEnabled(boolean enabled) {
         cboPetOwner.setEnabled(enabled);
-        rdbtnCat.setEnabled(enabled);
-        rdbtnDog.setEnabled(enabled);
+//        rdbtnCat.setEnabled(enabled);
+//        rdbtnDog.setEnabled(enabled);
         cboCat.setEnabled(enabled && rdbtnCat.isSelected());
         cboDog.setEnabled(enabled && rdbtnDog.isSelected());
         txtStatus.setEnabled(enabled);
@@ -319,6 +321,7 @@ private void fetchApplicantData() {
                     petBreed = catId.optString("breed", "No Breed");
                     petCageNo = catId.optString("cageNumber", "No Cage Number");
                     petFinalId = catId.optString("catId", "No Cat ID");
+
                     selectedPet="cat";
                 } else if (dogId != null) {
                     petName = dogId.optString("name", "No Name");
