@@ -29,13 +29,13 @@ public class ApplicantController
         return applicantService.read(applicantId);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Applicant update (@RequestBody Applicant applicant)
     {
         return applicantService.update(applicant);
     }
 
-    @PostMapping("/delete/{applicantId}")
+    @DeleteMapping("/delete/{applicantId}")
     public void delete(@PathVariable Long applicantId)
     {
         applicantService.delete(applicantId);

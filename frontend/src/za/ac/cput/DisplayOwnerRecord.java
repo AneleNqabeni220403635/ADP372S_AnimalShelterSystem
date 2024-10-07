@@ -44,7 +44,7 @@ public class DisplayOwnerRecord extends JPanel {
         btnBack.setBounds(590, 429, 150, 40);
         btnBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "Owner");
+                cardLayout.show(cardPanel, "Sale");
             }
         });
         add(btnBack);

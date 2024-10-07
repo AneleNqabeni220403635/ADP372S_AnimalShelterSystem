@@ -112,15 +112,7 @@ public class DisplayDog extends JPanel {
         txtCageNumber.setEditable(false);
         add(txtCageNumber);
 
-        JButton btnDisplay = new JButton("Display");
-        btnDisplay.setFont(new Font("Dialog", Font.BOLD, 16));
-        btnDisplay.setBounds(150, 500, 150, 40);
-        btnDisplay.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                DisplayDog();
-            }
-        });
-        add(btnDisplay);
+
 
         JButton btnBack = new JButton("Back");
         btnBack.setFont(new Font("Dialog", Font.BOLD, 16));

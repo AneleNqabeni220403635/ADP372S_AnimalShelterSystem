@@ -186,60 +186,7 @@ public class DisplayApplicant extends JPanel {
         add(txtStatus);
 
         // Buttons
-        JButton btnAdd = new JButton("Display");
-        btnAdd.setFont(new Font("Dialog", Font.BOLD, 16));
-        btnAdd.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    String selectedPetType = rdbtnCat.isSelected() ? "cat" : "dog";
-                    JSONObject petJson = new JSONObject();
-                    System.out.print(selectedPetType.equals("cat"));
-                    if (selectedPet.equals("cat")) {
-                        System.out.println(petFinalId + "" + petName + "" + petBreed + "" + petCageNo + "" + petGender + "" + petsize + "" + petAge);
-                        CatClass cat1 = new CatClass(petFinalId, petName, petBreed, petCageNo, petGender, petsize, petAge);
-                        System.out.print("Cat Breed" + cat1.getBreed());
-                        PetOwnerClass pet = new PetOwnerClass(petOwnerId, petOwnerfirstName, petOwnerlastName, petOwnercontactNo, petOwneremailAddress, petOwnerstreetAddress);
-                        System.out.println("pet owner" + pet.getEmailAddress());
 
-                        ApplicantClass or = new ApplicantClass(pet, date, null, cat1, "Approved");
-                        // Send request to create owner record
-                        System.out.println("Object" + or.getCat().getId());
-                        System.out.println("Object" + or.getPetOwner().getContactNo());
-                        System.out.println("Object" + or.getReturnDate());
-                        System.out.println("Or Object" + or);
-
-                        int check = DisplayApplicant();
-                        if (check == 1) {
-                            JOptionPane.showMessageDialog(null, "Applicant deleted successfully!");
-
-                        }
-
-
-                    } else {
-                        System.out.println(petFinalId + "" + petName + "" + petBreed + "" + petCageNo + "" + petGender + "" + petsize + "" + petAge);
-                        DogClass cat1 = new DogClass(petFinalId, petName, petBreed, petCageNo, petGender, petsize, petAge);
-                        System.out.print("Cat Breed" + cat1.getBreed());
-                        PetOwnerClass pet = new PetOwnerClass(petOwnerId, petOwnerfirstName, petOwnerlastName, petOwnercontactNo, petOwneremailAddress, petOwnerstreetAddress);
-                        System.out.println("pet owner" + pet.getEmailAddress());
-
-                        ApplicantClass or = new ApplicantClass(pet, date, cat1, null, "pending");
-                        int check = DisplayApplicant();
-
-                        if (check == 1) {
-                            JOptionPane.showMessageDialog(null, "Applicant deleted successfully!");
-
-                        }
-
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
-                }
-            }
-        });
-
-        btnAdd.setBounds(150, 442, 150, 40);
-        add(btnAdd);
 
         JButton btnBack = new JButton("Back");
         btnBack.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -497,6 +444,7 @@ public class DisplayApplicant extends JPanel {
             return response.toString();
         }
     }
+
 
 
     private int DisplayApplicant() {

@@ -37,6 +37,7 @@ public class DisplaySale extends JPanel {
         lblSaleRecord.setBounds(311, 51, 181, 24);
         add(lblSaleRecord);
 
+
         JButton btnBack = new JButton("Back");
         btnBack.setFont(new Font("Dialog", Font.BOLD, 16));
         btnBack.setBounds(590, 429, 150, 40);
