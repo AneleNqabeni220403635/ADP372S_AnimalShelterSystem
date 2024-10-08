@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Base64;
 
 public class LoginScreen extends JFrame {
 
@@ -73,16 +77,33 @@ public class LoginScreen extends JFrame {
     }
 
     private void performLogin() {
-        String username = txtUsername.getText();
-        String password = new String(txtPassword.getPassword());
+        try {
+            String username = txtUsername.getText();
+            String password = new String(txtPassword.getPassword());
 
+            String auth = username + ":" + password;
+            String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes());
+            String authHeaderValue = "Basic " + encodedAuth;
 
-        if (username.equals("admin") && password.equals("admin")) {
+            URL url = new URL("http://localhost:8080/animalshelter/usercredential/login");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestProperty("Authorization", authHeaderValue);
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Accept", "application/json");
 
-            JOptionPane.showMessageDialog(this, "Login Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-            openMainMenu();
-        } else {
-            lblStatus.setText("Invalid username or password");
+            int responseCode = connection.getResponseCode();
+            System.out.println("Response Code: " + responseCode);
+
+            if (responseCode == 200) {
+
+                //JOptionPane.showMessageDialog(this, "Login Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                openMainMenu();
+            } else {
+                lblStatus.setText("Invalid username or password");
+            }
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 
