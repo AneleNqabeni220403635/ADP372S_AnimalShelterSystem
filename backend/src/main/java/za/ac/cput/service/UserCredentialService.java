@@ -4,16 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.UserCredential;
 import za.ac.cput.domain.UserPrincipal;
 import za.ac.cput.repository.UserCredentialRepository;
 
 @Service
-public class UserCredentialsService implements UserDetailsService {
+public class UserCredentialService implements UserDetailsService {
 
     @Autowired
     private UserCredentialRepository repository;
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserCredential credential = repository.findByUsername(username);
@@ -25,5 +28,11 @@ public class UserCredentialsService implements UserDetailsService {
             throw new UsernameNotFoundException("Invalid credentials");
         }
         return new UserPrincipal(credential);
+    }
+
+    public UserCredential register (UserCredential user)
+    {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return  repository.save(user);
     }
 }
