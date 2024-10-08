@@ -1,10 +1,16 @@
 package za.ac.cput;
 
+import org.json.JSONObject;
+import za.ac.cput.helper.SessionManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Base64;
@@ -81,28 +87,48 @@ public class LoginScreen extends JFrame {
             String username = txtUsername.getText();
             String password = new String(txtPassword.getPassword());
 
-            String auth = username + ":" + password;
-            String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes());
-            String authHeaderValue = "Basic " + encodedAuth;
-
             URL url = new URL("http://localhost:8080/animalshelter/usercredential/login");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestProperty("Authorization", authHeaderValue);
-            connection.setRequestMethod("GET");
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json; utf-8");
             connection.setRequestProperty("Accept", "application/json");
+            connection.setDoOutput(true);
+
+            JSONObject loginDetails = new JSONObject();
+            loginDetails.put("username", username);
+            loginDetails.put("password", password);
+
+            try (OutputStream os = connection.getOutputStream()) {
+                byte[] input = loginDetails.toString().getBytes("utf-8");
+                os.write(input, 0, input.length);
+            }
 
             int responseCode = connection.getResponseCode();
             System.out.println("Response Code: " + responseCode);
 
             if (responseCode == 200) {
 
+                String token = getResponseContent(connection);
+                SessionManager.getInstance().setBearerToken(token);
+
                 openMainMenu();
             } else {
                 lblStatus.setText("Invalid username or password");
             }
         }
-        catch (IOException ex) {
+        catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+
+    private static String getResponseContent(HttpURLConnection connection) throws Exception {
+        try (java.io.BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"))) {
+            StringBuilder response = new StringBuilder();
+            String responseLine;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine.trim());
+            }
+            return response.toString();
         }
     }
 
