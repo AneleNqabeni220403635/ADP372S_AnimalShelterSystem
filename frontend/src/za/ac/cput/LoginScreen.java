@@ -96,7 +96,6 @@ public class LoginScreen extends JFrame {
 
             if (responseCode == 200) {
 
-                //JOptionPane.showMessageDialog(this, "Login Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 openMainMenu();
             } else {
                 lblStatus.setText("Invalid username or password");

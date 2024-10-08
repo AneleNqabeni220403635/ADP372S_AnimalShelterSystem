@@ -17,9 +17,10 @@ public class UserCredentialController {
         return service.register(user);
     }
 
-    @GetMapping("/login")
-    public String validateUserCredentials(){
-        return "Valid";
+    @PostMapping("/login")
+    public String login(@RequestBody UserCredential user){
+
+        return service.verify(user);
     }
 
 }
