@@ -4,7 +4,7 @@ import javax.swing.*;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
+import za.ac.cput.helper.SessionManager;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,28 +19,19 @@ import java.util.Date;
 public class UpdateApplicant extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private JTextField txtName;
-    private JTextField txtBreed;
-    private JTextField txtAge;
-    private JTextField txtGender;
-    private JTextField txtSize;
-    private JTextField txtCageNumber;
     private JTextField txtStatus;
     private JComboBox<String> cboPetOwner;
     private JComboBox<String> cboCat;
     private JComboBox<String> cboDog;
-    private JRadioButton rdbtnCat;
-    private JRadioButton rdbtnDog;
     private JLabel lblApplicationDate;
-    private ButtonGroup petTypeGroup;
     private JComboBox<String> cboApplicantID;
+    private String token;
 
     String applicantId;
     String applicationDate;
     String applicationStatus;
     String petOwnerId;
 
-    String selectedPetType;
     String petOwnerfirstName;
     String petOwnerlastName;
     String petOwnercontactNo;
@@ -102,34 +93,6 @@ public class UpdateApplicant extends JPanel {
         cboPetOwner.setEnabled(false);
         add(cboPetOwner);
 
-//        rdbtnCat = new JRadioButton("Cat");
-//        rdbtnCat.setForeground(SystemColor.controlLtHighlight);
-//        rdbtnCat.setBackground(new Color(0, 128, 128));
-//        rdbtnCat.setBounds(148, 223, 100, 30);
-//        rdbtnCat.setEnabled(false); // Initially disabled
-//        rdbtnCat.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                toggleDropdowns(true);
-//            }
-//        });
-//        add(rdbtnCat);
-
-//        rdbtnDog = new JRadioButton("Dog");
-//        rdbtnDog.setForeground(SystemColor.controlLtHighlight);
-//        rdbtnDog.setBackground(new Color(0, 128, 128));
-//        rdbtnDog.setBounds(252, 223, 100, 30);
-//        rdbtnDog.setEnabled(false); // Initially disabled
-//        rdbtnDog.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                toggleDropdowns(false);
-//            }
-//        });
-//        add(rdbtnDog);
-//
-//        petTypeGroup = new ButtonGroup();
-//        petTypeGroup.add(rdbtnCat);
-//        petTypeGroup.add(rdbtnDog);
-
         JLabel lblCat = new JLabel("Select Cat:");
         lblCat.setFont(new Font("Dialog", Font.BOLD, 16));
         lblCat.setForeground(SystemColor.controlLtHighlight);
@@ -184,9 +147,7 @@ public class UpdateApplicant extends JPanel {
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-//                    String selectedPetType = rdbtnCat.isSelected() ? "cat" : "dog";
                     JSONObject petJson = new JSONObject();
-//                    System.out.print(selectedPetType.equals("cat"));
                     if (selectedPet.equals("cat")) {
                         System.out.println(petFinalId + "" + petName + "" + petBreed + "" + petCageNo + "" + petGender + "" + petsize + "" + petAge);
                         CatClass cat1 = new CatClass(petFinalId, petName, petBreed, petCageNo, petGender, petsize, petAge);
@@ -206,7 +167,6 @@ public class UpdateApplicant extends JPanel {
                             String url1 = "http://localhost:8080/animalshelter/applicant/update";
                             System.out.println("Object: " + or);
                             sendRequest(url1, or);
-
                         }
 
 
@@ -247,9 +207,7 @@ public class UpdateApplicant extends JPanel {
         });
         add(btnBack);
 
-//        rdbtnCat.setSelected(true);
-//        toggleDropdowns(true);
-
+        token = SessionManager.getInstance().getBearerToken();
         setFieldsEnabled(false);
         fetchApplicantData();
     }
@@ -261,10 +219,8 @@ public class UpdateApplicant extends JPanel {
 
     private void setFieldsEnabled(boolean enabled) {
         cboPetOwner.setEnabled(enabled);
-//        rdbtnCat.setEnabled(enabled);
-//        rdbtnDog.setEnabled(enabled);
-        cboCat.setEnabled(enabled && rdbtnCat.isSelected());
-        cboDog.setEnabled(enabled && rdbtnDog.isSelected());
+        cboCat.setEnabled(enabled );
+        cboDog.setEnabled(enabled );
         txtStatus.setEnabled(enabled);
     }
 
@@ -274,6 +230,7 @@ public class UpdateApplicant extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/applicant/readStatus/Pending");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -348,6 +305,7 @@ public class UpdateApplicant extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/applicant/read/" + id);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -486,8 +444,6 @@ public class UpdateApplicant extends JPanel {
 
 
     private int DeleteApplicant() {
-
-
         // Create JSON object with only the ID
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id", applicantId); // Include only the ID
@@ -496,6 +452,7 @@ public class UpdateApplicant extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/applicant/delete/" + applicantId);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("DELETE");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
 

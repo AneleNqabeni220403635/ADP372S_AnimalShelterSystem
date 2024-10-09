@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import za.ac.cput.helper.SessionManager;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -34,6 +35,7 @@ public class DeleteApplicant extends JPanel {
     private JLabel lblApplicationDate;
     private ButtonGroup petTypeGroup;
     private JComboBox<String> cboApplicantID;
+    private String token;
     
     String applicantId;
     String applicationDate;
@@ -181,6 +183,8 @@ public class DeleteApplicant extends JPanel {
         txtStatus.setEnabled(false); // Initially disabled
         add(txtStatus);
 
+        token = SessionManager.getInstance().getBearerToken();
+
         JButton btnAdd = new JButton("Delete");
         btnAdd.setFont(new Font("Dialog", Font.BOLD, 16));
         btnAdd.addActionListener(new ActionListener() {
@@ -270,6 +274,7 @@ private void fetchApplicantData() {
         URL url = new URL("http://localhost:8080/animalshelter/applicant/readStatus/Pending");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
+        connection.setRequestProperty("Authorization", "Bearer " + token);
         connection.setRequestProperty("Accept", "application/json");
 
         int responseCode = connection.getResponseCode();
@@ -348,6 +353,7 @@ private void fetchApplicantDetails(String id) {
         URL url = new URL("http://localhost:8080/animalshelter/applicant/read/" + id);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
+        connection.setRequestProperty("Authorization", "Bearer " + token);
         connection.setRequestProperty("Accept", "application/json");
 
         int responseCode = connection.getResponseCode();
@@ -497,6 +503,7 @@ private int DeleteApplicant() {
         URL url = new URL("http://localhost:8080/animalshelter/applicant/delete/"+applicantId);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("DELETE");
+        connection.setRequestProperty("Authorization", "Bearer " + token);
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setDoOutput(true);
 
