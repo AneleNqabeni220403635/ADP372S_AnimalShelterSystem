@@ -1,6 +1,7 @@
 package za.ac.cput;
 
 import org.json.*;
+import za.ac.cput.helper.SessionManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,6 +32,7 @@ public class CreateApplicant extends JPanel {
     private JRadioButton rdbtnDog;
     private JLabel lblApplicationDate;
     private ButtonGroup petTypeGroup;
+    private String token;
 
     String petName;
     String petsize;
@@ -177,6 +179,8 @@ public class CreateApplicant extends JPanel {
         txtStatus.setEditable(false);
         add(txtStatus);
 
+        token = SessionManager.getInstance().getBearerToken();
+
         JButton btnAdd = new JButton("Add");
         btnAdd.setFont(new Font("Dialog", Font.BOLD, 16));
         btnAdd.setBounds(150, 442, 150, 40);
@@ -201,6 +205,7 @@ public class CreateApplicant extends JPanel {
                         URL url = new URL("http://localhost:8080/animalshelter/applicant/readCatId/" + cat.getId());
                         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                         connection.setRequestMethod("POST");
+                        connection.setRequestProperty("Authorization", "Bearer " + token);
                         connection.setRequestProperty("Content-Type", "application/json; utf-8");
                         connection.setDoOutput(true);
 
@@ -263,6 +268,7 @@ public class CreateApplicant extends JPanel {
                         URL url = new URL("http://localhost:8080/animalshelter/applicant/readDogId/" + dog.getId());
                         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                         connection.setRequestMethod("POST");
+                        connection.setRequestProperty("Authorization", "Bearer " + token);
                         connection.setRequestProperty("Content-Type", "application/json; utf-8");
                         connection.setDoOutput(true);
 
@@ -357,6 +363,7 @@ public class CreateApplicant extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/petOwner/getall"); // Endpoint to get cat IDs
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -397,6 +404,7 @@ public class CreateApplicant extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/cat/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -432,6 +440,7 @@ public class CreateApplicant extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/petOwner/read/" + ownerid);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -468,6 +477,7 @@ public class CreateApplicant extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/dog/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -503,6 +513,7 @@ public class CreateApplicant extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/cat/read/" + id);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -538,6 +549,7 @@ public class CreateApplicant extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/dog/read/" + id);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -572,6 +584,7 @@ public class CreateApplicant extends JPanel {
         URL url1 = new URL(url);
         HttpURLConnection conn = (HttpURLConnection) url1.openConnection();
         conn.setRequestMethod("POST");
+        conn.setRequestProperty("Authorization", "Bearer " + token);
         conn.setRequestProperty("Content-Type", "application/json; utf-8");
         conn.setRequestProperty("Accept", "application/json");
         conn.setDoOutput(true);
