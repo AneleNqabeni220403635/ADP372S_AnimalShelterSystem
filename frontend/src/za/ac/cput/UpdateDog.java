@@ -3,6 +3,8 @@ package za.ac.cput;
 import javax.swing.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import za.ac.cput.helper.SessionManager;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +23,7 @@ public class UpdateDog extends JPanel {
     private JTextField txtSize;
     private JTextField txtCageNumber;
     private JComboBox<String> cboOptions;
+    private String token;
 
     public UpdateDog(CardLayout cardLayout, JPanel cardPanel) {
         setLayout(null);
@@ -106,6 +109,8 @@ public class UpdateDog extends JPanel {
         txtCageNumber.setBounds(318, 405, 300, 30);
         add(txtCageNumber);
 
+        token = SessionManager.getInstance().getBearerToken();
+
         JButton btnUpdate = new JButton("Update");
         btnUpdate.setFont(new Font("Dialog", Font.BOLD, 16));
         btnUpdate.setBounds(150, 500, 150, 40);
@@ -141,6 +146,7 @@ public class UpdateDog extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/dog/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -176,6 +182,7 @@ public class UpdateDog extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/dog/read/" + id);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -228,6 +235,7 @@ public class UpdateDog extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/dog/update");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("PUT");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
 

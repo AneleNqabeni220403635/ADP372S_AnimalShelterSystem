@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import za.ac.cput.helper.SessionManager;
 
 public class CreateEmployee extends JPanel {
 
@@ -18,6 +19,7 @@ public class CreateEmployee extends JPanel {
     private JTextField txtLastName;
     private JTextField txtContactNo;
     private JTextField txtEmailAddress;
+    private String token;
 
     public CreateEmployee (CardLayout cardLayout, JPanel cardPanel) {
         setLayout(null);
@@ -69,6 +71,8 @@ public class CreateEmployee extends JPanel {
         txtEmailAddress.setBounds(318, 279, 300, 30);
         add(txtEmailAddress);
 
+        token = SessionManager.getInstance().getBearerToken();
+
         JButton btnAdd = new JButton("Add");
         btnAdd.setFont(new Font("Dialog", Font.BOLD, 16));
         btnAdd.setBounds(152, 368, 150, 40);
@@ -89,6 +93,7 @@ public class CreateEmployee extends JPanel {
                     URL url = new URL("http://localhost:8080/animalshelter/employee/create"); // Update to correct endpoint
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("POST");
+                    connection.setRequestProperty("Authorization", "Bearer " + token);
                     connection.setRequestProperty("Content-Type", "application/json; utf-8");
                     connection.setDoOutput(true);
 
