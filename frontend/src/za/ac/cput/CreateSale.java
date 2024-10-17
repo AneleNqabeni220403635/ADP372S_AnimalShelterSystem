@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import za.ac.cput.helper.SessionManager;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -28,6 +29,7 @@ public class CreateSale extends JPanel {
     private JTextField textField;
     private JTextField txtPrice;
     private ButtonGroup petTypeGroup;
+    private String token;
 
     String applicantId;
     String applicationDate;
@@ -167,6 +169,8 @@ public class CreateSale extends JPanel {
         txtPrice = new JTextField();
         txtPrice.setBounds(318, 395, 300, 30);
         add(txtPrice);
+
+        token = SessionManager.getInstance().getBearerToken();
 
         JButton btnAdd = new JButton("Add");
         btnAdd.addActionListener(new ActionListener() {
@@ -701,6 +705,7 @@ public class CreateSale extends JPanel {
         URL url1 = new URL(url);
         HttpURLConnection conn = (HttpURLConnection) url1.openConnection();
         conn.setRequestMethod("POST");
+        
         conn.setRequestProperty("Content-Type", "application/json; utf-8");
         conn.setRequestProperty("Accept", "application/json");
         conn.setDoOutput(true);

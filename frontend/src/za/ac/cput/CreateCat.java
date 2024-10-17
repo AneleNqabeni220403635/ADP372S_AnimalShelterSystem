@@ -2,6 +2,8 @@ package za.ac.cput;
 
 import javax.swing.*;
 import org.json.JSONObject;
+import za.ac.cput.helper.SessionManager;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +22,7 @@ public class CreateCat extends JPanel {
     private JTextField txtGender;
     private JTextField txtSize;
     private JTextField txtCageNumber;
+    private String token;
 
 
     public CreateCat (CardLayout cardLayout, JPanel cardPanel) {
@@ -92,6 +95,8 @@ public class CreateCat extends JPanel {
         txtCageNumber.setBounds(318, 363, 300, 30);
         add(txtCageNumber);
 
+        token = SessionManager.getInstance().getBearerToken();
+
         JButton btnAdd = new JButton("Add");
         btnAdd.setFont(new Font("Dialog", Font.BOLD, 16));
         btnAdd.setBounds(150, 500, 150, 40);
@@ -111,6 +116,8 @@ public class CreateCat extends JPanel {
                     URL url = new URL("http://localhost:8080/animalshelter/cat/create");
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("POST");
+
+                    connection.setRequestProperty("Authorization", "Bearer " + token);
                     connection.setRequestProperty("Content-Type", "application/json; utf-8");
                     connection.setDoOutput(true);
 

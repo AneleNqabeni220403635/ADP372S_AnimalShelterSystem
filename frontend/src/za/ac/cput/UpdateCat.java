@@ -3,6 +3,8 @@ package za.ac.cput;
 import javax.swing.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import za.ac.cput.helper.SessionManager;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +23,7 @@ public class UpdateCat extends JPanel {
     private JTextField txtSize;
     private JTextField txtCageNumber;
     private JComboBox<String> cboOptions;
+    private String token;
 
     public UpdateCat() {
 
@@ -109,6 +112,8 @@ public class UpdateCat extends JPanel {
         txtCageNumber.setBounds(318, 405, 300, 30);
         add(txtCageNumber);
 
+        token = SessionManager.getInstance().getBearerToken();
+
         JButton btnUpdate = new JButton("Update");
         btnUpdate.setFont(new Font("Dialog", Font.BOLD, 16));
         btnUpdate.setBounds(150, 500, 150, 40);
@@ -144,6 +149,7 @@ public class UpdateCat extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/cat/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -179,6 +185,7 @@ public class UpdateCat extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/cat/read/" + id);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -231,6 +238,7 @@ public class UpdateCat extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/cat/update");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("PUT");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
 
