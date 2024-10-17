@@ -11,10 +11,12 @@ import org.json.JSONObject;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.io.*;
+import za.ac.cput.helper.SessionManager;
 
 public class CreatePetOwner extends JPanel{
 
     private static final long serialVersionUID = 1L;
+    private String token;
     private JTextField txtFirstName;
     private JTextField txtLastName;
     private JTextField txtContactNo;
@@ -101,6 +103,8 @@ public class CreatePetOwner extends JPanel{
         txtCurrentDate.setEditable(false);
         add(txtCurrentDate);
 
+        token = SessionManager.getInstance().getBearerToken();
+
         ButtonGroup petGroup = new ButtonGroup();
 
         JButton btnAdd = new JButton("Add");
@@ -180,6 +184,7 @@ public class CreatePetOwner extends JPanel{
             URL url = new URL("http://localhost:8080/animalshelter/cat/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -222,6 +227,7 @@ public class CreatePetOwner extends JPanel{
             URL url = new URL("http://localhost:8080/animalshelter/dog/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token );
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -267,6 +273,7 @@ public class CreatePetOwner extends JPanel{
         URL url1 = new URL(url);
         HttpURLConnection conn = (HttpURLConnection) url1.openConnection();
         conn.setRequestMethod("POST");
+        conn.setRequestProperty("Authorization", "Bearer " + token );
         conn.setRequestProperty("Content-Type", "application/json; utf-8");
         conn.setRequestProperty("Accept", "application/json");
         conn.setDoOutput(true);
@@ -331,6 +338,7 @@ public class CreatePetOwner extends JPanel{
         URL url = new URL(urlString);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod(petOwnerJson == null ? "GET" : "POST");
+        conn.setRequestProperty("Authorization", "Bearer " + token );
         conn.setRequestProperty("Content-Type", "application/json; utf-8");
         conn.setRequestProperty("Accept", "application/json");
         conn.setDoOutput(true);

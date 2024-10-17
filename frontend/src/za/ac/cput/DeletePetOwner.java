@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import za.ac.cput.helper.SessionManager;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -28,6 +29,7 @@ public class DeletePetOwner extends JPanel {
     private JRadioButton rdbtnDog;
     private JComboBox<String> cboCat;
     private JComboBox<String> cboDog;
+    private String token;
 
     String petName;
     String petsize;
@@ -42,6 +44,7 @@ public class DeletePetOwner extends JPanel {
     String ownerContactName;
     String ownerEmail;
     String ownerStreet;
+
 
     public DeletePetOwner(CardLayout cardLayout, JPanel cardPanel) {
         setLayout(null);
@@ -167,6 +170,8 @@ public class DeletePetOwner extends JPanel {
         cboDog.setEnabled(false);
         add(cboDog);
 
+        token = SessionManager.getInstance().getBearerToken();
+
 
         JButton btnAdd = new JButton("Delete");
         btnAdd.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -208,6 +213,7 @@ public class DeletePetOwner extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/petOwner/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token );
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -254,6 +260,7 @@ public class DeletePetOwner extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/cat/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token );
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -296,6 +303,7 @@ public class DeletePetOwner extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/petOwner/read/" + ownerid);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token );
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -339,6 +347,7 @@ public class DeletePetOwner extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/dog/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token );
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -396,6 +405,7 @@ public class DeletePetOwner extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/petOwner/delete/"+id);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("DELETE");
+            connection.setRequestProperty("Authorization", "Bearer " + token );
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
 
