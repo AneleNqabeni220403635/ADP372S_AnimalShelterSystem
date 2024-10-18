@@ -5,7 +5,6 @@ import java.awt.*;
 import java.io.File;
 
 public class ImagePanel extends JPanel{
-
     private String imagePath;
 
     public ImagePanel()
@@ -13,7 +12,6 @@ public class ImagePanel extends JPanel{
         super();
         imagePath = "src/za/ac/cput/images/shelter.png";
     }
-
     public ImagePanel(String imagePath) // if we want to use it for other images potentially
     {
         super();
