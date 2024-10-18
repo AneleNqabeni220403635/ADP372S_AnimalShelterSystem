@@ -1,5 +1,7 @@
 package za.ac.cput;
 
+import za.ac.cput.helper.SessionManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,6 +22,7 @@ public class DeleteSale extends JPanel {
     private JLabel lblSaleDate;
     private JTextField txtPrice;
     private ButtonGroup petTypeGroup;
+    private String token;
 
     public DeleteSale(CardLayout cardLayout, JPanel cardPanel) {
         setLayout(null);
@@ -135,6 +138,7 @@ public class DeleteSale extends JPanel {
         txtPrice = new JTextField();
         txtPrice.setBounds(318, 390, 300, 30);
         add(txtPrice);
+        token = SessionManager.getInstance().getBearerToken();
 
         JButton btnDelete = new JButton("Delete");
         btnDelete.setFont(new Font("Dialog", Font.BOLD, 16));
