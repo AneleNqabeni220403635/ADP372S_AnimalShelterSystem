@@ -28,6 +28,10 @@ public class CreateDog extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
+        ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/puppy.png");
+        imagePanel.setBounds(600, 50, 150, 100);  // Set the size and position of the image panel
+        add(imagePanel);
+
         JLabel lblTitle = new JLabel("Create New Dog Record");
         lblTitle.setFont(new Font("Dialog", Font.BOLD, 24));
         lblTitle.setForeground(SystemColor.controlLtHighlight);

@@ -13,6 +13,10 @@ public class Dog extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
+        ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/Edited puppies2.png");
+        imagePanel.setBounds(600, 50, 150, 100);  // Set the size and position of the image panel
+        add(imagePanel);
+
         JLabel lblDogManagement = new JLabel("Animal Shelter Application");
         lblDogManagement.setFont(new Font("Dialog", Font.BOLD, 30));
         lblDogManagement.setForeground(SystemColor.controlLtHighlight);
