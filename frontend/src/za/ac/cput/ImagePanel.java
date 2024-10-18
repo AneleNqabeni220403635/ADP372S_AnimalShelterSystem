@@ -24,11 +24,8 @@ public class ImagePanel extends JPanel{
     protected void paintComponent(Graphics g) {
         try {
             super.paintComponent(g);
-            //ImageIcon image = new ImageIcon(imagePath);
             var img2 = ImageIO.read(new File(imagePath));
 
-            //g.drawImage(image.getImage(), 0, 0, 44, 24, this);
-            //g.drawImage(img2, 0, 0, null);
             g.drawImage(img2, 0, 0, getWidth(), getHeight(), this);
         } catch (Exception ex) {
             System.out.println(ex);
