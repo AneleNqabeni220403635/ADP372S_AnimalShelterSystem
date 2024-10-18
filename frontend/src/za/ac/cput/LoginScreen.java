@@ -16,7 +16,6 @@ import java.net.URL;
 import java.util.Base64;
 
 public class LoginScreen extends JFrame {
-
     private JTextField txtUsername;
     private JPasswordField txtPassword;
     private JLabel lblStatus;
@@ -27,6 +26,10 @@ public class LoginScreen extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
+
+        ImagePanel imagePanel = new ImagePanel();
+        imagePanel.setBounds(0, 0, 45, 25);  // Adjust size as needed
+        getContentPane().add(imagePanel);
 
         getContentPane().setBackground(new Color(0, 153, 153));
 

@@ -10,6 +10,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import za.ac.cput.helper.SessionManager;
+
 
 public class DisplayVolunteer extends JPanel {
 
@@ -23,6 +25,7 @@ public class DisplayVolunteer extends JPanel {
     private JTextField txtAvailability;
     private JTable tblAllVolunteers;
     private JScrollPane scrollPane;
+    private String token;
 
     public DisplayVolunteer(CardLayout cardLayout, JPanel cardPanel) {
         setLayout(null);
@@ -118,6 +121,9 @@ public class DisplayVolunteer extends JPanel {
         txtEmailAddress.setEditable(false);
         add(txtEmailAddress);
 
+        token = SessionManager.getInstance().getBearerToken();
+
+
         JLabel lblStreetAddress = new JLabel("Street Address:");
         lblStreetAddress.setFont(new Font("Dialog", Font.BOLD, 16));
         lblStreetAddress.setForeground(SystemColor.controlLtHighlight);
@@ -194,6 +200,7 @@ public class DisplayVolunteer extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/volunteer/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -229,6 +236,7 @@ public class DisplayVolunteer extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/volunteer/read/" + id);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -262,6 +270,7 @@ public class DisplayVolunteer extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/volunteer/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -311,6 +320,7 @@ public class DisplayVolunteer extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/volunteer/read/" + id);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();

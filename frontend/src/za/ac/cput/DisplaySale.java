@@ -16,6 +16,7 @@ public class DisplaySale extends JPanel {
 
     private JTable table;
     private DefaultTableModel tableModel;
+    private String token;
 
     public DisplaySale(CardLayout cardLayout, JPanel cardPanel) {
         setBackground(new Color(0, 128, 128));
@@ -58,6 +59,7 @@ public class DisplaySale extends JPanel {
                 URL url = new URL("http://localhost:8080/animalshelter/sale/getall");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
+                connection.setRequestProperty("Authorization", "Bearer " + token);
                 connection.setRequestProperty("Accept", "application/json");
 
                 int responseCode = connection.getResponseCode();

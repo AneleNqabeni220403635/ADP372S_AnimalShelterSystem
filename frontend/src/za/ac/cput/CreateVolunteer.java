@@ -3,6 +3,8 @@ package za.ac.cput;
 import javax.swing.*;
 
 import org.json.*;
+import za.ac.cput.helper.SessionManager;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,6 +24,7 @@ public class CreateVolunteer extends JPanel {
     private JTextField txtEmailAddress;
     private JTextField txtStreetAddress;
     private JTextField txtAvailability;
+    private String token;
 
     public CreateVolunteer(CardLayout cardLayout, JPanel cardPanel) {
         setLayout(null);
@@ -93,6 +96,8 @@ public class CreateVolunteer extends JPanel {
         txtAvailability.setBounds(318, 363, 300, 30);
         add(txtAvailability);
 
+        token = SessionManager.getInstance().getBearerToken();
+
         JButton btnAdd = new JButton("Add");
         btnAdd.setFont(new Font("Dialog", Font.BOLD, 16));
         btnAdd.setBounds(150, 500, 150, 40);
@@ -163,6 +168,7 @@ public class CreateVolunteer extends JPanel {
                     URL url = new URL("http://localhost:8080/animalRescue/volunteer/create");
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("POST");
+                    connection.setRequestProperty("Authorization", "Bearer " + token);
                     connection.setRequestProperty("Content-Type", "application/json; utf-8");
                     connection.setDoOutput(true);
 
@@ -172,7 +178,7 @@ public class CreateVolunteer extends JPanel {
                         os.write(input, 0, input.length);
                     }
 
-                    // Check for successful response
+
                     int responseCode = connection.getResponseCode();
                     StringBuilder response = new StringBuilder();
                     if (responseCode == HttpURLConnection.HTTP_OK) {

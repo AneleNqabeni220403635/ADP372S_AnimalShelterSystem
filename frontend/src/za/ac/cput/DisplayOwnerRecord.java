@@ -1,6 +1,6 @@
 package za.ac.cput;
 
-
+import za.ac.cput.helper.SessionManager;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 public class DisplayOwnerRecord extends JPanel {
 
+    private String token;
     private JTable table;
     private DefaultTableModel tableModel;
 
@@ -38,6 +39,7 @@ public class DisplayOwnerRecord extends JPanel {
         lblOwnerRecord.setFont(new Font("Dialog", Font.BOLD, 20));
         lblOwnerRecord.setBounds(311, 51, 181, 24);
         add(lblOwnerRecord);
+        token = SessionManager.getInstance().getBearerToken();
 
         JButton btnBack = new JButton("Back");
         btnBack.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -58,9 +60,12 @@ public class DisplayOwnerRecord extends JPanel {
             try {
 
                 URL url = new URL("http://localhost:8080/animalshelter/ownerRecord/getall");
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
+                       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                       connection.setRequestMethod("GET");
+                       connection.setRequestProperty("Authorization", "Bearer " + token );
                 connection.setRequestProperty("Accept", "application/json");
+
+
 
                 int responseCode = connection.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_OK) {

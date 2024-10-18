@@ -10,6 +10,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import za.ac.cput.helper.SessionManager;
+
+
 
 public class DeleteVolunteer extends JPanel {
 
@@ -21,6 +24,8 @@ public class DeleteVolunteer extends JPanel {
     private JTextField txtEmailAddress;
     private JTextField txtStreetAddress;
     private JTextField txtAvailability;
+    private String token;
+
 
     public DeleteVolunteer(CardLayout cardLayout, JPanel cardPanel) {
         setLayout(null);
@@ -117,6 +122,8 @@ public class DeleteVolunteer extends JPanel {
         txtAvailability.setEditable(false); // Make the field non-editable
         add(txtAvailability);
 
+        token = SessionManager.getInstance().getBearerToken();
+
         JButton btnDelete = new JButton("Delete");
         btnDelete.setFont(new Font("Dialog", Font.BOLD, 16));
         btnDelete.setBounds(150, 500, 150, 40);
@@ -164,7 +171,6 @@ public class DeleteVolunteer extends JPanel {
                     int id = jsonObject.getInt("id"); // Get ID as an integer
                     String firstName = jsonObject.getString("firstName");
                     String lastName = jsonObject.getString("lastName");
-                    // Format: "ID - FirstName LastName"
                     cmbVolunteerId.addItem(String.format("%d - %s %s", id, firstName, lastName));
                 }
             } else {
@@ -181,6 +187,7 @@ public class DeleteVolunteer extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/volunteer/read/" + id);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -226,6 +233,7 @@ public class DeleteVolunteer extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/volunteer/delete/"+id);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("DELETE");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
 

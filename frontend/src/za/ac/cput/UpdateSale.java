@@ -1,5 +1,7 @@
 package za.ac.cput;
 
+import za.ac.cput.helper.SessionManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,6 +22,7 @@ public class UpdateSale extends JPanel {
     private JLabel lblSaleDate;
     private JTextField txtPrice;
     private ButtonGroup petTypeGroup;
+    private String token;
 
     public UpdateSale(CardLayout cardLayout, JPanel cardPanel) {
         setLayout(null);
@@ -135,6 +138,7 @@ public class UpdateSale extends JPanel {
         txtPrice = new JTextField();
         txtPrice.setBounds(318, 390, 300, 30);
         add(txtPrice);
+        token = SessionManager.getInstance().getBearerToken();
 
         JButton btnUpdate = new JButton("Update");
         btnUpdate.setFont(new Font("Dialog", Font.BOLD, 16));
