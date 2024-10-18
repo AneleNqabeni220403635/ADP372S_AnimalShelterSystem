@@ -4,7 +4,7 @@ import za.ac.cput.domain.Employee;
 import za.ac.cput.util.Helper;
 
 public class EmployeeFactory {
-    public static Employee buildEmployee(long employeeId, String firstName, String lastName, String contactNo, String emailAddress) {
+    public static Employee buildEmployee(long employeeId, String firstName, String lastName, String contactNo, String emailAddress, String username, String password, String role) {
         if (Helper.isNullorZero(employeeId) || Helper.isNullorEmpty(firstName) || Helper.isNullorEmpty(lastName) || Helper.isNullorEmpty(contactNo) || Helper.isNullorEmpty(emailAddress)) {
             return null;
         }
@@ -15,10 +15,13 @@ public class EmployeeFactory {
                 .setLastName(lastName)
                 .setContactNo(contactNo)
                 .setEmailAddress(emailAddress)
+                .setUsername(username)
+                .setPassword(password)
+                .setRole(role)
                 .build();
     }
 
-    public static Employee buildEmployee(String firstName, String lastName, String contactNo, String emailAddress) {
+    public static Employee buildEmployee(String firstName, String lastName, String contactNo, String emailAddress, String username, String password, String role) {
         if (Helper.isNullorEmpty(firstName) || Helper.isNullorEmpty(lastName) || Helper.isNullorEmpty(contactNo) || Helper.isNullorEmpty(emailAddress)) {
             return null;
         }
@@ -31,6 +34,9 @@ public class EmployeeFactory {
                 .setLastName(lastName)
                 .setContactNo(contactNo)
                 .setEmailAddress(emailAddress)
+                .setUsername(username)
+                .setPassword(password)
+                .setRole(role)
                 .build();
     }
 }

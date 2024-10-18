@@ -26,7 +26,7 @@ public class EmployeeControllerTest {
 
     @BeforeEach
     public void setUp() {
-        employee = EmployeeFactory.buildEmployee(3L,"Manahil","Jawed", "12345678", "abc@gmail.com");
+        employee = EmployeeFactory.buildEmployee(3L,"Manahil","Jawed", "12345678", "abc@gmail.com", "", "","");
     }
 
     @Test
