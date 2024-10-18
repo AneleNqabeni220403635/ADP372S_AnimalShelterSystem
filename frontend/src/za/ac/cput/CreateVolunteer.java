@@ -165,7 +165,7 @@ public class CreateVolunteer extends JPanel {
                     );
 
 
-                    URL url = new URL("http://localhost:8080/animalRescue/volunteer/create");
+                    URL url = new URL("http://localhost:8080/animalshelter/volunteer/create");
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("POST");
                     connection.setRequestProperty("Authorization", "Bearer " + token);
