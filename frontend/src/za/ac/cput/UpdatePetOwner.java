@@ -2,7 +2,7 @@ package za.ac.cput;
 
 
 import javax.swing.*;
-
+import za.ac.cput.helper.SessionManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.awt.*;
@@ -27,6 +27,7 @@ public class UpdatePetOwner extends JPanel {
     private JRadioButton rdbtnDog;
     private JComboBox<String> cboCat;
     private JComboBox<String> cboDog;
+    private String token;
 
     String petName;
     String petsize;
@@ -121,6 +122,7 @@ public class UpdatePetOwner extends JPanel {
         txtSize.setBounds(318, 335, 300, 30);
         add(txtSize);
 
+        token = SessionManager.getInstance().getBearerToken();
 
         rdbtnCat = new JRadioButton("Cat");
         rdbtnCat.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -204,6 +206,7 @@ public class UpdatePetOwner extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/petOwner/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token );
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -250,6 +253,7 @@ public class UpdatePetOwner extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/cat/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token );
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -292,6 +296,7 @@ public class UpdatePetOwner extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/petOwner/read/" + ownerid);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token );
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -335,6 +340,7 @@ public class UpdatePetOwner extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/dog/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token );
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -380,6 +386,7 @@ public class UpdatePetOwner extends JPanel {
         URL url1 = new URL(url);
         HttpURLConnection conn = (HttpURLConnection) url1.openConnection();
         conn.setRequestMethod("POST");
+        conn.setRequestProperty("Authorization", "Bearer " + token );
         conn.setRequestProperty("Content-Type", "application/json; utf-8");
         conn.setRequestProperty("Accept", "application/json");
         conn.setDoOutput(true);
@@ -444,6 +451,7 @@ public class UpdatePetOwner extends JPanel {
         URL url = new URL(urlString);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod(petOwnerJson == null ? "GET" : "POST");
+        conn.setRequestProperty("Authorization", "Bearer " + token );
         conn.setRequestProperty("Content-Type", "application/json; utf-8");
         conn.setRequestProperty("Accept", "application/json");
         conn.setDoOutput(true);
@@ -488,6 +496,7 @@ public class UpdatePetOwner extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/petOwner/update");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("PUT");
+            connection.setRequestProperty("Authorization", "Bearer " + token );
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
 
