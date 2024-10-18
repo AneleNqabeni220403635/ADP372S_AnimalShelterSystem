@@ -15,6 +15,15 @@ public class UserCredential {
     private String password;
     private String role;
 
+    public UserCredential()
+    {
+    }
+
+    private UserCredential(Builder builder)
+    {
+
+    }
+
     public String getUsername() {
         return username;
     }
@@ -54,5 +63,35 @@ public class UserCredential {
                 ", username='" + username + '\'' +
                 ", role='" + role + '\'' +
                 '}';
+    }
+
+    public static class Builder
+    {
+        private String username;
+        private String password;
+        private String role;
+
+        public Builder setUsername(String username)
+        {
+            this.username = username;
+            return this;
+        }
+
+        public Builder setPassword(String password)
+        {
+            this.password = password;
+            return this;
+        }
+
+        public Builder setRole(String role)
+        {
+            this.role = role;
+            return this;
+        }
+
+        public UserCredential build()
+        {
+            return new UserCredential(this);
+        }
     }
 }

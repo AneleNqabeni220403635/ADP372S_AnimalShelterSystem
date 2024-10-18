@@ -23,11 +23,10 @@ public class LoginScreen extends JFrame {
 
     public LoginScreen() {
         setTitle("Animal Shelter Login");
-        setSize(450, 350);
+        setSize(450, 280);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
-
 
         getContentPane().setBackground(new Color(0, 153, 153));
 
@@ -59,6 +58,7 @@ public class LoginScreen extends JFrame {
         txtPassword = new JPasswordField();
         txtPassword.setFont(new Font("Arial", Font.PLAIN, 14));
         txtPassword.setBounds(150, 130, 220, 25);
+        txtPassword.addActionListener(e -> performLogin());
         getContentPane().add(txtPassword);
 
         JButton btnLogin = new JButton("Login");
@@ -104,7 +104,6 @@ public class LoginScreen extends JFrame {
             }
 
             int responseCode = connection.getResponseCode();
-            System.out.println("Response Code: " + responseCode);
 
             if (responseCode == 200) {
 
@@ -113,7 +112,8 @@ public class LoginScreen extends JFrame {
 
                 openMainMenu();
             } else {
-                lblStatus.setText("Invalid username or password");
+                System.out.println("Response Code: " + responseCode);
+                JOptionPane.showMessageDialog(null, "Invalid username or password");
             }
         }
         catch (Exception ex) {
