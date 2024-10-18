@@ -28,10 +28,11 @@ public class LoginScreen extends JFrame {
         setLayout(null);
 
         ImagePanel imagePanel = new ImagePanel();
-        imagePanel.setBounds(0, 0, 45, 25);  // Adjust size as needed
+        imagePanel.setBounds(50, 20, 50, 50);  // Adjust size as needed
         getContentPane().add(imagePanel);
 
         getContentPane().setBackground(new Color(0, 153, 153));
+
 
         JLabel lblLogo = new JLabel("Animal Shelter");
         lblLogo.setFont(new Font("Arial", Font.BOLD, 24));
