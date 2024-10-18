@@ -179,7 +179,7 @@ public class CreateSale extends JPanel {
                 if(petType.equals("cat"))
                 {
                     CatClass cat = new CatClass(petFinalId, petName, petBreed, petCageNo, petGender, petsize, petAge);
-                    EmployeeClass emp=new EmployeeClass(EmployeeId,EmployeeFirstName,EmployeeLastName,EmployeeContactNumber,EmployeeEmailAddress);
+                    EmployeeClass emp=new EmployeeClass(EmployeeId,EmployeeFirstName,EmployeeLastName,EmployeeContactNumber,EmployeeEmailAddress, "", "", "");
                     PetOwnerClass pet=new PetOwnerClass(petOwnerId,petOwnerfirstName , petOwnerlastName, petOwnercontactNo, petOwneremailAddress, petOwnerstreetAddress);
                     ApplicantClass or=new ApplicantClass(pet,date,null,cat,"Approved");
                     SaleClass sale=new SaleClass("1",or,date,emp,txtPrice.getText());
@@ -198,7 +198,7 @@ public class CreateSale extends JPanel {
                 {
                     DogClass dog = new DogClass(petFinalId, petName, petBreed, petCageNo, petGender, petsize, petAge);
 
-                    EmployeeClass emp=new EmployeeClass(EmployeeId,EmployeeFirstName,EmployeeLastName,EmployeeContactNumber,EmployeeEmailAddress);
+                    EmployeeClass emp=new EmployeeClass(EmployeeId,EmployeeFirstName,EmployeeLastName,EmployeeContactNumber,EmployeeEmailAddress, "", "", "");
                     PetOwnerClass pet=new PetOwnerClass(petOwnerId,petOwnerfirstName , petOwnerlastName, petOwnercontactNo, petOwneremailAddress, petOwnerstreetAddress);
                     ApplicantClass or=new ApplicantClass(pet,date,dog,null,"Approved");
                     SaleClass sale=new SaleClass("1",or,date,emp,txtPrice.getText());

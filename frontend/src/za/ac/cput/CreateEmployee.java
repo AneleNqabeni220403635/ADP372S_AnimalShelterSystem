@@ -20,12 +20,15 @@ public class CreateEmployee extends JPanel {
     private JTextField txtContactNo;
     private JTextField txtEmailAddress;
     private String token;
+    JTextField txtNewUsername;
+    JPasswordField txtPassword;
+    JComboBox<String> cmbRole;
 
     public CreateEmployee (CardLayout cardLayout, JPanel cardPanel) {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
-        JLabel lblTitle = new JLabel("Create New Employee Record:");
+        JLabel lblTitle = new JLabel("Create New Employee Record:", JLabel.CENTER);
         lblTitle.setFont(new Font("Dialog", Font.BOLD, 24));
         lblTitle.setForeground(SystemColor.controlLtHighlight);
         lblTitle.setBounds(240, 81, 350, 40);
@@ -71,22 +74,59 @@ public class CreateEmployee extends JPanel {
         txtEmailAddress.setBounds(318, 279, 300, 30);
         add(txtEmailAddress);
 
+        // Username
+        var lblNewUsername = new JLabel("Username:");
+        lblNewUsername.setFont(new Font("Dialog", Font.BOLD, 16));
+        lblNewUsername.setForeground(SystemColor.controlLtHighlight);
+        lblNewUsername.setBounds(150, 320, 135, 30);
+        add(lblNewUsername);
+
+        txtNewUsername = new JTextField();
+        txtNewUsername.setBounds(318, 320, 300, 30);
+        add(txtNewUsername);
+
+        // Password Label
+        var lblNewPassword = new JLabel("Password:");
+        lblNewPassword.setFont(new Font("Dialog", Font.BOLD, 16));
+        lblNewPassword.setForeground(SystemColor.controlLtHighlight);
+        lblNewPassword.setBounds(150, 360, 135, 30);
+        add(lblNewPassword);
+
+        // Password
+        txtPassword = new JPasswordField();
+        txtPassword.setBounds(318, 360, 300, 30);
+        txtPassword.setEchoChar('*');
+        add(txtPassword);
+
+        // Role
+        var lblRole = new JLabel("Select Role:");
+        lblRole.setFont(new Font("Dialog", Font.BOLD, 16));
+        lblRole.setForeground(SystemColor.controlLtHighlight);
+        lblRole.setBounds(150, 400, 135, 30);
+        add(lblRole);
+
+        cmbRole = new JComboBox<>(new String[]{"ADMIN", "USER"});
+        cmbRole.setBounds(318, 400, 300, 30);
+        add(cmbRole);
+
         token = SessionManager.getInstance().getBearerToken();
 
         JButton btnAdd = new JButton("Add");
         btnAdd.setFont(new Font("Dialog", Font.BOLD, 16));
-        btnAdd.setBounds(152, 368, 150, 40);
+        btnAdd.setBounds(152, 440, 150, 40);
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
 
                     String jsonInputString = String.format(
-                            "{\"firstName\":\"%s\",\"lastName\":\"%s\",\"contactNo\":\"%s\",\"emailAddress\":\"%s\"}",
+                            "{\"firstName\":\"%s\",\"lastName\":\"%s\",\"contactNo\":\"%s\",\"emailAddress\":\"%s\",\"username\":\"%s\",\"password\":\"%s\",\"role\":\"%s\"}",
                             txtFirstName.getText(),
                             txtLastName.getText(),
                             txtContactNo.getText(),
-                            txtEmailAddress.getText()
-
+                            txtEmailAddress.getText(),
+                            txtNewUsername.getText(),
+                            new String(txtPassword.getPassword()),
+                            cmbRole.getSelectedItem()
                     );
 
 
@@ -134,7 +174,7 @@ public class CreateEmployee extends JPanel {
 
         JButton btnBack = new JButton("Back");
         btnBack.setFont(new Font("Dialog", Font.BOLD, 16));
-        btnBack.setBounds(468, 368, 150, 40);
+        btnBack.setBounds(468, 440, 150, 40);
         btnBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(cardPanel, "Employee");

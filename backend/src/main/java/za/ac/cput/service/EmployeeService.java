@@ -1,17 +1,29 @@
 package za.ac.cput.service;
 
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import za.ac.cput.domain.Employee;
 import za.ac.cput.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.service.Impl.IEmployeeService;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService implements IEmployeeService {
+
     private final EmployeeRepository repository;
+
+    @Autowired
+    private JWTService jwtService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
 
     @Autowired
     public EmployeeService(EmployeeRepository repository) {
@@ -20,6 +32,7 @@ public class EmployeeService implements IEmployeeService {
 
 
     public Employee create(Employee employee) {
+        employee.setPassword(passwordEncoder.encode(employee.getPassword()));
         return repository.save(employee);
     }
 
@@ -41,6 +54,22 @@ public class EmployeeService implements IEmployeeService {
 
     public Set<Employee> getall() {
         return repository.findAll().stream().collect(Collectors.toSet());
+    }
+
+
+    public String login(Employee employee) {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(employee.getUsername(), employee.getPassword()));
+
+        if (authentication.isAuthenticated()) {
+            return jwtService.generateToken(employee.getUsername());
+        }
+        return "failure";
+    }
+
+
+    public List<String> listUsernames()
+    {
+        return repository.listUsernames();
     }
 }
 
