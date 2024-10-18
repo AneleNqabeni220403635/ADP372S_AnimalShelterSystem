@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import za.ac.cput.helper.SessionManager;
 
 public class DeleteEmployee extends JPanel {
 
@@ -19,6 +20,7 @@ public class DeleteEmployee extends JPanel {
     private JTextField txtContactNo;
     private JTextField txtEmailAddress;
     private JComboBox<String> cboOptions;
+    private String token;
 
     public DeleteEmployee(CardLayout cardLayout, JPanel cardPanel) {
         setLayout(null);
@@ -88,6 +90,8 @@ public class DeleteEmployee extends JPanel {
         txtEmailAddress.setEditable(false);
         add(txtEmailAddress);
 
+        token = SessionManager.getInstance().getBearerToken();
+
         JButton btnDelete = new JButton("Delete");
         btnDelete.setFont(new Font("Dialog", Font.BOLD, 16));
         btnDelete.setBounds(150, 500, 150, 40);
@@ -122,6 +126,7 @@ public class DeleteEmployee extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/employee/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -157,6 +162,7 @@ public class DeleteEmployee extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/employee/read/" + id);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();
@@ -203,6 +209,7 @@ public class DeleteEmployee extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/employee/delete/"+id);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("DELETE");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
 
