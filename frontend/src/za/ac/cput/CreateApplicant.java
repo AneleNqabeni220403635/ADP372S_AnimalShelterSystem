@@ -18,12 +18,6 @@ import java.util.Date;
 public class CreateApplicant extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private JTextField txtName;
-    private JTextField txtBreed;
-    private JTextField txtAge;
-    private JTextField txtGender;
-    private JTextField txtSize;
-    private JTextField txtCageNumber;
     private JTextField txtStatus;
     private JComboBox<String> cboPetOwner;
     private JComboBox<String> cboCat;
@@ -55,7 +49,7 @@ public class CreateApplicant extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
-        JLabel lblTitle = new JLabel("Create New Applicant Record");
+        JLabel lblTitle = new JLabel("Capture Applicant", JLabel.CENTER);
         lblTitle.setFont(new Font("Dialog", Font.BOLD, 24));
         lblTitle.setForeground(SystemColor.controlLtHighlight);
         lblTitle.setBounds(209, 84, 427, 40);

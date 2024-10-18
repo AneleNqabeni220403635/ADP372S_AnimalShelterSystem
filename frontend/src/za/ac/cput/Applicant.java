@@ -21,13 +21,13 @@ public class Applicant extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
-        JLabel lblApplicantManagement = new JLabel("Animal Shelter Application");
+        JLabel lblApplicantManagement = new JLabel("Application for Adoption", JLabel.CENTER);
         lblApplicantManagement.setFont(new Font("Dialog", Font.BOLD, 30));
         lblApplicantManagement.setForeground(SystemColor.controlLtHighlight);
         lblApplicantManagement.setBounds(167, 73, 460, 80);
         add(lblApplicantManagement);
 
-        JButton btnCreateApplicant = new JButton("Add New Applicant Record");
+        JButton btnCreateApplicant = new JButton("Capture Applicant");
         btnCreateApplicant.setBounds(274, 198, widthBtn, heightBtn);
         btnCreateApplicant.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -38,7 +38,7 @@ public class Applicant extends JPanel {
         });
         add(btnCreateApplicant);
 
-        JButton btnUpdateApplicant = new JButton("Update Applicant Record");
+        JButton btnUpdateApplicant = new JButton("Update Applicant");
         btnUpdateApplicant.setBounds(274, 256, widthBtn, heightBtn);
         btnUpdateApplicant.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -49,7 +49,7 @@ public class Applicant extends JPanel {
         });
         add(btnUpdateApplicant);
 
-        JButton btnDeleteApplicant = new JButton("Delete Applicant Record");
+        JButton btnDeleteApplicant = new JButton("Remove Applicant");
         btnDeleteApplicant.setBounds(274, 316, widthBtn, heightBtn);
         btnDeleteApplicant.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -60,7 +60,7 @@ public class Applicant extends JPanel {
         });
         add(btnDeleteApplicant);
 
-        JButton btnManageApplicant = new JButton("View Applicant Record");
+        JButton btnManageApplicant = new JButton("View Applicant");
         btnManageApplicant.setBounds(274, 376, widthBtn, heightBtn);
         btnManageApplicant.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

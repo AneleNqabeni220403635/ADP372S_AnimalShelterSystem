@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.UserCredential;
 import za.ac.cput.service.UserCredentialService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/usercredential")
 public class UserCredentialController {
@@ -23,4 +25,9 @@ public class UserCredentialController {
         return service.verify(user);
     }
 
+    @GetMapping("/listUsernames")
+    public List<String> listUsernames()
+    {
+        return service.listUsernames();
+    }
 }

@@ -13,6 +13,8 @@ import za.ac.cput.domain.UserCredential;
 import za.ac.cput.domain.UserPrincipal;
 import za.ac.cput.repository.UserCredentialRepository;
 
+import java.util.List;
+
 @Service
 public class UserCredentialService  {
 
@@ -37,5 +39,10 @@ public class UserCredentialService  {
             return jwtService.generateToken(user.getUsername());
         }
         return "failure";
+    }
+
+    public List<String> listUsernames()
+    {
+        return repository.listUsernames();
     }
 }
