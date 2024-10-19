@@ -12,19 +12,19 @@ public class UserPrincipal implements UserDetails {
         return Collections.singleton(new SimpleGrantedAuthority("USER"));
     }
 
-    private UserCredential userCredential;
-    public UserPrincipal(UserCredential userCredential) {
-        this.userCredential = userCredential;
+    private Employee employee;
+    public UserPrincipal(Employee userCredential) {
+        this.employee = userCredential;
     }
 
     @Override
     public String getUsername() {
-        return userCredential.getUsername();
+        return employee.getUsername();
     }
 
     @Override
     public String getPassword() {
-        return userCredential.getPassword();
+        return employee.getPassword();
     }
 
     @Override

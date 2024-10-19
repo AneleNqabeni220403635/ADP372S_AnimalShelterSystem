@@ -16,7 +16,7 @@ public class EmployeeFactoryTest {
 
     @Test
     void testBuildEmployeeWithId() {
-        Employee employee = EmployeeFactory.buildEmployee(1L, "Thandiwe", "Mhlongo", "123-456-7890", "thandiwe@gmail.com");
+        Employee employee = EmployeeFactory.buildEmployee(1L, "Thandiwe", "Mhlongo", "123-456-7890", "thandiwe@gmail.com", "mhlongo.t", "123pass?", "test");
 
         assertNotNull(employee);
         assertEquals(1L, employee.getId());
@@ -28,7 +28,7 @@ public class EmployeeFactoryTest {
 
     @Test
     void testBuildEmployeeWithoutId() {
-        Employee employee = EmployeeFactory.buildEmployee("Jane", "Smith", "987-654-3210", "jane.smith@gmail.com");
+        Employee employee = EmployeeFactory.buildEmployee("Jane", "Smith", "987-654-3210", "jane.smith@gmail.com", "Jane", "123pass?", "test");
 
         assertNotNull(employee);
         assertNotNull(employee.getId());
@@ -40,35 +40,35 @@ public class EmployeeFactoryTest {
 
     @Test
     void testBuildEmployeeWithInvalidData() {
-        Employee employee = EmployeeFactory.buildEmployee(0L, "", "", "", "");
+        Employee employee = EmployeeFactory.buildEmployee(0L, "", "", "", "","","","");
 
         assertNull(employee);
     }
 
     @Test
     void testBuildEmployeeWithNullFirstName() {
-        Employee employee = EmployeeFactory.buildEmployee(1L, null, "Mhlongo", "123-456-7890", "thandiwe@gmail.com");
+        Employee employee = EmployeeFactory.buildEmployee(1L, null, "Mhlongo", "123-456-7890", "thandiwe@gmail.com", "mhlongo", "123pass?", "test");
 
         assertNull(employee);
     }
 
     @Test
     void testBuildEmployeeWithNullLastName() {
-        Employee employee = EmployeeFactory.buildEmployee(1L, "Thandiwe", null, "123-456-7890", "thandiwe@gmail.com");
+        Employee employee = EmployeeFactory.buildEmployee(1L, "Thandiwe", null, "123-456-7890", "thandiwe@gmail.com", "thandiwe_test", "123pass?", "test");
 
         assertNull(employee);
     }
 
     @Test
     void testBuildEmployeeWithNullContactNo() {
-        Employee employee = EmployeeFactory.buildEmployee(1L, "Thandiwe", "Mhlongo", null, "thandiwe@gmail.com");
+        Employee employee = EmployeeFactory.buildEmployee(1L, "Thandiwe", "Mhlongo", null, "thandiwe@gmail.com", "tm", "123pass?", "test");
 
         assertNull(employee);
     }
 
     @Test
     void testBuildEmployeeWithNullEmailAddress() {
-        Employee employee = EmployeeFactory.buildEmployee(1L, "Thandiwe", "Mhlongo", "123-456-7890", null);
+        Employee employee = EmployeeFactory.buildEmployee(1L, "Thandiwe", "Mhlongo", "123-456-7890", null, "thandiwe_m", "123pass?", "test");
 
         assertNull(employee);
     }

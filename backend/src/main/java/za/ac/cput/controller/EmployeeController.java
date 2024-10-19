@@ -5,6 +5,7 @@ import za.ac.cput.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -37,5 +38,15 @@ public class EmployeeController {
     @GetMapping("/getall")
     public Set<Employee> getAllEmployees() {
         return employeeService.getall();
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody Employee employee){
+        return employeeService.login(employee);
+    }
+
+    @GetMapping("/listUsernames")
+    public List<String> listUsernames() {
+        return employeeService.listUsernames();
     }
 }

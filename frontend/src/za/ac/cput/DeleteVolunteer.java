@@ -152,6 +152,7 @@ public class DeleteVolunteer extends JPanel {
             URL url = new URL("http://localhost:8080/animalshelter/volunteer/getall");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
             connection.setRequestProperty("Accept", "application/json");
 
             int responseCode = connection.getResponseCode();

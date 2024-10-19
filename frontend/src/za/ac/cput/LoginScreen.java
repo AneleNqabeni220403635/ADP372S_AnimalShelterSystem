@@ -91,7 +91,7 @@ public class LoginScreen extends JFrame {
             String username = txtUsername.getText();
             String password = new String(txtPassword.getPassword());
 
-            URL url = new URL("http://localhost:8080/animalshelter/usercredential/login");
+            URL url = new URL("http://localhost:8080/animalshelter/employee/login");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json; utf-8");

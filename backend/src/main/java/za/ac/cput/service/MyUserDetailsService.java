@@ -5,26 +5,26 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import za.ac.cput.domain.UserCredential;
+import za.ac.cput.domain.Employee;
 import za.ac.cput.domain.UserPrincipal;
-import za.ac.cput.repository.UserCredentialRepository;
+import za.ac.cput.repository.EmployeeRepository;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserCredentialRepository repository;
+    private EmployeeRepository repository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserCredential credential = repository.findByUsername(username);
+        Employee employee = repository.findByUsername(username);
 
-        if (credential == null)
+        if (employee == null)
         {
             System.out.println("Username not found: " + username);
             // Do not change this to username not found, we dont want to give potential attackers clues to get into the system.
             throw new UsernameNotFoundException("Invalid credentials");
         }
-        return new UserPrincipal(credential);
+        return new UserPrincipal(employee);
     }
 }
