@@ -14,6 +14,10 @@ public class PetOwner extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
+        ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/shelter.png");
+        imagePanel.setBounds(10, 50, 120, 90);
+        add(imagePanel);
+
         JLabel lblPetOwnerManagement = new JLabel("Animal Shelter Application");
         lblPetOwnerManagement.setFont(new Font("Dialog", Font.BOLD, 30));
         lblPetOwnerManagement.setForeground(SystemColor.controlLtHighlight);
