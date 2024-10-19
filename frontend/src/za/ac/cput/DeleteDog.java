@@ -29,6 +29,10 @@ public class DeleteDog extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
+        ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/dog paw.png");
+        imagePanel.setBounds(600, 50, 150, 100);
+        add(imagePanel);
+
         JLabel lblTitle = new JLabel("Delete Dog Details");
         lblTitle.setFont(new Font("Dialog", Font.BOLD, 24));
         lblTitle.setForeground(SystemColor.controlLtHighlight);

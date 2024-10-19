@@ -29,6 +29,10 @@ public class UpdateDog extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
+        ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/Dogs.png");
+        imagePanel.setBounds(600, 50, 150, 100);
+        add(imagePanel);
+
         JLabel lblTitle = new JLabel("Update Dog Details");
         lblTitle.setFont(new Font("Dialog", Font.BOLD, 24));
         lblTitle.setForeground(SystemColor.controlLtHighlight);
