@@ -19,7 +19,7 @@ public class Sale extends JPanel {
         lblSaleManagement.setBounds(167, 73, 460, 80);
         add(lblSaleManagement);
 
-        JButton btnCreateSale = new JButton("Add New Sale Record");
+        JButton btnCreateSale = new JButton("Add Sale");
         btnCreateSale.setBounds(274, 198, 228, 46);
         btnCreateSale.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -31,7 +31,7 @@ public class Sale extends JPanel {
         });
         add(btnCreateSale);
 
-        JButton btnUpdateSale = new JButton("View Owner Record");
+        JButton btnUpdateSale = new JButton("View Owner Details");
         btnUpdateSale.setBounds(274, 256, 228, 46);
         btnUpdateSale.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -41,7 +41,7 @@ public class Sale extends JPanel {
         });
         add(btnUpdateSale);
 
-        JButton btnManageSale = new JButton("View Sale Record");
+        JButton btnManageSale = new JButton("View Sale Details");
         btnManageSale.setBounds(274, 316, 228, 46);
         btnManageSale.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

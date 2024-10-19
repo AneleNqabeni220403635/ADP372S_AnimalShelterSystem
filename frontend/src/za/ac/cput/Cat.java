@@ -26,7 +26,7 @@ public class Cat extends JPanel {
         lblCatManagement.setBounds(167, 73, 460, 80);
         add(lblCatManagement);
 
-        JButton btnCreateCat = new JButton("Add New Cat Record");
+        JButton btnCreateCat = new JButton("Add Cat");
         btnCreateCat.setBounds(274, 198, 228, 46);
         btnCreateCat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -38,7 +38,7 @@ public class Cat extends JPanel {
         });
         add(btnCreateCat);
 
-        JButton btnUpdateCat = new JButton("Update Cat Record");
+        JButton btnUpdateCat = new JButton("Update Cat Details");
         btnUpdateCat.setBounds(274, 256, 228, 46);
         btnUpdateCat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -48,7 +48,7 @@ public class Cat extends JPanel {
         });
         add(btnUpdateCat);
 
-        JButton btnDeleteCat = new JButton("Delete Cat Record");
+        JButton btnDeleteCat = new JButton("Delete Cat");
         btnDeleteCat.setBounds(274, 316, 228, 46);
         btnDeleteCat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -59,7 +59,7 @@ public class Cat extends JPanel {
         });
         add(btnDeleteCat);
 
-        JButton btnManageCat = new JButton("View Cat Record");
+        JButton btnManageCat = new JButton("View All Cats");
         btnManageCat.setBounds(274, 376, 228, 46);
         btnManageCat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
