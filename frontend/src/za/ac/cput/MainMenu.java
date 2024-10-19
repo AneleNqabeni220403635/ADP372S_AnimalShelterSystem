@@ -47,8 +47,13 @@ public class MainMenu extends JFrame {
         cardPanel.add(new Sale(cardLayout, cardPanel), "Sale");
         cardPanel.add(new Applicant(cardLayout, cardPanel), "Applicant");
         cardPanel.add(new MedicalRecord(cardLayout, cardPanel), "MedicalRecord");
-        cardPanel.add(new PetOwner(cardLayout, cardPanel), "User Management");
+        cardPanel.add(new PetOwner(cardLayout, cardPanel), "PetOwner");
 
+
+        cardPanel.add(new CreateApplicant(cardLayout,cardPanel), "CreateApplicant");
+        cardPanel.add(new UpdateApplicant(cardLayout,cardPanel), "UpdateApplicant");
+        cardPanel.add(new DeleteApplicant(cardLayout,cardPanel), "DeleteApplicant");
+        cardPanel.add(new DisplayApplicant(cardLayout,cardPanel), "DisplayApplicant");
     
 //        cardPanel.add(new CreateMedicalRecord(cardLayout,cardPanel), "CreateMedicalRecord");
 //        cardPanel.add(new UpdateMedicalRecord(cardLayout,cardPanel), "UpdateMedicalRecord");
@@ -112,6 +117,7 @@ public class MainMenu extends JFrame {
         ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/shelter.png");
         imagePanel.setBounds(60, this.getHeight() - 170, 120, 90);
         add(imagePanel);
+        imagePanel.repaint();
 
         JButton btnSignOff = new JButton("Sign Off");
         btnSignOff.setBounds(666, 505, 122, 46);
