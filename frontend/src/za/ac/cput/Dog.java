@@ -65,6 +65,10 @@ public class Dog extends JPanel {
         });
         add(btnManageDog);
 
+        ImagePanel imagePanel1 = new ImagePanel("src/za/ac/cput/images/shelter.png");
+        imagePanel.setBounds(60, this.getHeight() - 170, 120, 90);
+        add(imagePanel1);
+
         JButton btnBack = new JButton("Back ");
         btnBack.setBounds(637, 500, 150, 40);
         btnBack.addActionListener(new ActionListener() {

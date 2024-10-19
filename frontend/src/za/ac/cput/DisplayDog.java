@@ -121,6 +121,10 @@ public class DisplayDog extends JPanel {
 
         token = SessionManager.getInstance().getBearerToken();
 
+        ImagePanel imagePanel2 = new ImagePanel("src/za/ac/cput/images/shelter.png");
+        imagePanel.setBounds(60, this.getHeight() - 170, 120, 90);
+        add(imagePanel2);
+
         JButton btnBack = new JButton("Back");
         btnBack.setFont(new Font("Dialog", Font.BOLD, 16));
         btnBack.setBounds(472, 500, 150, 40);
