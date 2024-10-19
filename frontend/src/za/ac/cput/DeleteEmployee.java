@@ -220,7 +220,7 @@ public class DeleteEmployee extends JPanel {
 
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
-                JOptionPane.showMessageDialog(null, "Cat Deleted successfully.");
+                JOptionPane.showMessageDialog(null, "Employee deleted successfully.");
                 // Optionally, clear the text fields after deletion
                 txtFirstName.setText("");
                 txtLastName.setText("");
@@ -229,7 +229,7 @@ public class DeleteEmployee extends JPanel {
 
 
             } else {
-                JOptionPane.showMessageDialog(null, "Error: Unable to Delete Cat.");
+                JOptionPane.showMessageDialog(null, "Error: Unable to delete employee.");
             }
         } catch (Exception ex) {
             ex.printStackTrace();

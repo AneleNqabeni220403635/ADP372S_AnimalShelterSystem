@@ -44,9 +44,4 @@ public class EmployeeController {
     public String login(@RequestBody Employee employee){
         return employeeService.login(employee);
     }
-
-    @GetMapping("/listUsernames")
-    public List<String> listUsernames() {
-        return employeeService.listUsernames();
-    }
 }

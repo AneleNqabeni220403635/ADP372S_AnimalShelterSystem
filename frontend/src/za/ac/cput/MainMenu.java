@@ -1,7 +1,5 @@
 package za.ac.cput;
 
-import za.ac.cput.UserManagement.UserManagementUI;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,8 +48,7 @@ public class MainMenu extends JFrame {
         cardPanel.add(new Applicant(cardLayout, cardPanel), "Applicant");
         cardPanel.add(new MedicalRecord(cardLayout, cardPanel), "MedicalRecord");
         cardPanel.add(new PetOwner(cardLayout, cardPanel), "User Management");
-        cardPanel.add(new UserManagementUI(cardLayout, cardPanel), "User Management");
-        
+
     
 //        cardPanel.add(new CreateMedicalRecord(cardLayout,cardPanel), "CreateMedicalRecord");
 //        cardPanel.add(new UpdateMedicalRecord(cardLayout,cardPanel), "UpdateMedicalRecord");
@@ -111,11 +108,6 @@ public class MainMenu extends JFrame {
         btnSale.setBounds(274, 448, 228, 46);
         btnSale.addActionListener(e -> cardLayout.show(cardPanel, "Sale"));
         mainMenuPanel.add(btnSale);
-
-        JButton btnUserManagement = new JButton("User Management");
-        btnUserManagement.setBounds(274, 504, 228, 46);
-        btnUserManagement.addActionListener(e -> cardLayout.show(cardPanel, "User Management"));
-        mainMenuPanel.add(btnUserManagement);
 
         ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/shelter.png");
         imagePanel.setBounds(60, this.getHeight() - 170, 120, 90);
