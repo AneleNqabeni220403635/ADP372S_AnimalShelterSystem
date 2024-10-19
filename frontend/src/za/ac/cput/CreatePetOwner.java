@@ -163,7 +163,7 @@ public class CreatePetOwner extends JPanel{
         btnCancel.setBounds(464, 432, 150, 40);
         btnCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "Cat");
+                cardLayout.show(cardPanel, "PetOwner");
             }
         });
         add(btnCancel);

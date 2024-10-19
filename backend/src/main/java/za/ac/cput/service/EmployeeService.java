@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.service.Impl.IEmployeeService;
 
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -43,6 +42,20 @@ public class EmployeeService implements IEmployeeService {
 
 
     public Employee update(Employee employee) {
+        Employee e = read(employee.getId());
+        // don't set password to blank, ui passes blank if its not changed
+        if (employee.getPassword() != null && !employee.getPassword().isEmpty())
+        {
+            employee.setPassword(passwordEncoder.encode(employee.getPassword()));
+        }
+        else
+        {
+            employee.setPassword(e.getPassword());
+        }
+        if (employee.getUsername() == null || employee.getUsername().isEmpty())
+            employee.setUsername(e.getUsername());
+        if (employee.getRole() == null || employee.getRole().isEmpty())
+            employee.setRole(e.getRole());
         return repository.save(employee);
     }
 
@@ -67,9 +80,9 @@ public class EmployeeService implements IEmployeeService {
     }
 
 
-    public List<String> listUsernames()
+    public Employee findByUsername(String username)
     {
-        return repository.listUsernames();
+        return repository.findByUsername(username);
     }
 }
 

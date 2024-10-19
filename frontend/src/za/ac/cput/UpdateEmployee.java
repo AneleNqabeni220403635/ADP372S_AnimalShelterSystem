@@ -21,6 +21,8 @@ public class UpdateEmployee extends JPanel {
     private JTextField txtEmailAddress;
     private JComboBox<String> cboOptions;
     private String token;
+    private String role;
+    private JPasswordField txtPassword;
 
     public UpdateEmployee(CardLayout cardLayout, JPanel cardPanel) {
         setLayout(null);
@@ -86,7 +88,20 @@ public class UpdateEmployee extends JPanel {
         txtEmailAddress.setBounds(318, 321, 300, 30);
         add(txtEmailAddress);
 
+        JLabel lblPassword = new JLabel("Password:");
+        lblPassword.setFont(new Font("Dialog", Font.BOLD, 16));
+        lblPassword.setForeground(SystemColor.controlLtHighlight);
+        lblPassword.setBounds(139, 363, 150, 30);
+        add(lblPassword);
+
+        txtPassword = new JPasswordField();
+        txtPassword.setEchoChar('*');
+        txtPassword.setFont(new Font("Dialog", Font.BOLD, 16));
+        txtPassword.setBounds(318, 363, 300, 30);
+        add(txtPassword);
+
         token = SessionManager.getInstance().getBearerToken();
+        getActiveEmployeeRole();
 
         JButton btnUpdate = new JButton("Update");
         btnUpdate.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -103,7 +118,8 @@ public class UpdateEmployee extends JPanel {
         btnBack.setBounds(472, 500, 150, 40);
         btnBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "Employee");             }
+                cardLayout.show(cardPanel, "Employee");
+            }
         });
         add(btnBack);
 
@@ -154,6 +170,8 @@ public class UpdateEmployee extends JPanel {
 
     private void fetchEmployeeDetails(String id) {
         try {
+            toggleFieldsEditable(false);
+
             URL url = new URL("http://localhost:8080/animalshelter/employee/read/" + id);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
@@ -177,6 +195,7 @@ public class UpdateEmployee extends JPanel {
                 txtContactNo.setText(jsonObject.optString("contactNo", ""));
                 txtEmailAddress.setText(jsonObject.optString("emailAddress", ""));
 
+                toggleFieldsEditable(role.equals("ADMIN") || jsonObject.optString("username", "").equals(SessionManager.getInstance().getUsername()));
             } else {
                 JOptionPane.showMessageDialog(null, "Error: Unable to fetch employee details.");
             }
@@ -202,6 +221,11 @@ public class UpdateEmployee extends JPanel {
         jsonObject.put("contactNo", txtContactNo.getText());
         jsonObject.put("emailAddress", txtEmailAddress.getText());
 
+        String p = new String(txtPassword.getPassword());
+        if (!p.isEmpty()){
+            jsonObject.put("password", p);
+        }
+
         try {
             URL url = new URL("http://localhost:8080/animalshelter/employee/update");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -225,5 +249,44 @@ public class UpdateEmployee extends JPanel {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
         }
+    }
+
+    private void getActiveEmployeeRole() {
+        try {
+            URL url = new URL("http://localhost:8080/animalshelter/employee/findByUsername/" + SessionManager.getInstance().getUsername());
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Authorization", "Bearer " + token);
+            connection.setRequestProperty("Accept", "application/json");
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                StringBuilder response = new StringBuilder();
+                try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"))) {
+                    String line;
+                    while ((line = in.readLine()) != null) {
+                        response.append(line);
+                    }
+                }
+
+                JSONObject jsonObject = new JSONObject(response.toString());
+
+                this.role = jsonObject.optString("role", "");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error: Unable to fetch role. (" + responseCode + ")");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+    }
+
+    private void toggleFieldsEditable(boolean toggle)
+    {
+        txtFirstName.setEnabled(toggle);
+        txtLastName.setEnabled(toggle);
+        txtEmailAddress.setEnabled(toggle);
+        txtContactNo.setEnabled(toggle);
+        txtPassword.setEnabled(toggle);
     }
 }

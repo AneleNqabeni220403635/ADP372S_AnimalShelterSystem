@@ -45,8 +45,6 @@ public class EmployeeController {
         return employeeService.login(employee);
     }
 
-    @GetMapping("/listUsernames")
-    public List<String> listUsernames() {
-        return employeeService.listUsernames();
-    }
+    @PostMapping("/findByUsername/{username}")
+    public Employee findByUsername(@PathVariable String username) { return employeeService.findByUsername(username);}
 }

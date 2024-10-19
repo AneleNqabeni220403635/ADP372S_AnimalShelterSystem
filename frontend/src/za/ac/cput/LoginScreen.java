@@ -113,6 +113,7 @@ public class LoginScreen extends JFrame {
 
                 String token = getResponseContent(connection);
                 SessionManager.getInstance().setBearerToken(token);
+                SessionManager.getInstance().setUsername(username);
 
                 openMainMenu();
             } else {

@@ -31,7 +31,6 @@ public class Applicant extends JPanel {
         btnCreateApplicant.setBounds(274, 198, widthBtn, heightBtn);
         btnCreateApplicant.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	cardPanel.add(new CreateApplicant(cardLayout,cardPanel), "CreateApplicant");
               
                 cardLayout.show(cardPanel, "CreateApplicant");
             }
@@ -42,8 +41,6 @@ public class Applicant extends JPanel {
         btnUpdateApplicant.setBounds(274, 256, widthBtn, heightBtn);
         btnUpdateApplicant.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	  cardPanel.add(new UpdateApplicant(cardLayout,cardPanel), "UpdateApplicant");
-
                 cardLayout.show(cardPanel, "UpdateApplicant");
             }
         });
@@ -53,7 +50,6 @@ public class Applicant extends JPanel {
         btnDeleteApplicant.setBounds(274, 316, widthBtn, heightBtn);
         btnDeleteApplicant.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardPanel.add(new DeleteApplicant(cardLayout,cardPanel), "DeleteApplicant");
               
                 cardLayout.show(cardPanel, "DeleteApplicant");
             }
@@ -64,7 +60,6 @@ public class Applicant extends JPanel {
         btnManageApplicant.setBounds(274, 376, widthBtn, heightBtn);
         btnManageApplicant.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	  cardPanel.add(new DisplayApplicant(cardLayout,cardPanel), "DisplayApplicant");
                 cardLayout.show(cardPanel, "DisplayApplicant");
             }
         });
@@ -72,10 +67,9 @@ public class Applicant extends JPanel {
 
         JButton btnBack = new JButton("Back ");
         btnBack.setBounds(637, 500, 150, 40);
-        btnBack.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "MainMenu");
-            }
+        btnBack.addActionListener(e -> {
+            cardLayout.show(cardPanel, "MainMenu");
+            cardPanel.repaint();
         });
         add(btnBack);
     }
