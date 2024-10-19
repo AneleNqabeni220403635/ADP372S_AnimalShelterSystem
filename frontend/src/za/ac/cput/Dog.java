@@ -14,7 +14,7 @@ public class Dog extends JPanel {
         setBackground(new Color(0, 128, 128));
 
         ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/Edited puppies2.png");
-        imagePanel.setBounds(600, 50, 150, 100);  // Set the size and position of the image panel
+        imagePanel.setBounds(600, 50, 150, 100);
         add(imagePanel);
 
         JLabel lblDogManagement = new JLabel("Animal Shelter Application");
@@ -23,7 +23,7 @@ public class Dog extends JPanel {
         lblDogManagement.setBounds(167, 73, 460, 80);
         add(lblDogManagement);
 
-        JButton btnCreateDog = new JButton("Add New Dog Record");
+        JButton btnCreateDog = new JButton("Add A Dog");
         btnCreateDog.setBounds(274, 198, 228, 46);
         btnCreateDog.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -33,7 +33,7 @@ public class Dog extends JPanel {
         });
         add(btnCreateDog);
 
-        JButton btnUpdateDog = new JButton("Update Dog Record");
+        JButton btnUpdateDog = new JButton("Update Dog Details");
         btnUpdateDog.setBounds(274, 256, 228, 46);
         btnUpdateDog.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -44,7 +44,7 @@ public class Dog extends JPanel {
         });
         add(btnUpdateDog);
 
-        JButton btnDeleteDog = new JButton("Delete Dog Record");
+        JButton btnDeleteDog = new JButton("Delete Dog Details");
         btnDeleteDog.setBounds(274, 316, 228, 46);
         btnDeleteDog.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -55,7 +55,7 @@ public class Dog extends JPanel {
         });
         add(btnDeleteDog);
 
-        JButton btnManageDog = new JButton("View Dog Record");
+        JButton btnManageDog = new JButton("View Dog/(s)");
         btnManageDog.setBounds(274, 376, 228, 46);
         btnManageDog.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -64,6 +64,10 @@ public class Dog extends JPanel {
             }
         });
         add(btnManageDog);
+
+        ImagePanel imagePanel1 = new ImagePanel("src/za/ac/cput/images/shelter.png");
+        imagePanel.setBounds(60, this.getHeight() - 170, 120, 90);
+        add(imagePanel1);
 
         JButton btnBack = new JButton("Back ");
         btnBack.setBounds(637, 500, 150, 40);

@@ -117,6 +117,10 @@ public class MainMenu extends JFrame {
         btnUserManagement.addActionListener(e -> cardLayout.show(cardPanel, "User Management"));
         mainMenuPanel.add(btnUserManagement);
 
+        ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/shelter.png");
+        imagePanel.setBounds(60, this.getHeight() - 170, 120, 90);
+        add(imagePanel);
+
         JButton btnSignOff = new JButton("Sign Off");
         btnSignOff.setBounds(666, 505, 122, 46);
         btnSignOff.addActionListener(new ActionListener() {

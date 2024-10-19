@@ -29,7 +29,11 @@ public class DisplayDog extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
-        JLabel lblTitle = new JLabel("Display Dog Record");
+        ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/puppies.png");
+        imagePanel.setBounds(600, 50, 150, 100);
+        add(imagePanel);
+
+        JLabel lblTitle = new JLabel("Captured Dog Details");
         lblTitle.setFont(new Font("Dialog", Font.BOLD, 24));
         lblTitle.setForeground(SystemColor.controlLtHighlight);
         lblTitle.setBounds(254, 55, 350, 40);
@@ -116,6 +120,10 @@ public class DisplayDog extends JPanel {
         add(txtCageNumber);
 
         token = SessionManager.getInstance().getBearerToken();
+
+        ImagePanel imagePanel2 = new ImagePanel("src/za/ac/cput/images/shelter.png");
+        imagePanel.setBounds(60, this.getHeight() - 170, 120, 90);
+        add(imagePanel2);
 
         JButton btnBack = new JButton("Back");
         btnBack.setFont(new Font("Dialog", Font.BOLD, 16));
