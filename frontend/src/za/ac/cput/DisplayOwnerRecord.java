@@ -34,6 +34,10 @@ public class DisplayOwnerRecord extends JPanel {
         scrollPane.setBounds(61, 95, 678, 310);
         add(scrollPane);
 
+        ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/shelter.png");
+        imagePanel.setBounds(10, 40, 80, 50);
+        add(imagePanel);
+
         JLabel lblOwnerRecord = new JLabel("Owner Record");
         lblOwnerRecord.setForeground(new Color(255, 255, 255));
         lblOwnerRecord.setFont(new Font("Dialog", Font.BOLD, 20));
