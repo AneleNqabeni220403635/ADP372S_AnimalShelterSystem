@@ -4,6 +4,7 @@ package za.ac.cput.helper;
 public class SessionManager {
     private static SessionManager instance;
     private String bearerToken;
+    private String username;
 
     private SessionManager(){}
 
@@ -21,5 +22,13 @@ public class SessionManager {
 
     public String getBearerToken(){
         return bearerToken;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

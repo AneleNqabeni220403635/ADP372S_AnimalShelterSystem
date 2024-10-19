@@ -27,6 +27,9 @@ public class Employee {
         this.lastName = builder.lastName;
         this.contactNo = builder.contactNo;
         this.emailAddress = builder.emailAddress;
+        this.username = builder.username;
+        this.password = builder.password;
+        this.role = builder.role;
     }
 
     public Long getId() {

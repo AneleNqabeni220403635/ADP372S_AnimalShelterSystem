@@ -44,4 +44,7 @@ public class EmployeeController {
     public String login(@RequestBody Employee employee){
         return employeeService.login(employee);
     }
+
+    @PostMapping("/findByUsername/{username}")
+    public Employee findByUsername(@PathVariable String username) { return employeeService.findByUsername(username);}
 }
