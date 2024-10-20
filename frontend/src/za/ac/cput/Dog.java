@@ -19,7 +19,7 @@ public class Dog extends JPanel {
 
         ImagePanel imagePanel1 = new ImagePanel("src/za/ac/cput/images/shelter.png");
         imagePanel1.setPreferredSize(new Dimension(100, 100));
-        
+
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridheight = 2;
@@ -57,7 +57,7 @@ public class Dog extends JPanel {
 
         gbc.gridwidth = 1;
         gbc.weighty = 0.1;
-        gbc.anchor = GridBagConstraints.CENTER;  // Align buttons below the title
+        gbc.anchor = GridBagConstraints.CENTER;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(buttonPanel, gbc);
@@ -67,7 +67,7 @@ public class Dog extends JPanel {
         gbc.gridy = 2;
         gbc.weighty = 0.1;
         gbc.gridwidth = 1;
-        gbc.anchor = GridBagConstraints.EAST;  // Align sign off button to bottom-right
+        gbc.anchor = GridBagConstraints.EAST;
         gbc.insets = new Insets(0, 0, 20, 20);
         add(btnSignOff, gbc);
 
