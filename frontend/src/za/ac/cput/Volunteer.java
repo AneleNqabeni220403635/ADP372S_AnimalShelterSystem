@@ -13,6 +13,10 @@ public class Volunteer extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
+        ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/shelter.png");
+        imagePanel.setBounds(50, 50, 100, 100);
+        add(imagePanel);
+
         JLabel lblVolunteerManagement = new JLabel("Animal Shelter Application");
         lblVolunteerManagement.setFont(new Font("Dialog", Font.BOLD, 30));
         lblVolunteerManagement.setForeground(SystemColor.controlLtHighlight);
