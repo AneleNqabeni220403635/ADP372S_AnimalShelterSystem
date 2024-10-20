@@ -28,6 +28,10 @@ public class CreateEmployee extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
+        ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/profile.png");
+        imagePanel.setBounds(50, 50, 90, 90);
+        add(imagePanel);
+
         JLabel lblTitle = new JLabel("Create New Employee Record:", JLabel.CENTER);
         lblTitle.setFont(new Font("Dialog", Font.BOLD, 24));
         lblTitle.setForeground(SystemColor.controlLtHighlight);
