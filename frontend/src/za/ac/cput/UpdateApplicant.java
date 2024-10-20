@@ -207,6 +207,10 @@ public class UpdateApplicant extends JPanel {
         });
         add(btnBack);
 
+        ImagePanel imgPanel = new ImagePanel();
+        imgPanel.setBounds(40, 40, 120, 90);
+        add(imgPanel);
+
         token = SessionManager.getInstance().getBearerToken();
         setFieldsEnabled(false);
         fetchApplicantData();
