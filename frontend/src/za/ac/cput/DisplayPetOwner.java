@@ -50,7 +50,7 @@ public class DisplayPetOwner extends JPanel {
         imagePanel.setBounds(50, 50, 150, 80);
         add(imagePanel);
 
-        JLabel lblTitle = new JLabel("Display PetOwner Record");
+        JLabel lblTitle = new JLabel("Display PetOwner Details");
         lblTitle.setFont(new Font("Dialog", Font.BOLD, 24));
         lblTitle.setForeground(SystemColor.controlLtHighlight);
         lblTitle.setBounds(222, 81, 396, 40);
