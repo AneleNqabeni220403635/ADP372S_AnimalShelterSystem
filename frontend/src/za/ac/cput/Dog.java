@@ -13,10 +13,6 @@ public class Dog extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
-        ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/Edited puppies2.png");
-        imagePanel.setBounds(600, 50, 150, 100);
-        add(imagePanel);
-
         JLabel lblDogManagement = new JLabel("Animal Shelter Application");
         lblDogManagement.setFont(new Font("Dialog", Font.BOLD, 30));
         lblDogManagement.setForeground(SystemColor.controlLtHighlight);
@@ -66,7 +62,7 @@ public class Dog extends JPanel {
         add(btnManageDog);
 
         ImagePanel imagePanel1 = new ImagePanel("src/za/ac/cput/images/shelter.png");
-        imagePanel1.setBounds(60, mainMenu.getHeight() - 170, 120, 90);
+        imagePanel1.setBounds(50, 50, 100, 80);
         add(imagePanel1);
 
         JButton btnBack = new JButton("Back ");
