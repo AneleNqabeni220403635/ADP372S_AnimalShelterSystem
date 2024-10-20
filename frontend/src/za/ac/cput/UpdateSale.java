@@ -28,7 +28,7 @@ public class UpdateSale extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
-        JLabel lblTitle = new JLabel("Update Sale Record");
+        JLabel lblTitle = new JLabel("Update Sale Details");
         lblTitle.setFont(new Font("Dialog", Font.BOLD, 24));
         lblTitle.setForeground(SystemColor.controlLtHighlight);
         lblTitle.setBounds(209, 50, 427, 40);

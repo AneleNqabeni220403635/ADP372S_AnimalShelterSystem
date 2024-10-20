@@ -29,7 +29,11 @@ public class DeleteCat extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
-        JLabel lblTitle = new JLabel("Delete Cat Record");
+        ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/cat4.png");
+        imagePanel.setBounds(600, 50, 150, 100);
+        add(imagePanel);
+
+        JLabel lblTitle = new JLabel("Remove Cat");
         lblTitle.setFont(new Font("Dialog", Font.BOLD, 24));
         lblTitle.setForeground(SystemColor.controlLtHighlight);
         lblTitle.setBounds(254, 55, 350, 40);

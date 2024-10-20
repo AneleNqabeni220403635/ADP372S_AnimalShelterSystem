@@ -64,7 +64,7 @@ public class CreateSale extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
-        JLabel lblTitle = new JLabel("Create New Sale Record");
+        JLabel lblTitle = new JLabel("Create Sales Entry");
         lblTitle.setFont(new Font("Dialog", Font.BOLD, 24));
         lblTitle.setForeground(SystemColor.controlLtHighlight);
         lblTitle.setBounds(223, 49, 427, 40);

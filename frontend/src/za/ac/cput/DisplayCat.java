@@ -29,7 +29,11 @@ public class DisplayCat extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
-        JLabel lblTitle = new JLabel("Display Cat Record");
+        ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/cat2.png");
+        imagePanel.setBounds(600, 50, 150, 100);
+        add(imagePanel);
+
+        JLabel lblTitle = new JLabel("Display Cat Details");
         lblTitle.setFont(new Font("Dialog", Font.BOLD, 24));
         lblTitle.setForeground(SystemColor.controlLtHighlight);
         lblTitle.setBounds(254, 55, 350, 40);
@@ -48,6 +52,7 @@ public class DisplayCat extends JPanel {
             }
         });
         add(cboOptions);
+
 
         JLabel lblName = new JLabel("Name:");
         lblName.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -116,6 +121,7 @@ public class DisplayCat extends JPanel {
         add(txtCageNumber);
 
         token = SessionManager.getInstance().getBearerToken();
+
 
         JButton btnBack = new JButton("Back");
         btnBack.setFont(new Font("Dialog", Font.BOLD, 16));
