@@ -24,7 +24,7 @@ public class PetOwner extends JPanel {
         lblPetOwnerManagement.setBounds(167, 73, 460, 80);
         add(lblPetOwnerManagement);
 
-        JButton btnCreatePetOwner = new JButton("Add New PetOwner Record");
+        JButton btnCreatePetOwner = new JButton("Add New PetOwner");
         btnCreatePetOwner.setBounds(274, 198, 228, 46);
         btnCreatePetOwner.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -36,7 +36,7 @@ public class PetOwner extends JPanel {
         });
         add(btnCreatePetOwner);
 
-        JButton btnUpdatePetOwner = new JButton("Update PetOwner Record");
+        JButton btnUpdatePetOwner = new JButton("Update PetOwner ");
         btnUpdatePetOwner.setBounds(274, 256, 228, 46);
         btnUpdatePetOwner.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -48,7 +48,7 @@ public class PetOwner extends JPanel {
         });
         add(btnUpdatePetOwner);
 
-        JButton btnDeletePetOwner = new JButton("Delete PetOwner Record");
+        JButton btnDeletePetOwner = new JButton("Delete PetOwner");
         btnDeletePetOwner.setBounds(274, 316, 228, 46);
         btnDeletePetOwner.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -60,7 +60,7 @@ public class PetOwner extends JPanel {
         });
         add(btnDeletePetOwner);
 
-        JButton btnManagePetOwner = new JButton("View PetOwner Record");
+        JButton btnManagePetOwner = new JButton("View PetOwner");
         btnManagePetOwner.setBounds(274, 376, 228, 46);
         btnManagePetOwner.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

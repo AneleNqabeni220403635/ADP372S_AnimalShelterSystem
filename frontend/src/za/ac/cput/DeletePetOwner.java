@@ -54,7 +54,7 @@ public class DeletePetOwner extends JPanel {
         imagePanel.setBounds(50, 50, 150, 80);
         add(imagePanel);
 
-        JLabel lblTitle = new JLabel("Delete PetOwner Record");
+        JLabel lblTitle = new JLabel("Delete PetOwner");
         lblTitle.setFont(new Font("Dialog", Font.BOLD, 24));
         lblTitle.setForeground(SystemColor.controlLtHighlight);
         lblTitle.setBounds(222, 81, 396, 40);
