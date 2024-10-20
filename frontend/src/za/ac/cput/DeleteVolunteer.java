@@ -31,7 +31,11 @@ public class DeleteVolunteer extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
-        JLabel lblTitle = new JLabel("Delete Volunteer Record");
+        ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/Volunteer.png");
+        imagePanel.setBounds(600, 50, 100, 60);
+        add(imagePanel);
+
+        JLabel lblTitle = new JLabel("Delete Volunteer");
         lblTitle.setFont(new Font("Dialog", Font.BOLD, 24));
         lblTitle.setForeground(SystemColor.controlLtHighlight);
         lblTitle.setBounds(239, 53, 350, 40);

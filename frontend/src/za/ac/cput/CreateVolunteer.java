@@ -30,7 +30,11 @@ public class CreateVolunteer extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
-        JLabel lblTitle = new JLabel("Create New Volunteer Record");
+        ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/Volunteer3.png");
+        imagePanel.setBounds(600, 50, 150, 100);
+        add(imagePanel);
+
+        JLabel lblTitle = new JLabel("Create New Volunteer");
         lblTitle.setFont(new Font("Dialog", Font.BOLD, 24));
         lblTitle.setForeground(SystemColor.controlLtHighlight);
         lblTitle.setBounds(248, 82, 350, 40);

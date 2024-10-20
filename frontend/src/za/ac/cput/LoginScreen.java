@@ -28,7 +28,7 @@ public class LoginScreen extends JFrame {
         setLayout(null);
 
         ImagePanel imagePanel = new ImagePanel();
-        imagePanel.setBounds(50, 20, 50, 50);  // Adjust size as needed
+        imagePanel.setBounds(50, 20, 50, 50);
         getContentPane().add(imagePanel);
 
         getContentPane().setBackground(new Color(0, 153, 153));
