@@ -26,6 +26,10 @@ public class DeleteEmployee extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
+        ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/shelter.png");
+        imagePanel.setBounds(50, 50, 90, 90);
+        add(imagePanel);
+
         JLabel lblTitle = new JLabel("Delete Employee Record");
         lblTitle.setFont(new Font("Dialog", Font.BOLD, 24));
         lblTitle.setForeground(SystemColor.controlLtHighlight);
