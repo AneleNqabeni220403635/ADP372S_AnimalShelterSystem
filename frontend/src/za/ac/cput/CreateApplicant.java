@@ -327,6 +327,11 @@ public class CreateApplicant extends JPanel {
             }
         });
         add(btnBack);
+
+        ImagePanel imgPanel = new ImagePanel();
+        imgPanel.setBounds(40, 40, 120, 90);
+        add(imgPanel);
+
         fetchPetOwnerData();
         togglePetSelection(true);
     }

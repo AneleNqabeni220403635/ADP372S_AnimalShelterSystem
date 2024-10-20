@@ -206,6 +206,9 @@ public class DisplayApplicant extends JPanel {
 
         // Initially disable all fields
         setFieldsEnabled(false);
+        ImagePanel imgPanel = new ImagePanel();
+        imgPanel.setBounds(40, 40, 120, 90);
+        add(imgPanel);
 
         token = SessionManager.getInstance().getBearerToken();
         fetchApplicantData();
@@ -451,39 +454,4 @@ public class DisplayApplicant extends JPanel {
             return response.toString();
         }
     }
-
-
-/*
-    private int DisplayApplicant() {
-
-
-        // Create JSON object with only the ID
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id", applicantId); // Include only the ID
-
-        try {
-            URL url = new URL("http://localhost:8080/animalshelter/applicant/delete/" + applicantId);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("DELETE");
-            connection.setRequestProperty("Authorization", "Bearer " + token);
-            connection.setRequestProperty("Content-Type", "application/json");
-            connection.setDoOutput(true);
-
-            try (java.io.OutputStream os = connection.getOutputStream()) {
-                byte[] input = jsonObject.toString().getBytes("utf-8");
-                os.write(input, 0, input.length);
-            }
-
-            int responseCode = connection.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                return 1;
-            } else {
-                return 0;
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
-        }
-        return 0;
-    }*/
 }

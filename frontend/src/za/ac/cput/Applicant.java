@@ -72,5 +72,10 @@ public class Applicant extends JPanel {
             cardPanel.repaint();
         });
         add(btnBack);
+
+
+        ImagePanel imgPanel = new ImagePanel();
+        imgPanel.setBounds(40, 40, 120, 90);
+        add(imgPanel);
     }
 }
