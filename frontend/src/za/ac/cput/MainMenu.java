@@ -116,7 +116,7 @@ public class MainMenu extends JFrame {
 
         ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/shelter.png");
         imagePanel.setBounds(50, 50, 100, 80);
-        add(imagePanel);
+        mainMenuPanel.add(imagePanel);
 
         JButton btnSignOff = new JButton("Sign Off");
         btnSignOff.setBounds(666, 505, 122, 46);
