@@ -19,7 +19,7 @@ public class Volunteer extends JPanel {
         lblVolunteerManagement.setBounds(167, 73, 460, 80);
         add(lblVolunteerManagement);
 
-        JButton btnCreateVolunteer = new JButton("Add New Volunteer Record");
+        JButton btnCreateVolunteer = new JButton("Add New Volunteer");
         btnCreateVolunteer.setBounds(274, 198, 228, 46);
         btnCreateVolunteer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -29,7 +29,7 @@ public class Volunteer extends JPanel {
         });
         add(btnCreateVolunteer);
 
-        JButton btnUpdateVolunteer = new JButton("Update Volunteer Record");
+        JButton btnUpdateVolunteer = new JButton("Update Volunteer Details");
         btnUpdateVolunteer.setBounds(274, 256, 228, 46);
         btnUpdateVolunteer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -39,7 +39,7 @@ public class Volunteer extends JPanel {
         });
         add(btnUpdateVolunteer);
 
-        JButton btnDeleteVolunteer = new JButton("Delete Volunteer Record");
+        JButton btnDeleteVolunteer = new JButton("Delete Volunteer Details");
         btnDeleteVolunteer.setBounds(274, 316, 228, 46);
         btnDeleteVolunteer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -49,7 +49,7 @@ public class Volunteer extends JPanel {
         });
         add(btnDeleteVolunteer);
 
-        JButton btnManageVolunteer = new JButton("View Volunteer Record");
+        JButton btnManageVolunteer = new JButton("View Volunteer");
         btnManageVolunteer.setBounds(274, 376, 228, 46);
         btnManageVolunteer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
