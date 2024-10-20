@@ -13,6 +13,10 @@ public class Sale extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
+        ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/shelter.png");
+        imagePanel.setBounds(50, 50, 100, 80);
+        add(imagePanel);
+
         JLabel lblSaleManagement = new JLabel("Animal Shelter Application");
         lblSaleManagement.setFont(new Font("Dialog", Font.BOLD, 30));
         lblSaleManagement.setForeground(SystemColor.controlLtHighlight);
