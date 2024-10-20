@@ -31,7 +31,7 @@ public class DisplayVolunteer extends JPanel {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
-        JLabel lblTitle = new JLabel("Display Volunteer Record");
+        JLabel lblTitle = new JLabel("Display Volunteer Details");
         lblTitle.setFont(new Font("Dialog", Font.BOLD, 24));
         lblTitle.setForeground(SystemColor.controlLtHighlight);
         lblTitle.setBounds(239, 53, 350, 40);
@@ -146,7 +146,9 @@ public class DisplayVolunteer extends JPanel {
         txtAvailability.setEditable(false);
         add(txtAvailability);
 
-
+        ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/shelter.png");
+        imagePanel.setBounds(60, this.getHeight() - 170, 120, 90);
+        add(imagePanel);
 
         JButton btnBack = new JButton("Back");
         btnBack.setFont(new Font("Dialog", Font.BOLD, 16));
