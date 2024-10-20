@@ -25,7 +25,7 @@ public class DisplayDog extends JPanel {
     private JComboBox<String> cboOptions;
     private String token;
 
-    public DisplayDog(CardLayout cardLayout, JPanel cardPanel) {
+    public DisplayDog(CardLayout cardLayout, JPanel cardPanel, MainMenu mainMenu) {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
@@ -122,7 +122,7 @@ public class DisplayDog extends JPanel {
         token = SessionManager.getInstance().getBearerToken();
 
         ImagePanel imagePanel2 = new ImagePanel("src/za/ac/cput/images/shelter.png");
-        imagePanel.setBounds(60, this.getHeight() - 170, 120, 90);
+        imagePanel2.setBounds(60, mainMenu.getHeight() - 170, 120, 90);
         add(imagePanel2);
 
         JButton btnBack = new JButton("Back");
@@ -130,7 +130,7 @@ public class DisplayDog extends JPanel {
         btnBack.setBounds(472, 500, 150, 40);
         btnBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "Dog");
+                cardLayout.show(cardPanel,"Dog");
             }
         });
         add(btnBack);

@@ -41,7 +41,7 @@ public class MainMenu extends JFrame {
         // Add different screens/panels to the card panel
         cardPanel.add(createMainMenuPanel(), "MainMenu");
         cardPanel.add(new Cat(cardLayout, cardPanel), "Cat");
-        cardPanel.add(new Dog(cardLayout, cardPanel), "Dog");
+        cardPanel.add(new Dog(cardLayout, cardPanel,this), "Dog");
         cardPanel.add(new Volunteer(cardLayout, cardPanel), "Volunteer");
         cardPanel.add(new Employee(cardLayout, cardPanel), "Employee");
         cardPanel.add(new Sale(cardLayout, cardPanel), "Sale");

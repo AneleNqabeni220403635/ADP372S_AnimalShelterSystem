@@ -9,7 +9,7 @@ public class Dog extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
-    public Dog(CardLayout cardLayout, JPanel cardPanel) {
+    public Dog(CardLayout cardLayout, JPanel cardPanel,MainMenu mainMenu) {
         setLayout(null);
         setBackground(new Color(0, 128, 128));
 
@@ -59,14 +59,14 @@ public class Dog extends JPanel {
         btnManageDog.setBounds(274, 376, 228, 46);
         btnManageDog.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cardPanel.add(new DisplayDog(cardLayout,cardPanel), "DisplayDog");
+                cardPanel.add(new DisplayDog(cardLayout,cardPanel,mainMenu), "DisplayDog");
                 cardLayout.show(cardPanel, "DisplayDog");
             }
         });
         add(btnManageDog);
 
         ImagePanel imagePanel1 = new ImagePanel("src/za/ac/cput/images/shelter.png");
-        imagePanel.setBounds(60, this.getHeight() - 170, 120, 90);
+        imagePanel1.setBounds(60, mainMenu.getHeight() - 170, 120, 90);
         add(imagePanel1);
 
         JButton btnBack = new JButton("Back ");
