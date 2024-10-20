@@ -15,10 +15,12 @@ public class Cat extends JPanel {
     private JPanel cardPanel;
 
     public Cat(CardLayout cardLayout, JPanel cardPanel) {
-
-
         setLayout(null);
         setBackground(new Color(1, 128, 128));
+
+        ImagePanel imagePanel = new ImagePanel("src/za/ac/cput/images/shelter.png");
+        imagePanel.setBounds(50, 50, 100, 80);
+        add(imagePanel);
 
         JLabel lblCatManagement = new JLabel("Animal Shelter Application");
         lblCatManagement.setFont(new Font("Dialog", Font.BOLD, 30));
@@ -48,7 +50,7 @@ public class Cat extends JPanel {
         });
         add(btnUpdateCat);
 
-        JButton btnDeleteCat = new JButton("Delete Cat");
+        JButton btnDeleteCat = new JButton("Delete Cat Details");
         btnDeleteCat.setBounds(274, 316, 228, 46);
         btnDeleteCat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -59,7 +61,7 @@ public class Cat extends JPanel {
         });
         add(btnDeleteCat);
 
-        JButton btnManageCat = new JButton("View All Cats");
+        JButton btnManageCat = new JButton("View Cat(s)");
         btnManageCat.setBounds(274, 376, 228, 46);
         btnManageCat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
