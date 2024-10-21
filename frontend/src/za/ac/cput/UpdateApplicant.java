@@ -385,6 +385,7 @@ public class UpdateApplicant extends JPanel {
         HttpURLConnection conn = (HttpURLConnection) url1.openConnection();
         conn.setRequestMethod("PUT");
         conn.setRequestProperty("Content-Type", "application/json; utf-8");
+        conn.setRequestProperty("Authorization", "Bearer " + token);
         conn.setRequestProperty("Accept", "application/json");
         conn.setDoOutput(true);
 

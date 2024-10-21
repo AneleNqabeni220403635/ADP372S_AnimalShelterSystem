@@ -11,6 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import za.ac.cput.helper.SessionManager;
 
 public class DisplaySale extends JPanel {
 
@@ -38,6 +39,7 @@ public class DisplaySale extends JPanel {
         lblSaleRecord.setBounds(311, 51, 181, 24);
         add(lblSaleRecord);
 
+        token = SessionManager.getInstance().getBearerToken();
 
         JButton btnBack = new JButton("Back");
         btnBack.setFont(new Font("Dialog", Font.BOLD, 16));
