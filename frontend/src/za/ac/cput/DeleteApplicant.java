@@ -9,6 +9,8 @@ import za.ac.cput.helper.SessionManager;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -202,6 +204,18 @@ public class DeleteApplicant extends JPanel {
         imgPanel.setBounds(40, 40, 120, 90);
         add(imgPanel);
         setupData();
+
+        addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+
+            }
+        });
     }
 
 
